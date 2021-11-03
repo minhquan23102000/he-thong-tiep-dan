@@ -1,1 +1,1 @@
-web: gunicorn -b :$PORT hethongtiepdan:app
+web: gunicorn --bind 0.0.0.0:$PORT main:app
