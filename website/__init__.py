@@ -12,11 +12,11 @@ def create_app():
     app.config['SECRET_KEY'] = "7561117fac624e9b392242aa5e1722a22c1fb5f94014e5a0920b24e66e63e365"
 
     #Retrain chatbot
-    check = ""
-    while (check != 'Y' and check != 'N'):
-        check = input("Train lại chatbot? Y:N")
-        if (check == "Y"):
-            bot.__train__()
+    #check = ""
+    #while (check != 'Y' and check != 'N'):
+        #check = input("Train lại chatbot? Y:N")
+        #if (check == "Y"):
+            #bot.__train__()
 
 
     #User setting
