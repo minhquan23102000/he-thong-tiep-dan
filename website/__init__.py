@@ -20,6 +20,7 @@ def create_app():
     while (check != 'Y' and check != 'N'):
         check = input("Train lại chatbot? Y:N")
         if (check == "Y"):
+            bot.Sonny.storage.drop()
             bot.__train__()
 
 
