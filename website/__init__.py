@@ -2,14 +2,18 @@ from flask import Flask
 import os.path as op
 from flask_admin import Admin
 from flask_admin.contrib.fileadmin import FileAdmin
+from flask_sqlalchemy import SQLAlchemy
 from chatbot import bot
 
-
+db = SQLAlchemy()
+DB_NAME = "database.db"
 
 def create_app():
     #Init app
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "7561117fac624e9b392242aa5e1722a22c1fb5f94014e5a0920b24e66e63e365"
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    db.init_app(app)
 
     #Retrain chatbot
     #check = ""
