@@ -15,17 +15,19 @@ conversations:
   - Giấy chứng sinh – một loại giấy tờ quan trọng xác nhận sự ra đời của một con người. Được bệnh viện, trạm y tế, cơ sở sinh ra bé cấp. Trường hợp không có giấy chứng sinh thì phải có văn bản xác nhận của người làm chứng về việc sinh. Trong trường hợp không có người làm chứng thì phải có giấy cam đoan về việc sinh.
 - - Lấy giấy chứng sinh ở đâu?
   - Giấy chứng sinh được bệnh viện, trạm y tế, cơ sở sinh ra bé cấp. Trường hợp không có giấy chứng sinh thì phải có văn bản xác nhận của người làm chứng về việc sinh. Trong trường hợp không có người làm chứng thì phải có giấy cam đoan về việc sinh.
-- - Không có giấy chứng sinh thì sao?
+- - Không có chứng sinh?
   - Giấy chứng sinh được bệnh viện, trạm y tế, cơ sở sinh ra bé cấp. Trường hợp không có giấy chứng sinh thì phải có văn bản xác nhận của người làm chứng về việc sinh. Trong trường hợp không có người làm chứng thì phải có giấy cam đoan về việc sinh.
-- - Không có sổ hộ khẩu thì sao?
+- - Không có sổ hộ khẩu?
   - Bạn có thể thay thế bằng giấy chứng nhận nhân khẩu tập thể hoặc sổ tạm trú. Nếu không có, bạn phải về thu thập thêm.
 - - Giấy tờ tùy thân?
   - Giấy tờ tùy thân có hiệu lực bao gồm, giấy CMND, căn cước công dân hoặc bất kì loại giấy tờ có hiệu lực pháp lý xác minh bản thân người làm giấy.
+- - Không có tờ tùy thân?
+  - Giấy tờ tùy thân có hiệu lực bao gồm, giấy CMND, căn cước công dân hoặc bất kì loại giấy tờ có hiệu lực pháp lý xác minh bản thân người làm giấy. Nếu không có bạn phải về thu thập thêm để tiêp tục làm giấy khai sinh.
 - - Biên bản trẻ em bị bỏ rơi?
   - Là biên bản xác nhận trẻ em bị bỏ rơi, được UBND hoặc công an xã nơi trẻ em bị bỏ rơi xác nhận.
 - - Không có chứng nhận kết hôn thì làm được không?
   - Khi chưa đăng ký kết hôn mà muốn trẻ mang họ theo cha thì phải tiến hành làm đồng thời hai thủ tục. Thủ tục cha nhận nuôi con và giấy khai sinh cho con.
-- - Không có giấy kết hôn thì sao?
+- - Không có kết hôn?
   - Nếu bạn để quên giấy ở nhà, thì bạn nên về thu thập thêm. Còn khi chưa đăng ký kết hôn mà muốn trẻ mang họ theo cha thì phải tiến hành làm đồng thời hai thủ tục. Thủ tục cha nhận nuôi con và giấy khai sinh cho con.
 - - Chưa kết hôn làm được không?
   - Khi chưa đăng ký kết hôn mà muốn trẻ mang họ theo cha thì phải tiến hành làm đồng thời hai thủ tục. Thủ tục cha nhận nuôi con và giấy khai sinh cho con.
@@ -33,6 +35,8 @@ conversations:
   - Khi chưa đăng ký kết hôn mà muốn trẻ mang họ theo cha thì phải tiến hành làm đồng thời hai thủ tục. Thủ tục cha nhận nuôi con và giấy khai sinh cho con.
 - - Trường hợp nhận nuôi bé?
   - Cha mẹ đẻ chỉ được đồng ý cho con làm con nuôi sau khi con đã được sinh ra ít nhất 15 ngày. Trong trường hợp đó, cha mẹ đẻ sẽ tự mình làm giấy khai sinh cho trẻ. Sau khi làm giấy khai sinh xong, cả hai gia đình sẽ thống nhất việc nuôi con và hoàn tất hồ sơ nhân nuôi con. Nếu cha mẹ đẻ mất tích thì sẽ xét vào trường hợp trẻ bị bỏ rơi và cần biên bản xác nhận trẻ bị bỏ rơi.
+- - Nhận nuôi bé?
+  - Cha mẹ đẻ chỉ được đồng ý cho con làm con nuôi sau khi con đã được sinh ra ít nhất 15 ngày. Trong trường hợp đó, cha mẹ đẻ sẽ tự mình làm giấy khai sinh cho trẻ. Sau khi làm giấy khai sinh xong, cả hai gia đình sẽ thống nhất việc nuôi con và hoàn tất hồ sơ nhân nuôi con. Nếu cha mẹ đẻ mất tích thì sẽ xét vào trường hợp trẻ bị bỏ rơi và cần biên bản xác nhận trẻ bị bỏ rơi.  
 - - Khai sinh cho trẻ mang thai hộ?
   - Theo quy định tại Luật Hộ tịch, đứa trẻ sinh ra sẽ được xác định là con của người được nhờ mang thai hộ nên trách nhiệm đăng ký khai sinh thuộc về người chồng/người vợ nhờ mang thai hộ. Về cơ bản, thủ tục đăng ký giấy khai sinh cho con do mang thai hộ cũng giống như thủ tục đăng ký khai sinh cho trẻ em bình thường. 
 - - Trong trường hợp trẻ em sinh ở Việt Nam, nhưng cha hoặc mẹ là người nước ngoài, làm khai sinh thế nào?
@@ -51,39 +55,35 @@ conversations:
   - Bạn có thể nhận giấy nhanh nhất là một đến hai ngày, chậm nhất là 20 ngày.
 - - Giấy khai sinh là gì?
   - Giấy khai sinh là giấy tờ hộ tịch gốc của cá nhân. Mọi hồ sơ, giấy tờ của cá nhân có nội dung về họ sau này đều phải cần theo thông tin của giấy khai sinh của người đó.
-- - Làm giấy khai sinh cho trẻ em bị bỏ rơi?
+- - Khai sinh cho trẻ em bị bỏ rơi?
   - Để làm giấy khai sinh cho trẻ em bị bỏ rơi, bạn phải cần có biên bản xác nhận trẻ em bị bỏ rơi do UBND hoặc công an xã nơi trẻ em bị bỏ rơi xác nhận. Ngoài ra người làm giấy phải làm thêm thủ tục nhận nuôi con.
-- - Trường hợp trẻ em bị bỏ rơi làm thế nào?
+- - Trường hợp trẻ em bị bỏ rơi?
   - Để làm giấy khai sinh cho trẻ em bị bỏ rơi, bạn phải cần có biên bản xác nhận trẻ em bị bỏ rơi do UBND hoặc công an xã nơi trẻ em bị bỏ rơi xác nhận. Sau đó người làm giấy phải làm thêm thủ tục nhận nuôi con.
-- - Trường hợp trẻ em mất mẹ tôi phải kê khai thế nào?
+- - Trường hợp trẻ em mất mẹ?
   - Trong trường hợp đó, bạn chỉ cần kê khai thông tin của người cha.
-- - Trẻ không có mẹ tôi kê khai thế nào?
+- - Trẻ không có mẹ?
   - Trong trường hợp đó, bạn chỉ cần kê khai thông tin của người cha.
-- - Trẻ không có mẹ, làm giấy khai sinh thế nào?
+- - Bé không có mẹ?
   - Trong trường hợp đó, bạn chỉ cần kê khai thông tin của người cha.
-- - Bé không có mẹ, làm giấy khai sinh thế nào?
+- - Bé mất mẹ?
   - Trong trường hợp đó, bạn chỉ cần kê khai thông tin của người cha.
-- - Bé không có mẹ, kê khai ra sao?
-  - Trong trường hợp đó, bạn chỉ cần kê khai thông tin của người cha.
-- - Nếu bé không có cha, thì sao?
+- - Nếu bé không có cha?
   - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
-- - Nếu bé không có bố, thì sao?
-  - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
-- - Nếu bé không có cha, làm giấy khai sinh được không?
+- - Nếu bé không có bố?
   - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
 - - Trường hợp trẻ không có bố, làm giấy khai sinh như thế nào?
   - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
-- - Trẻ không có cha kê khai như thế nào?
+- - Trẻ không có cha?
   - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
-- - Trẻ không có bố kê khai như thế nào?
+- - Trẻ không có bố?
   - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
-- - Trẻ mất cha làm khai sinh như thế nào?
+- - Trẻ mất cha?
   - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
-- - Trẻ mất cả cha lẫn mẹ tôi làm giấy khai sinh như thế nào?
+- - Bé mất cha?
+  - Bạn chỉ cần kê khai thông tin của người mẹ. Và bé sẽ lấy họ tên, quốc tịch, quê quán theo thông tin của người mẹ.
+- - Trẻ mất cả cha lẫn mẹ?
   - Trong trường hợp đó, sẽ xác nhận là trường hợp trẻ em bị bỏ rơi. Bạn cần phải nộp thêm biên bản trẻ em bị bỏ rơi và làm thêm thủ tục nhận nuôi bé.
-- - Trẻ mất cả cha lẫn mẹ thì sao?
-  - Trong trường hợp đó, sẽ xác nhận là trường hợp trẻ em bị bỏ rơi. Bạn cần phải nộp thêm biên bản trẻ em bị bỏ rơi và làm thêm thủ tục nhận nuôi bé.
-- - Trẻ mất cả cha và mẹ thì sao?
+- - Trẻ mất cả cha và mẹ?
   - Trong trường hợp đó, sẽ xác nhận là trường hợp trẻ em bị bỏ rơi. Bạn cần phải nộp thêm biên bản trẻ em bị bỏ rơi và làm thêm thủ tục nhận nuôi bé.
 - - Trẻ không có bố cũng không có mẹ kê khai ra sao?
   - Trong trường hợp đó, sẽ xác nhận là trường hợp trẻ em bị bỏ rơi. Bạn chỉ cần kê khai thông tin của người làm giấy, trong đó ghi rõ quan hệ với trẻ khai sinh. Ngoài ra phải làm thêm thủ tục nhận nuôi con (nếu nhận nuôi con) và phải nộp thêm biên bản trẻ em bị bỏ rơi.

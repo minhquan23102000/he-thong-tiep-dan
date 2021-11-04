@@ -2,6 +2,7 @@ from flask import Flask
 import os.path as op
 from flask_admin import Admin
 from flask_admin.contrib.fileadmin import FileAdmin
+from chatbot import bot
 
 
 
@@ -9,6 +10,14 @@ def create_app():
     #Init app
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "7561117fac624e9b392242aa5e1722a22c1fb5f94014e5a0920b24e66e63e365"
+
+    #Retrain chatbot
+    check = ""
+    while (check != 'Y' and check != 'N'):
+        check = input("Train lại chatbot? Y:N")
+        if (check == "Y"):
+            bot.__train__()
+
 
     #User setting
     from .views import views
