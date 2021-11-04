@@ -16,11 +16,11 @@ def create_app():
     db.init_app(app)
 
     #Retrain chatbot
-    #check = ""
-    #while (check != 'Y' and check != 'N'):
-        #check = input("Train lại chatbot? Y:N")
-        #if (check == "Y"):
-            #bot.__train__()
+    check = ""
+    while (check != 'Y' and check != 'N'):
+        check = input("Train lại chatbot? Y:N")
+        if (check == "Y"):
+            bot.__train__()
 
 
     #User setting
