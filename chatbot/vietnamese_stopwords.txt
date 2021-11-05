@@ -2,6 +2,7 @@ giấy
 thủ tục
 giấy tờ
 để
+à
 á
 ạ
 ờ
@@ -31,11 +32,8 @@ có
 trong
 chỉ
 trường hợp
-^
-_
-:
-)
-(
-T
-v
+dòng
+mục
+thế
+ha
 
