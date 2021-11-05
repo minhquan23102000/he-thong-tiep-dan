@@ -3,7 +3,7 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.response_selection import get_first_response
 from chatterbot import languages
 
-default_reponse = 'Mình thật lòng xin lỗi, mình vẫn chưa học câu bạn vừa nói. Nếu có thể, vui lòng bạn nói rõ hơn được không ạ?'
+DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 
 Sonny = ChatBot("Sonny",
     storage_adapter='chatbot.storage_adapter.MySQLStorageAdapter',
@@ -11,10 +11,10 @@ Sonny = ChatBot("Sonny",
     logic_adapters=[
             {
                 'import_path': 'chatterbot.logic.BestMatch',
-                'default_response': default_reponse,
+                'default_response': DEFAULT_REPONSE,
                 'maximum_similarity_threshold': 1,
                 "response_selection_method": get_first_response
-            }
+            },
         ],
     database_uri='sqlite:///database.db')
 

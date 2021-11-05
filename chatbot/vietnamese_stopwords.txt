@@ -1,6 +1,9 @@
 giấy
-thủ tục
 giấy tờ
+thủ tục
+đơn
+giấy phép
+đăng ký
 để
 à
 á
@@ -26,6 +29,7 @@ bị
 tôi
 cũng
 mình
+bạn
 của
 làm
 có
@@ -36,4 +40,11 @@ dòng
 mục
 thế
 ha
+^
+_ 
+:
+)
+(
+v
+T
 
