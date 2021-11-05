@@ -1,24 +1,31 @@
+from chatterbot.ext.sqlalchemy_app.models import Statement
 from flask import Flask
 import os.path as op
 from flask_admin import Admin
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_sqlalchemy import SQLAlchemy
-from chatbot import bot
+
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
+DB_URI = "sqlite:///database.db"
 
 def create_app():
     #Init app
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "7561117fac624e9b392242aa5e1722a22c1fb5f94014e5a0920b24e66e63e365"
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+
+    #Create database
     db.init_app(app)
 
+    
+
     #Retrain chatbot
+    from chatbot import bot
     check = ""
     while (check != 'Y' and check != 'N'):
-        check = input("Train lại chatbot? Y:N")
+        check = input("Train lại chatbot? Y:N\n")
         if (check == "Y"):
             bot.Sonny.storage.drop()
             bot.__train__()

@@ -11,7 +11,7 @@ class VietnameseTager(object):
 
         self.nlp = underthesea.pos_tag
 
-        self.tag_remove = ('CH', 'Np', 'P', 'C', 'Cc')
+        self.tag_remove = ('CH', 'Np', 'C', 'Cc', 'M')
        
         with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
             self.stopwords = np.array(f.read().split('\n'))
