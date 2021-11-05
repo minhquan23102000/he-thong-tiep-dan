@@ -32,7 +32,7 @@ class VietnameseTager(object):
         for token in document:
             word = token[0].lower()
             tag = token[1]
-            if word not in self.stopwords and tag not in self.tag_remove:
+            if word not in self.stopwords and tag not in self.tag_remove or word == 'Sonny':
                 bigram_pairs.append('{}:{}'.format(
                         tag,
                         word

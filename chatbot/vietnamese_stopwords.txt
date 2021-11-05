@@ -31,3 +31,11 @@ có
 trong
 chỉ
 trường hợp
+^
+_
+:
+)
+(
+T
+v
+
