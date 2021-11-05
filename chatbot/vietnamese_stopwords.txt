@@ -40,6 +40,8 @@ dòng
 mục
 thế
 ha
+nào
+như
 ^
 _ 
 :

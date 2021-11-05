@@ -4,6 +4,7 @@ from chatterbot.response_selection import get_first_response
 from chatterbot import languages
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
+NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
 
 Sonny = ChatBot("Sonny",
     storage_adapter='chatbot.storage_adapter.MySQLStorageAdapter',
