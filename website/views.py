@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash
 from flask.scaffold import F
 from chatbot import bot
+import langid
 
 views = Blueprint('views', __name__)
 Sonny = bot.Sonny
@@ -17,13 +18,16 @@ def get_bot_response():
   
 
 def chatbot_reponse(msg: str):
-    import langid
     #Check if not vietnamese langue
     if langid.classify(msg)[0] != 'vi':
         return bot.NOT_VIETNAMESE_LANGUAGE_REPONSE
 
     #Get reponse from bot
-    reponse = str(Sonny.get_response(msg))
+    reponse = Sonny.get_response(msg)
+    if reponse.confidence <= 0.25:
+        reponse = bot.DEFAULT_REPONSE
+    else:
+        reponse = reponse.text
    
 
     #Google search this paper if bot doesnt know about it
