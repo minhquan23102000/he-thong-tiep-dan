@@ -16,7 +16,7 @@ Sonny = ChatBot("Sonny",
             {
                 'import_path': 'chatterbot.logic.BestMatch',
                 'default_response': DEFAULT_REPONSE,
-                'maximum_similarity_threshold': 0.75,
+                'maximum_similarity_threshold': 0.9,
                 "response_selection_method": get_first_response
             }
         ],
