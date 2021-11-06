@@ -17,9 +17,9 @@ def get_bot_response():
   
 
 def chatbot_reponse(msg: str):
-    #Check if not vietnamese langue
-    if langid.classify(msg)[0] != 'vi':
-        return bot.NOT_VIETNAMESE_LANGUAGE_REPONSE
+    # #Check if not vietnamese langue
+    # if langid.classify(msg)[0] != 'vi':
+    #     return bot.NOT_VIETNAMESE_LANGUAGE_REPONSE
 
     #Get reponse from bot
     reponse = Sonny.get_response(msg)
@@ -30,7 +30,7 @@ def chatbot_reponse(msg: str):
    
 
     #Google search this paper if bot doesnt know about it
-    flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn', 'giấy phép', 'đăng ký']
+    flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn', 'giấy phép', 'đăng ký', 'văn bản']
     if reponse == bot.DEFAULT_REPONSE:
         from pyvi import ViTokenizer
         words = ViTokenizer.tokenize(msg)
