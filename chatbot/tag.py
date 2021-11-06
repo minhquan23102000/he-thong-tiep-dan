@@ -1,7 +1,7 @@
 from chatterbot import languages
 import string
 from chatterbot.comparisons import Comparator
-from chatbot import bot
+from website import STOPWORDS, TAG_REMOVE
 from .preprocessor import clean_url
 
 class VietnameseTager(object):
@@ -14,9 +14,9 @@ class VietnameseTager(object):
 
         self.nlp = underthesea.pos_tag
 
-        self.tag_remove = bot.TAG_REMOVE
+        self.tag_remove = TAG_REMOVE
        
-        self.stopwords = bot.STOPWORDS
+        self.stopwords = STOPWORDS
 
     def get_text_index_string(self, text):
         """

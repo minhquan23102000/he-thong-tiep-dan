@@ -1,5 +1,5 @@
 from chatterbot.comparisons import Comparator
-from chatbot import bot
+from website import STOPWORDS, TAG_REMOVE
 from chatbot.preprocessor import clean_url
 
 
@@ -29,9 +29,9 @@ class VietnameseJaccardSimilarity(Comparator):
 
         self.nlp = pos_tag
 
-        self.tag_remove = bot.TAG_REMOVE
+        self.tag_remove = TAG_REMOVE
 
-        self.stopwords = bot.STOPWORDS
+        self.stopwords = STOPWORDS
 
     def compare(self, statement_a, statement_b):
         """
@@ -80,9 +80,9 @@ class VietnameseCosineSimilarity(Comparator):
 
         self.nlp = pos_tag
 
-        self.tag_remove = bot.TAG_REMOVE
+        self.tag_remove = TAG_REMOVE
 
-        self.stopwords = bot.STOPWORDS
+        self.stopwords = STOPWORDS
 
     def compare(self, statement_a, statement_b):
         """

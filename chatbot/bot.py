@@ -7,9 +7,6 @@ import numpy as np
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
 
-TAG_REMOVE = ('CH', 'Np', 'C', 'Cc', 'M')
-with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
-    STOPWORDS = np.array(f.read().split('\n'))
 
 Sonny = ChatBot("Sonny",
     storage_adapter='chatbot.storage_adapter.MySQLStorageAdapter',

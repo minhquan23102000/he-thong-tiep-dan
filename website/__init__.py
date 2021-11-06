@@ -4,11 +4,15 @@ import os.path as op
 from flask_admin import Admin
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_sqlalchemy import SQLAlchemy
-
+import numpy as np
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
 DB_URI = "sqlite:///database.db"
+
+TAG_REMOVE = ('CH', 'Np', 'C', 'Cc', 'M')
+with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
+    STOPWORDS = np.array(f.read().split('\n'))
 
 def create_app():
     #Init app
