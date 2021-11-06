@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, flash
-from flask.scaffold import F
 from chatbot import bot
 import langid
 

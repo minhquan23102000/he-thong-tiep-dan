@@ -1,5 +1,6 @@
 from chatterbot.comparisons import Comparator
 from chatbot import bot
+from chatbot.preprocessor import clean_url
 
 
 class VietnameseJaccardSimilarity(Comparator):
@@ -51,6 +52,7 @@ class VietnameseJaccardSimilarity(Comparator):
     def lemmaStatement(self, statement):
         words = []
 
+        statement = clean_url(statement)
         document = self.nlp(statement)
 
         for token in document:
@@ -105,6 +107,7 @@ class VietnameseCosineSimilarity(Comparator):
        
         words = []
 
+        text = clean_url(statement)
         document = self.nlp(statement)
 
         for token in document:

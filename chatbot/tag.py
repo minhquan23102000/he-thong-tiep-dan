@@ -2,6 +2,7 @@ from chatterbot import languages
 import string
 from chatterbot.comparisons import Comparator
 from chatbot import bot
+from .preprocessor import clean_url
 
 class VietnameseTager(object):
     def __init__(self):
@@ -21,6 +22,7 @@ class VietnameseTager(object):
         """
         Return a string of text containing part-of-speech, lemma pairs.
         """
+        text = clean_url(text)
         bigram_pairs = []
 
         if len(text) <= 2:
@@ -28,6 +30,7 @@ class VietnameseTager(object):
             if len(text_without_punctuation) >= 1:
                 text = text_without_punctuation
 
+        
         document = self.nlp(text)
 
         for token in document:

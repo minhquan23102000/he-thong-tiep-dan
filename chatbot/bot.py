@@ -1,7 +1,7 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.response_selection import get_first_response
-from chatbot.comparison import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
+from chatbot.sentence_similarity import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
 import numpy as np
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'

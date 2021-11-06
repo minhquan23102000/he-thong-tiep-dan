@@ -5,10 +5,13 @@ thủ tục
 giấy phép
 đăng ký
 để
+a
 à
 á
 ạ
 ờ
+là
+là gì
 gì
 thì
 sao
@@ -20,7 +23,6 @@ hay
 và
 rồi
 cần
-a ha
 ha
 mà
 nếu
@@ -28,7 +30,6 @@ bị
 tôi
 cũng
 mình
-bạn
 của
 có
 trong
@@ -37,7 +38,6 @@ trường hợp
 dòng
 mục
 thế
-ha
 nào
 như
 ^
@@ -56,3 +56,12 @@ làm sao
 ghi
 viết
 có
+quá
+ghê
+quái
+rất
+hơn
+nữa
+thật
+lắm
+vậy
