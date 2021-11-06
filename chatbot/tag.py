@@ -28,10 +28,10 @@ class VietnameseTager(object):
         text = clean_url(text)
         bigram_pairs = []
 
-        if len(text) <= 2:
-            text_without_punctuation = text.translate(self.punctuation_table)
-            if len(text_without_punctuation) >= 1:
-                text = text_without_punctuation
+        # if len(text) <= 2:
+        #     text_without_punctuation = text.translate(self.punctuation_table)
+        #     if len(text_without_punctuation) >= 1:
+        #         text = text_without_punctuation
 
         
         document = self.tokenize(text)

@@ -100,7 +100,7 @@ class VietnameseCosineSimilarity(Comparator):
         statement_a_bag_words = self.get_bag_words(statement_a.text.lower())
         statement_b_bag_words = self.get_bag_words(statement_b.text.lower())
 
-        tfidf = TfidfVectorizer()
+        tfidf = TfidfVectorizer(token_pattern=r'\S+')
         content = [' '.join(statement_a_bag_words), ' '.join(statement_b_bag_words)]
         matrix = tfidf.fit_transform(content)
 
