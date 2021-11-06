@@ -24,7 +24,7 @@ def chatbot_reponse(msg: str):
 
     #Get reponse from bot
     reponse = Sonny.get_response(msg)
-    if reponse.confidence <= 0.25:
+    if reponse.confidence < 0.1:
         reponse = bot.DEFAULT_REPONSE
     else:
         reponse = reponse.text

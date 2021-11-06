@@ -1,7 +1,7 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.response_selection import get_first_response
-from chatbot.tag import VietnameseJaccardSimilarity
+from chatbot.comparison import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
 import numpy as np
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
@@ -14,12 +14,12 @@ with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
 Sonny = ChatBot("Sonny",
     storage_adapter='chatbot.storage_adapter.MySQLStorageAdapter',
     read_only = True,
-    statement_comparison_function=VietnameseJaccardSimilarity,
+    statement_comparison_function=VietnameseCosineSimilarity,
     logic_adapters=[
             {
                 'import_path': 'chatterbot.logic.BestMatch',
                 'default_response': DEFAULT_REPONSE,
-                'maximum_similarity_threshold': 1,
+                'maximum_similarity_threshold': 0.75,
                 "response_selection_method": get_first_response
             }
         ],
