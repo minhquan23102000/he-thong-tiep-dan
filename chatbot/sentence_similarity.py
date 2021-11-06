@@ -65,7 +65,6 @@ class VietnameseJaccardSimilarity(Comparator):
 
         if not words:
              for word, tag in zip(document[0], document[1]):
-                if tag not in self.tag_remove:
                     word = word.replace('_', ' ')
                     words.append(word)
 
@@ -124,7 +123,6 @@ class VietnameseCosineSimilarity(Comparator):
 
         if not words:
              for word, tag in zip(document[0], document[1]):
-                if tag not in self.tag_remove:
                     word = word.replace('_', ' ')
                     words.append(word)
 

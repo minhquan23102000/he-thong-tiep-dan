@@ -48,8 +48,7 @@ class VietnameseTager(object):
         if not bigram_pairs:
             for word, tag in zip(document[0], document[1]):
                 word = word.replace('_', ' ')
-                if tag not in self.tag_remove:
-                    bigram_pairs.append('{}:{}'.format(
+                bigram_pairs.append('{}:{}'.format(
                             tag,
                             word
                         ))
