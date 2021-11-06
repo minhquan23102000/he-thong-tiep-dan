@@ -1,3 +1,3 @@
 *.yml
-*.txt
+vietnamese_stopword.txt
 /chatbot/__pycache__
