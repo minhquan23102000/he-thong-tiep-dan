@@ -30,12 +30,11 @@ def chatbot_reponse(msg: str):
    
 
     #Google search this paper if bot doesnt know about it
-    words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn', 'giấy phép', 'đăng ký']
+    flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn', 'giấy phép', 'đăng ký']
     if reponse == bot.DEFAULT_REPONSE:
-        from underthesea import pos_tag
-        tags = pos_tag(msg)
-        if any(w[0].lower() in words for w in tags):
-            print("asdassd")
+        from pyvi import ViTokenizer
+        words = ViTokenizer.tokenize(msg)
+        if any(w.replace('_', ' ').lower() in flag_words for w in words.split(' ')):
             from googlesearch import search
             # Make a request to google search
             try:

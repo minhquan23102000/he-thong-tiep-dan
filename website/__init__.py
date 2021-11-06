@@ -1,4 +1,3 @@
-from chatterbot.ext.sqlalchemy_app.models import Statement
 from flask import Flask
 import os.path as op
 from flask_admin import Admin
@@ -10,7 +9,7 @@ db = SQLAlchemy()
 DB_NAME = "database.db"
 DB_URI = "sqlite:///database.db"
 
-TAG_REMOVE = ('CH', 'Np', 'C', 'Cc', 'M')
+TAG_REMOVE = ('F', 'Np', 'C', 'M', 'L')
 with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
     STOPWORDS = np.array(f.read().split('\n'))
 

@@ -1,5 +1,6 @@
 giấy
 giấy tờ
+tờ
 thủ tục
 đơn
 giấy phép
@@ -40,6 +41,8 @@ mục
 thế
 nào
 như
+-
+–
 ^
 _ 
 :
@@ -65,3 +68,9 @@ nữa
 thật
 lắm
 vậy
+sau
+văn
+bản
+có thể
+sẽ
+sổ

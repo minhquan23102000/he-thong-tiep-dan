@@ -24,10 +24,12 @@ class VietnameseJaccardSimilarity(Comparator):
     """
     
     def __init__(self, language):
-        from underthesea import pos_tag
+        from pyvi import ViTokenizer, ViPosTagger
         super().__init__(language)
 
-        self.nlp = pos_tag
+        self.postag = ViPosTagger.postagging
+
+        self.tokenize = ViTokenizer.tokenize
 
         self.tag_remove = TAG_REMOVE
 
@@ -53,17 +55,19 @@ class VietnameseJaccardSimilarity(Comparator):
         words = []
 
         statement = clean_url(statement)
-        document = self.nlp(statement)
+        document = self.tokenize(statement)
+        document = self.postag(document)
 
-        for token in document:
-            word = token[0]
-            tag = token[1]
+        for word, tag in zip(document[0], document[1]):
+            word = word.replace('_', ' ')
             if word not in self.stopwords and tag not in self.tag_remove or word == 'Sonny':
                 words.append(word)
 
         if not words:
-            for token in document:
-                words.append(token[0])
+             for word, tag in zip(document[0], document[1]):
+                if tag not in self.tag_remove:
+                    word = word.replace('_', ' ')
+                    words.append(word)
 
         return words
 
@@ -75,10 +79,12 @@ class VietnameseCosineSimilarity(Comparator):
     """
     
     def __init__(self, language):
-        from underthesea import pos_tag
         super().__init__(language)
+        from pyvi import ViTokenizer, ViPosTagger
 
-        self.nlp = pos_tag
+        self.postag = ViPosTagger.postagging
+
+        self.tokenize = ViTokenizer.tokenize
 
         self.tag_remove = TAG_REMOVE
 
@@ -107,17 +113,20 @@ class VietnameseCosineSimilarity(Comparator):
        
         words = []
 
-        text = clean_url(statement)
-        document = self.nlp(statement)
+        statement = clean_url(statement)
+        document = self.tokenize(statement)
+        document = self.postag(document)
 
-        for token in document:
-            word = token[0]
-            tag = token[1]
+        for word, tag in zip(document[0], document[1]):
+            word = word.replace('_', ' ')
             if word not in self.stopwords and tag not in self.tag_remove or word == 'Sonny':
-                words.append(word.replace(' ', '_'))
+                words.append(word)
 
         if not words:
-            for token in document:
-                words.append(token[0].replace(' ', '_'))
+             for word, tag in zip(document[0], document[1]):
+                if tag not in self.tag_remove:
+                    word = word.replace('_', ' ')
+                    words.append(word)
+
 
         return words
