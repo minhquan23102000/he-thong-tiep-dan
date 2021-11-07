@@ -1,10 +1,7 @@
 giấy
 giấy tờ
-văn bản
-tờ khai
 thủ tục
 đơn
-giấy phép
 đăng ký
 để
 a
@@ -63,9 +60,6 @@ người
 cái
 cái gì
 làm sao
-điền
-ghi
-viết
 có
 quá
 ghê
