@@ -25,7 +25,7 @@ def chatbot_reponse(msg: str):
    
 
     #Google search this paper if bot does not know about it
-    flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn', 'giấy phép', 'đăng ký', 'văn bản']
+    flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn', 'giấy phép', 'đăng ký', 'văn bản', 'biên bản']
     if reponse == bot.DEFAULT_REPONSE:
         from pyvi import ViTokenizer
         words = ViTokenizer.tokenize(msg)
