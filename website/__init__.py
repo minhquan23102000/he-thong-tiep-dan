@@ -7,7 +7,7 @@ import numpy as np
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
-DB_URI = "sqlite:///database.db"
+DB_URI = "sqlite:///website/database.db"
 
 TAG_REMOVE = ('F', 'Np', 'C', 'M', 'L')
 with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
@@ -25,13 +25,13 @@ def create_app():
     
 
     #Retrain chatbot
-    from chatbot import bot
-    check = ""
-    while (check != 'Y' and check != 'N'):
-        check = input("Train lại chatbot? Y:N\n")
-        if (check == "Y"):
-            bot.Sonny.storage.drop()
-            bot.__train__()
+    # from chatbot import bot
+    # check = ""
+    # while (check != 'Y' and check != 'N'):
+    #     check = input("Train lại chatbot? Y:N\n")
+    #     if (check == "Y"):
+    #         bot.Sonny.storage.drop()
+    #         bot.__train__()
 
 
     #User setting

@@ -1,8 +1,8 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.response_selection import get_first_response
+from chatterbot.response_selection import get_random_response
 from chatbot.sentence_similarity import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
-import numpy as np
+from website import DB_URI
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
@@ -17,15 +17,19 @@ Sonny = ChatBot("Sonny",
                 'import_path': 'chatterbot.logic.BestMatch',
                 'default_response': DEFAULT_REPONSE,
                 'maximum_similarity_threshold': 0.9,
-                "response_selection_method": get_first_response
+                "response_selection_method": get_random_response
             }
         ],
-    database_uri='sqlite:///database.db')
+    database_uri=DB_URI)
 
 
 def __train__():
     trainer = ChatterBotCorpusTrainer(Sonny)
     trainer.train("chatbot/corpus")
 
+def get_unknow_reponse():
+    import random
+    unknow_reponses = [DEFAULT_REPONSE, 'Xin lỗi, bạn có thể nói rõ hơn được không?', 'Xin lỗi, mình vẫn chưa học qua câu từ này :(']
+    return random.choice(unknow_reponses)
 
 

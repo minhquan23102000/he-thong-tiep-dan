@@ -1,6 +1,7 @@
 giấy
 giấy tờ
 văn bản
+tờ khai
 tờ
 thủ tục
 đơn
@@ -16,6 +17,7 @@ gì
 thì
 sao
 thì sao
+về
 phải
 cho
 hay
@@ -23,6 +25,8 @@ hoặc
 và
 rồi
 cần
+muốn
+nên
 ha
 mà
 nếu
@@ -32,6 +36,7 @@ cũng
 mình
 tao
 tớ
+mày
 này
 của
 có
@@ -52,6 +57,8 @@ _
 (
 v
 T
+ok
+P
 rất
 người
 cái

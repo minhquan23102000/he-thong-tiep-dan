@@ -18,13 +18,13 @@ def get_bot_response():
 def chatbot_reponse(msg: str):
     #Get reponse from bot
     reponse = Sonny.get_response(msg)
-    if reponse.confidence < 0.15:
+    if reponse.confidence <= 0.2:
         reponse = bot.DEFAULT_REPONSE
     else:
         reponse = reponse.text
    
 
-    #Google search this paper if bot doesnt know about it
+    #Google search this paper if bot does not know about it
     flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn', 'giấy phép', 'đăng ký', 'văn bản']
     if reponse == bot.DEFAULT_REPONSE:
         from pyvi import ViTokenizer
@@ -37,6 +37,9 @@ def chatbot_reponse(msg: str):
                 reponse = f'{bot.DEFAULT_REPONSE} Nhưng mình nghĩ bạn có thể tham khảo thêm tại đây: {url}'
             except Exception as e:
                 reponse = bot.DEFAULT_REPONSE
-                print(e.__traceback__)
+
+    #Get random choice for default reponse
+    if reponse == bot.DEFAULT_REPONSE:
+        reponse = bot.get_unknow_reponse()
 
     return reponse
