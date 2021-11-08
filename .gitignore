@@ -1,2 +1,4 @@
 /website/__pycache__
 /chatbot/__pycache__
+*.manifest
+*.spec

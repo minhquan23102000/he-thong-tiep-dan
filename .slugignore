@@ -1,3 +1,5 @@
 /README.md
 /chatbot/__pycache__
 /website/__pycache__
+*.manifest
+*.spec
