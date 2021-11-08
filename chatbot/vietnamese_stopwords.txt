@@ -2,7 +2,6 @@ giấy
 giấy tờ
 thủ tục
 đơn
-đăng ký
 để
 a
 à
@@ -13,7 +12,6 @@ gì
 thì
 sao
 thì sao
-về
 phải
 cho
 hay
@@ -63,7 +61,6 @@ làm sao
 có
 quá
 ghê
-quái
 rất
 hơn
 nữa
@@ -71,13 +68,20 @@ thật
 lắm
 vậy
 sau
-văn
-bản
 có thể
 sẽ
 sổ
 thiệt
-đấy
 đây
 đó
 hỏi
+chi
+cùng
+ôi
+nhưng
+dạ
+thưa
+vâng
+ừ
+ừm
+uh
