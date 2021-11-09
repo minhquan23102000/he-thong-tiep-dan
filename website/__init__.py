@@ -24,7 +24,7 @@ def create_app():
 
     
 
-    #Retrain chatbot
+   # Retrain chatbot
     # from chatbot import bot
     # check = ""
     # while (check != 'Y' and check != 'N'):
