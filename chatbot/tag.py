@@ -21,7 +21,7 @@ class VietnameseTager(object):
        
         self.stopwords = STOPWORDS
 
-    def get_text_index_string(self, text):
+    def get_bigram_pair_string(self, text):
         """
         Return a string of text containing part-of-speech, lemma pairs.
         """

@@ -1,4 +1,5 @@
-ChatterBot==1.1.0a7
+ChatterBot-corpus
+ChatterBot==1.0.8
 Flask==2.0.2
 Flask-Admin==1.5.8
 Flask-SQLAlchemy==2.5.1
