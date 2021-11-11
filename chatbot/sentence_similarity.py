@@ -103,9 +103,9 @@ class VietnameseCosineSimilarity(Comparator):
         tfidf = TfidfVectorizer(token_pattern=r'\S+')
         content = [' '.join(statement_a_bag_words), ' '.join(statement_b_bag_words)]
         matrix = tfidf.fit_transform(content)
-        #print(content, f'confidence {cosine_similarity(matrix[0], matrix[1])[0][0]}')
+     #   print(content, f'confidence {cosine_similarity(matrix[0], matrix[1])[0][0]}')
 
-        return round(cosine_similarity(matrix[0], matrix[1])[0][0],1)
+        return round(cosine_similarity(matrix[0], matrix[1])[0][0],2)
 
         
 

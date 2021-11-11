@@ -6,8 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 import numpy as np
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
-DB_URI = "sqlite:///website/database.db"
 
 TAG_REMOVE = ('F', 'Np', 'C', 'M', 'L')
 with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
@@ -16,9 +14,7 @@ with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
 def create_app():
     #Init app
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "7561117fac624e9b392242aa5e1722a22c1fb5f94014e5a0920b24e66e63e365"
-    app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
-
+    app.config.from_pyfile('config.py')
     #Create database
     db.init_app(app)
 

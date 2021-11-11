@@ -2,7 +2,7 @@ from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.response_selection import get_random_response
 from chatbot.sentence_similarity import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
-from website import DB_URI
+from website.config import SQLALCHEMY_DATABASE_URI
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
@@ -14,13 +14,12 @@ Sonny = ChatBot("Sonny",
     statement_comparison_function=VietnameseCosineSimilarity,
     logic_adapters=[
             {
-                'import_path': 'chatterbot.logic.BestMatch',
+                'import_path': 'chatbot.logic_adapter.MyBestMatch',
                 'default_response': DEFAULT_REPONSE,
-                'maximum_similarity_threshold': 0.9,
                 "response_selection_method": get_random_response
             }
         ],
-    database_uri=DB_URI)
+    database_uri=SQLALCHEMY_DATABASE_URI)
 
 
 def __train__():
