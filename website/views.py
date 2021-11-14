@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, flash
 from chatbot import bot
+from . import db
+from .models import UnknownStatement
 
 views = Blueprint('views', __name__)
 Sonny = bot.Sonny
@@ -40,6 +42,11 @@ def chatbot_reponse(msg: str):
 
     #Get random choice for default reponse
     if reponse == bot.DEFAULT_REPONSE:
+        #Store question to database if bot has not learned it yet
+        unknownStatement = UnknownStatement(question=msg)
+        db.session.add(unknownStatement)
+        db.session.commit()
+        #Get unknown reponse
         reponse = bot.get_unknow_reponse()
 
     return reponse
