@@ -20,14 +20,15 @@ def create_app():
 
     
 
-   # Retrain chatbot
-    # from chatbot import bot
-    # check = ""
-    # while (check != 'Y' and check != 'N'):
-    #     check = input("Train lại chatbot? Y:N\n")
-    #     if (check == "Y"):
-    #         bot.Sonny.storage.drop()
-    #         bot.__train__()
+   # Retrain chatbot    
+    from chatbot import bot
+    check = ""
+    while (check != 'Y' and check != 'N'):
+        check = input("Train lại chatbot? Y:N\n")
+        if (check == "Y"):
+            bot.Sonny.storage.drop()
+            bot.__train__()
+
 
 
     #User setting
