@@ -661,7 +661,6 @@ làm cho
 làm dần dần
 làm gì
 làm lòng
-làm lại
 làm lấy
 làm mất
 làm ngay
@@ -712,7 +711,6 @@ lượng
 lượng cả
 lượng số
 lượng từ
-lại
 lại bộ
 lại cái
 lại còn
@@ -1785,7 +1783,6 @@ yêu cầu
 đánh giá
 đánh đùng
 đáo để
-đâu
 đâu có
 đâu cũng
 đâu như
