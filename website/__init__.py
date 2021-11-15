@@ -28,8 +28,7 @@ def create_app():
     #         bot.Sonny.storage.drop()
     #         bot.__train__()
 
-    #Import model
-    from .models import UnknownStatement
+
     #init_database(app)
     
     #User setting
@@ -37,16 +36,25 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
 
     #Admin setting
-    admin = Admin(app, name = "Hệ thống tiếp dân thông minh", template_mode='bootstrap4')
-    path = op.join(op.dirname(app.instance_path), 'chatbot/corpus')
-    admin.add_view(FileAdmin(path, '/bot-train-data/', name='Bot Train Files'))
-    admin.add_view(ModelView(UnknownStatement, db.session, name='Unknown Sentences'))
+    admin_setting(app)
     
     return app
 
+def admin_setting(app):
+    #Import model
+    from .models import UnknownStatement
+    from .admin_view import UnknownStatementView
+    #Admin setting
+    admin = Admin(app, name = "Hệ thống tiếp dân thông minh", template_mode='bootstrap4')
+    path = op.join(op.dirname(app.instance_path), 'chatbot/corpus')
+    admin.add_view(FileAdmin(path, '/bot-train-data/', name='Bot Train Files'))
+    admin.add_view(UnknownStatementView(UnknownStatement, db.session, name='Unknown Sentences'))
+    
+
 
 def init_database(app):
-    
+    #Import model
+    from .models import UnknownStatement
     check = ""
     while (check != 'Y' and check != 'N'):
         check = input("tạo database? Y:N\n")
