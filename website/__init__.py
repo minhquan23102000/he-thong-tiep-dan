@@ -1,9 +1,10 @@
 from flask import Flask
 import os.path as op
 from flask_admin import Admin
-from flask_admin.contrib.fileadmin import FileAdmin
+
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
+from definition import ROOT_PATH
 import numpy as np
 
 db = SQLAlchemy()
@@ -43,12 +44,12 @@ def create_app():
 def admin_setting(app):
     #Import model
     from .models import UnknownStatement
-    from .admin_view import UnknownStatementView
+    from .admin_view import UnknownStatementView, BotTrainFileView
     #Admin setting
     admin = Admin(app, name = "Hệ thống tiếp dân thông minh", template_mode='bootstrap4')
-    path = op.join(op.dirname(app.instance_path), 'chatbot/corpus')
-    admin.add_view(FileAdmin(path, '/bot-train-data/', name='Bot Train Files'))
     admin.add_view(UnknownStatementView(UnknownStatement, db.session, name='Unknown Sentences'))
+    path = op.join(ROOT_PATH, 'chatbot/corpus')
+    admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Bot Train Files'))
     
 
 

@@ -25,6 +25,10 @@ Sonny = ChatBot("Sonny",
 def __train__():
     trainer = ChatterBotCorpusTrainer(Sonny)
     trainer.train("chatbot/corpus")
+    
+def __train__(filePath):
+    trainer = ChatterBotCorpusTrainer(Sonny)
+    trainer.train(filePath)
 
 def get_unknow_reponse():
     import random
