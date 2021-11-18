@@ -1,7 +1,10 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, request, Response
+import requests
 from chatbot import bot
 from . import db
-from .models import UnknownStatement
+from .models import UnknownStatement    
+from . import config
+import json
 
 views = Blueprint('views', __name__)
 Sonny = bot.Sonny
@@ -50,3 +53,29 @@ def chatbot_reponse(msg: str):
         reponse = bot.get_unknow_reponse()
 
     return reponse
+
+#Step up webhook
+@views.route('/webhook', methods=['GET'])
+def webhook_verify():
+    if request.args.get('hub.verify_token') == config.VERIFY_TOKEN:
+        return request.args.get('hub.challenge')
+    return "Wrong verify token"
+
+@views.route('/webhook', methods=['POST'])
+def webhook_action():
+    data = json.loads(request.data.decode('utf-8'))
+    for entry in data['entry']:
+            user_message = entry['messaging'][0]['message']['text']
+            user_id = entry['messaging'][0]['sender']['id']
+            response = {
+                'recipient': {'id': user_id},
+                'message': {}
+            }
+            response['message']['text'] = handle_message(user_id, user_message)
+            r = requests.post(
+                'https://graph.facebook.com/v2.6/me/messages/?access_token=' + config.FB_PAGE_ACCESS_TOKEN, json=response)
+    return Response(response="EVENT RECEIVED",status=200)
+
+
+def handle_message(user_id, user_message):
+    return get_bot_response(user_message)
