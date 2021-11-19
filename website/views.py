@@ -76,7 +76,7 @@ def fb_receive_message():
                 print("{sender[id]} says {message[text]}".format(**message))
                 user_message = message['message']['text']
                 user_id = message['sender']['id']
-                reponse = get_bot_response(user_message)
+                reponse = chatbot_reponse(user_message)
                 client.send_text(user_id, reponse)
     return "Hi"
 
