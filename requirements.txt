@@ -11,3 +11,4 @@ google==3.0.0
 pyvi==0.1.1
 spacy==2.1.0
 flask-login
+pymessager
