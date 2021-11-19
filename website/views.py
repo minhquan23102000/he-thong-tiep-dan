@@ -5,10 +5,10 @@ from . import db
 from .models import UnknownStatement    
 from . import config
 import json
-from pymessager.message import Messager
+#from pymessager.message import Messager
 
 
-client = Messager(config.FB_PAGE_ACCESS_TOKEN)
+#client = Messager(config.FB_PAGE_ACCESS_TOKEN)
 views = Blueprint('views', __name__)
 Sonny = bot.Sonny
  
@@ -77,9 +77,18 @@ def fb_receive_message():
                 user_message = message['message']['text']
                 user_id = message['sender']['id']
                 reponse = chatbot_reponse(user_message)
-                client.send_text(user_id, reponse)
-    return "Hi"
+                send_reponse(reponse, user_id)
+    return Response(response="EVENT RECEIVED",status=200)
 
+
+def send_reponse(reponse: str, user_id):
+    data = {
+                'recipient': {'id': user_id},
+                'message': {}
+            }
+    data['message']['text'] = reponse
+    r = requests.post(
+        'https://graph.facebook.com/v12.0/me/messages/?access_token=' + config.FB_PAGE_ACCESS_TOKEN, json=data)
 
 # @views.route('/webhook', methods=['GET'])
 # def webhook_verify():
