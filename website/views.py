@@ -65,7 +65,7 @@ def fb_webhook():
     if verify_token == config.VERIFY_TOKEN:
         print("Verify sucess")
         return request.args.get('hub.challenge')
-    print("Verify Failed")
+    return "Verify Failed"
 
 @views.route('/webhook', methods=['POST'])
 def fb_receive_message():
