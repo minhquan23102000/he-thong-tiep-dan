@@ -5,9 +5,13 @@ from . import db
 from .models import UnknownStatement    
 from . import config
 import json
+from pymessager.message import Messager
 
+
+client = Messager(config.FB_PAGE_ACCESS_TOKEN)
 views = Blueprint('views', __name__)
 Sonny = bot.Sonny
+ 
 
 @views.route('/')
 def home():
@@ -54,29 +58,64 @@ def chatbot_reponse(msg: str):
 
     return reponse
 
-#Step up webhook
-@views.route('/webhook', methods=['GET'])
-def webhook_verify():
-    if request.args.get('hub.verify_token') == config.VERIFY_TOKEN:
+# Step up webhook for fb chat messenger
+@views.route('/webhook', methods=["GET"])
+def fb_webhook():
+    verify_token = request.args.get('hub.verify_token')
+    if verify_token == config.VERIFY_TOKEN:
+        print("Verify sucess")
         return request.args.get('hub.challenge')
-    return "Wrong verify token"
+    print("Verify Failed")
 
 @views.route('/webhook', methods=['POST'])
-def webhook_action():
-    data = json.loads(request.data.decode('utf-8'))
-    for entry in data['entry']:
-            user_message = entry['messaging'][0]['message']['text']
-            user_id = entry['messaging'][0]['sender']['id']
-            response = {
-                'recipient': {'id': user_id},
-                'message': {}
-            }
-            response['message']['text'] = handle_message(user_id, user_message)
-            r = requests.post(
-                'https://graph.facebook.com/v12.0/me/messages/?access_token=' + config.FB_PAGE_ACCESS_TOKEN, json=response)
-    #return Response(response="EVENT RECEIVED",status=200)
-    return r
+def fb_receive_message():
+    message_entries = json.loads(request.data.decode('utf8'))['entry']
+    for entry in message_entries:
+        for message in entry['messaging']:
+            if message.get('message'):
+                print("{sender[id]} says {message[text]}".format(**message))
+                user_message = message['message']['text']
+                user_id = message['sender']['id']
+                reponse = get_bot_response(user_message)
+                client.send_text(user_id, reponse)
+    return "Hi"
 
 
-def handle_message(user_id, user_message):
-    return get_bot_response(user_message)
+# @views.route('/webhook', methods=['GET'])
+# def webhook_verify():
+#     if request.args.get('hub.verify_token') == config.VERIFY_TOKEN:
+#         return request.args.get('hub.challenge')
+#     return "Wrong verify token"
+
+# @views.route('/webhook', methods=['POST'])
+# def webhook_action():
+#     data = json.loads(request.data.decode('utf-8'))
+#     for entry in data['entry']:
+#             user_message = entry['messaging'][0]['message']['text']
+#             user_id = entry['messaging'][0]['sender']['id']
+#             response = {
+#                 'recipient': {'id': user_id},
+#                 'message': {}
+#             }
+#             response['message']['text'] = handle_message(user_id, user_message)
+#             r = requests.post(
+#                 'https://graph.facebook.com/v12.0/me/messages/?access_token=' + config.FB_PAGE_ACCESS_TOKEN, json=response)
+#     #return Response(response="EVENT RECEIVED",status=200)
+#     return r
+
+
+# @views.route('/webhook_dev', methods=['POST'])
+# def webhook_dev():
+#     # custom route for local development
+#     data = json.loads(request.data.decode('utf-8'))
+#     user_message = data['entry'][0]['messaging'][0]['message']['text']
+#     user_id = data['entry'][0]['messaging'][0]['sender']['id']
+#     response = {
+#         'recipient': {'id': user_id},
+#         'message': {'text': handle_message(user_id, user_message)}
+#     }
+#     return Response(
+#         response=json.dumps(response),
+#         status=200,
+#         mimetype='application/json'
+#     )
