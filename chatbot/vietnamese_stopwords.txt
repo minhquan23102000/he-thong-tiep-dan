@@ -17,8 +17,6 @@ ba ngày
 ba ngôi
 ba tăng
 bao giờ
-bao lâu
-bao nhiêu
 bao nả
 bay biến
 biết
@@ -565,7 +563,6 @@ hết nói
 hết ráo
 hết rồi
 hết ý
-họ
 họ gần
 họ xa
 hỏi
@@ -576,12 +573,10 @@ hỗ trợ
 khi
 khi khác
 khi không
-khi nào
 khi nên
 khi trước
 khiến
 khoảng
-khoảng cách
 khoảng không
 khá
 khá tốt
@@ -721,7 +716,6 @@ lại quả
 lại thôi
 lại ăn
 lại đây
-lấy
 lấy có
 lấy cả
 lấy giống
@@ -1505,7 +1499,6 @@ tại nơi
 tại sao
 tại tôi
 tại vì
-tại đâu
 tại đây
 tại đó
 tạo
@@ -1808,7 +1801,6 @@ yêu cầu
 đúng ra
 đúng tuổi
 đúng với
-đơn vị
 đưa
 đưa cho
 đưa chuyện
