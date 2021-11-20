@@ -3,7 +3,7 @@ import requests
 from chatbot import bot
 from . import db
 from .models import UnknownStatement    
-from . import config
+from . import secret
 import json
 
 views = Blueprint('views', __name__)
@@ -59,7 +59,7 @@ def chatbot_reponse(msg: str):
 @views.route('/webhook', methods=["GET"])
 def fb_webhook():
     verify_token = request.args.get('hub.verify_token')
-    if verify_token == config.VERIFY_TOKEN:
+    if verify_token == secret.VERIFY_TOKEN:
         print("Verify sucess")
         return request.args.get('hub.challenge')
     return "Verify Failed"
@@ -85,7 +85,7 @@ def send_reponse(reponse: str, user_id):
             }
     data['message']['text'] = reponse
     return requests.post(
-        'https://graph.facebook.com/v12.0/me/messages/?access_token=' + config.FB_PAGE_ACCESS_TOKEN, json=data)
+        'https://graph.facebook.com/v12.0/me/messages/?access_token=' + secret.FB_PAGE_ACCESS_TOKEN, json=data)
 
 # @views.route('/webhook', methods=['GET'])
 # def webhook_verify():

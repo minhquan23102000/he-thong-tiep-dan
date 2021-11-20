@@ -1,1 +1,1 @@
-web: python -m spacy download en && gunicorn --bind 0.0.0.0:$PORT main:app --preload
+web: gunicorn --bind 0.0.0.0:$PORT main:app --preload

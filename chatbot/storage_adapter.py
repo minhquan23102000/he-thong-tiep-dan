@@ -14,7 +14,8 @@ class MySQLStorageAdapter(SQLStorageAdapter):
     """
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        import logging
+        self.logger = kwargs.get('logger', logging.getLogger(__name__))
         self.tagger = VietnameseTager()
 
         from sqlalchemy import create_engine
