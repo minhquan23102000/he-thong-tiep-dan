@@ -5,10 +5,7 @@ from . import db
 from .models import UnknownStatement    
 from . import config
 import json
-#from pymessager.message import Messager
 
-
-#client = Messager(config.FB_PAGE_ACCESS_TOKEN)
 views = Blueprint('views', __name__)
 Sonny = bot.Sonny
  

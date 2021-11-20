@@ -21,13 +21,13 @@ def create_app():
     db.init_app(app)
 
    # Retrain chatbot    
-    # from chatbot import bot
-    # check = ""
-    # while (check != 'Y' and check != 'N'):
-    #     check = input("Train lại chatbot? Y:N\n")
-    #     if (check == "Y"):
-    #         bot.Sonny.storage.drop()
-    #         bot.__train__()
+    from chatbot import bot
+    check = ""
+    while (check != 'Y' and check != 'N'):
+        check = input("Train lại chatbot? Y:N\n")
+        if (check == "Y"):
+            bot.Sonny.storage.drop()
+            bot.__retrain__()
 
 
     #init_database(app)

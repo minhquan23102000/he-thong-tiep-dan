@@ -22,7 +22,7 @@ Sonny = ChatBot("Sonny",
     database_uri=SQLALCHEMY_DATABASE_URI)
 
 
-def __train__():
+def __retrain__():
     trainer = ChatterBotCorpusTrainer(Sonny)
     trainer.train("chatbot/corpus")
     
