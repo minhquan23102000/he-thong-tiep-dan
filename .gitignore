@@ -105,4 +105,4 @@ env/
 .idea/
 
 #Secret things
-/secret.py
+/website/secret.py
