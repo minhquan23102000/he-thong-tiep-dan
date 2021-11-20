@@ -74,8 +74,8 @@ def fb_receive_message():
                 user_message = message['message']['text']
                 user_id = message['sender']['id']
                 reponse = chatbot_reponse(user_message)
-                send_reponse(reponse, user_id)
-    return Response(response="EVENT RECEIVED",status=200)
+                return send_reponse(reponse, user_id)
+    return Response(response="NO MESSAGE",status=200)
 
 
 def send_reponse(reponse: str, user_id):
@@ -84,7 +84,7 @@ def send_reponse(reponse: str, user_id):
                 'message': {}
             }
     data['message']['text'] = reponse
-    r = requests.post(
+    return requests.post(
         'https://graph.facebook.com/v12.0/me/messages/?access_token=' + config.FB_PAGE_ACCESS_TOKEN, json=data)
 
 # @views.route('/webhook', methods=['GET'])
