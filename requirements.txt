@@ -12,3 +12,4 @@ pyvi==0.1.1
 requests
 spacy==2.1.0
 flask-login
+flask-restful
