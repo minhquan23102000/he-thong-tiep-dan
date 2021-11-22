@@ -60,7 +60,7 @@ class VietnameseJaccardSimilarity(Comparator):
 
         for word, tag in zip(document[0], document[1]):
             word = word.replace('_', ' ')
-            if word not in self.stopwords and tag not in self.tag_remove or word == 'Sonny':
+            if word not in self.stopwords and tag not in self.tag_remove or word == 'sonny':
                 words.append(word)
 
         if not words:
@@ -119,7 +119,7 @@ class VietnameseCosineSimilarity(Comparator):
 
         for word, tag in zip(document[0], document[1]):
             word = word.replace('_', ' ')
-            if word not in self.stopwords and tag not in self.tag_remove or word == 'Sonny':
+            if word not in self.stopwords and tag not in self.tag_remove or word == 'sonny':
                 words.append(word)
 
         if not words:
