@@ -1,7 +1,9 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, flash, redirect, url_for, render_template
+from functools import wraps
 from flask_restful import Resource, Api
 import os.path as op
 from flask_admin import Admin
+from flask_login import LoginManager
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from definition import ROOT_PATH
@@ -18,11 +20,18 @@ def create_app():
     #Init app
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
-    #Create database
+    
+    #Connect db to app
     db.init_app(app)
-
+    
+    #Init database, only run it once
+    #init_database(app)
+    
     #Init api
     init_api(app)
+
+    #Init flask login
+    init_login(app)
     
    # Retrain chatbot  
    #from chatbot import bot  
@@ -33,8 +42,6 @@ def create_app():
     #         bot.Sonny.storage.drop()
     #         bot.__retrain__()
 
-
-    #init_database(app)
     
     #User setting
     from .views import views
@@ -48,9 +55,9 @@ def create_app():
 def admin_setting(app):
     #Import model
     from .models import UnknownStatement
-    from .admin_view import UnknownStatementView, BotTrainFileView
+    from .admin_view import UnknownStatementView, BotTrainFileView, MyAdminIndexView
     #Admin setting
-    admin = Admin(app, name = "Hệ thống tiếp dân thông minh", template_mode='bootstrap4')
+    admin = Admin(app, name = "Hệ thống tiếp dân thông minh", template_mode='bootstrap4', index_view=MyAdminIndexView())
     admin.add_view(UnknownStatementView(UnknownStatement, db.session, name='Unknown Sentences'))
     path = op.join(ROOT_PATH, 'chatbot/corpus')
     admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Bot Train Files'))
@@ -59,13 +66,19 @@ def admin_setting(app):
 
 def init_database(app):
     #Import model
-    from .models import UnknownStatement
-    check = ""
-    while (check != 'Y' and check != 'N'):
-        check = input("tạo database? Y:N\n")
-        if (check == "Y"):
-            db.create_all(app=app)
+    from .models import UnknownStatement, User, Role
+    with app.app_context():
+        db.create_all(app=app)
+        
+    check = input("tạo test data? Y:N\n")
+    if (check == "Y"):
+        from werkzeug.security import generate_password_hash
+        with app.app_context():
+            admin_user = User(email = 'admin', password = generate_password_hash("adminNCKH"), last_name = "admin", role = Role.ADMIN)
+            db.session.add(admin_user)
+            db.session.commit()
             
+        
             
 def init_api(app):
     from chatbot import bot
@@ -82,3 +95,15 @@ def init_api(app):
             return make_response(json.dumps(reponse))
         
     api.add_resource(GetBotReponse, '/get-reponse')
+    
+def init_login(app):
+    from .models import User
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+    
+    
+    

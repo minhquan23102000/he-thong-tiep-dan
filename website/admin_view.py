@@ -1,20 +1,70 @@
 
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
-from flask_admin import expose
+from flask_admin import expose, BaseView, AdminIndexView
 from flask_admin.actions import action
-from flask import flash
+from flask import flash, redirect, url_for, session
+from flask_login.utils import login_user
 from sqlalchemy.sql.expression import text
+from sqlalchemy.sql.functions import user
 from . import db
-from .models import UnknownStatement
+from .models import UnknownStatement, User, Role
 import os.path as op
 import yaml
 from definition import ROOT_PATH
 from chatbot.bot import Sonny
 from chatbot import bot
 from chatterbot.ext.sqlalchemy_app.models import Statement
+from flask_login import current_user, logout_user, login_user, login_required
+from .form import LoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
 
-class UnknownStatementView(ModelView):
+
+# Create customized index view class that handles login & registration
+class MyAdminIndexView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        if current_user.is_authenticated and session.get('user_role', None) == Role.ADMIN.value:
+            return self.render('admin/dashboard.html')
+        return redirect(url_for('admin.admin_login'))
+        
+
+    @expose('/login', methods=['GET','POST'])
+    def admin_login(self):
+        form = LoginForm()
+        if form.validate_on_submit():
+            user = User.query.filter_by(email = form.email.data).first()
+            if user:
+                if check_password_hash(user.password, form.password.data):
+                    flash('Đăng nhập thành công', category='success')
+                    session['user_role'] = user.role.value
+                    login_user(user)
+                    return redirect(url_for('admin.index'))
+                else:
+                    flash("Sai mật khẩu", category='error')
+            else:
+                flash("Tài khoản không tồn tại", category='error')
+        return self.render('admin/login.html', form=form)
+
+
+    @expose('/logout/')
+    @login_required
+    def logout_view(self):
+        logout_user()
+        return redirect(url_for('admin.index'))
+
+   
+class MyModelView(ModelView):
+    def is_accessible(self):
+        if current_user.is_authenticated and current_user.role == Role.ADMIN:
+            return True 
+        return False
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('admin.index'))
+    
+   
+
+class UnknownStatementView(MyModelView):
     can_create = False
     
     @action('train_unknown', 'Train', 'Are you sure you want to train selected sentences(s)?')
