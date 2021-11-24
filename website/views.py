@@ -27,7 +27,7 @@ def fb_webhook():
     if verify_token == secret.VERIFY_TOKEN:
         print("Verify sucess")
         return request.args.get('hub.challenge')
-    return "Verify Failed"
+    return Response(response="Verified Failed",status=203)
 
 @views.route('/webhook', methods=['POST'])
 def fb_receive_message():
@@ -41,7 +41,7 @@ def fb_receive_message():
                 reponse = chatbot_reponse(user_message)
                 send_reponse(reponse, user_id)
                 return Response(response="EVENT RECIEVED",status=200)
-    return Response(response="NO MESSAGE",status=200)
+    return Response(response="NO MESSAGE",status=204)
 
 
 def send_reponse(reponse: str, user_id):
