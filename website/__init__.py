@@ -34,7 +34,7 @@ def create_app():
     init_login(app)
     
    # Retrain chatbot  
-   #from chatbot import bot  
+    # from chatbot import bot  
     # check = ""
     # while (check != 'Y' and check != 'N'):
     #     check = input("Train lại chatbot? Y:N\n")
@@ -57,7 +57,7 @@ def admin_setting(app):
     from website.admin_view import MyModelView
     from .models import UnknownStatement
     from .admin_view import UnknownStatementView, BotTrainFileView, MyAdminIndexView, RelearnView, MyStatementView
-    from chatterbot.ext.sqlalchemy_app.models import Statement, Tag
+    from chatbot.models import Statement, Tag
     #Admin setting
     admin = Admin(app, name = "Admin", template_mode='bootstrap4', index_view=MyAdminIndexView())
     

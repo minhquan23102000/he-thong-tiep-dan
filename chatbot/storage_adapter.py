@@ -47,5 +47,19 @@ class MySQLStorageAdapter(SQLStorageAdapter):
 
         self.Session = sessionmaker(bind=self.engine, expire_on_commit=True)
 
+        
+        def get_statement_model(self):
+            """
+            Return the statement model.
+            """
+            from chatbot.models import Statement
+            return Statement
+
+        def get_tag_model(self):
+            """
+            Return the conversation model.
+            """
+            from chatbot.models import Tag
+            return Tag
 
 

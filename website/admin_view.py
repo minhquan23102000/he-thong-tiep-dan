@@ -142,5 +142,6 @@ class RelearnView(MyModelView):
         return super(RelearnView, self).edit_view()
     
 class MyStatementView(MyModelView):
-    column_list = ('in_response_to', 'text')
-    column_editable_list = ('in_response_to', 'text', 'tags')
+    column_list = ('in_response_to', 'text', 'tags')
+    form_edit_rules  = ('in_response_to', 'text', 'tags')
+    column_labels = dict(in_response_to = 'question', text = 'answer')
