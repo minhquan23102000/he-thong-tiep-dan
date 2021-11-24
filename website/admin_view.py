@@ -9,13 +9,12 @@ from sqlalchemy.sql.expression import column, text
 from sqlalchemy.sql.functions import user
 from . import db
 from .models import UnknownStatement, User, Role
-from chatterbot.ext.sqlalchemy_app.models import Statement, Tag
+from chatbot.models import Statement, Tag
 import os.path as op
 import yaml
 from definition import ROOT_PATH
 from chatbot.bot import Sonny
 from chatbot import bot
-from chatterbot.ext.sqlalchemy_app.models import Statement
 from flask_login import current_user, logout_user, login_user, login_required
 from .form import LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -111,10 +110,11 @@ class BotTrainFileView(FileAdmin):
                 tag = data['categories']
                 
                 #Remove already learning tags
-                # statements = tuple(Sonny.storage.filter(tags=tag))
-                # for record in statements:
-                #     print(record.text)
-                #     Sonny.storage.remove(record.text)
+                (db.session.query(Statement)
+                    .join(Statement.tags)
+                    .filter(Tag.name == tag)
+                ).delete()
+                db.session.commit()
                 
                 #Train file again
                 bot.__train__(filePath=file_path)
@@ -145,3 +145,25 @@ class MyStatementView(MyModelView):
     column_list = ('in_response_to', 'text', 'tags')
     form_edit_rules  = ('in_response_to', 'text', 'tags')
     column_labels = dict(in_response_to = 'question', text = 'answer')
+    
+    def delete_model(self, model):
+        try:
+            self.on_model_delete(model)
+            question_statement = (db.session.query(Statement)
+                              .filter_by(id = model.id-1).first())
+            
+            self.session.flush()
+            self.session.delete(model)
+            self.session.delete(question_statement)
+            self.session.commit()
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                flash('Failed to delete record. %(error)s', category='error')
+
+            self.session.rollback()
+
+            return False
+        else:
+            self.after_model_delete(model)
+
+        return True
