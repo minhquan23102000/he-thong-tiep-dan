@@ -3,12 +3,13 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_admin import expose, BaseView, AdminIndexView
 from flask_admin.actions import action
-from flask import flash, redirect, url_for, session
+from flask import flash, redirect, url_for, session, request
 from flask_login.utils import login_user
-from sqlalchemy.sql.expression import text
+from sqlalchemy.sql.expression import column, text
 from sqlalchemy.sql.functions import user
 from . import db
 from .models import UnknownStatement, User, Role
+from chatterbot.ext.sqlalchemy_app.models import Statement, Tag
 import os.path as op
 import yaml
 from definition import ROOT_PATH
@@ -18,6 +19,7 @@ from chatterbot.ext.sqlalchemy_app.models import Statement
 from flask_login import current_user, logout_user, login_user, login_required
 from .form import LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import timedelta
 
 
 # Create customized index view class that handles login & registration
@@ -38,7 +40,7 @@ class MyAdminIndexView(AdminIndexView):
                 if check_password_hash(user.password, form.password.data):
                     flash('Đăng nhập thành công', category='success')
                     session['user_role'] = user.role.value
-                    login_user(user)
+                    login_user(user, remember=True, duration=timedelta(hours=1))
                     return redirect(url_for('admin.index'))
                 else:
                     flash("Sai mật khẩu", category='error')
@@ -50,6 +52,7 @@ class MyAdminIndexView(AdminIndexView):
     @expose('/logout/')
     @login_required
     def logout_view(self):
+        session.update('user_role', None)
         logout_user()
         return redirect(url_for('admin.index'))
 
@@ -85,6 +88,14 @@ class UnknownStatementView(MyModelView):
         flash("{0} sentences (s) charges is trained".format(count))
         
 class BotTrainFileView(FileAdmin):
+    def is_accessible(self):
+        if current_user.is_authenticated and current_user.role == Role.ADMIN:
+            return True 
+        return False
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('admin.index'))
+    
+    
     can_delete=False
     
     @action('train_file', 'Train', 'Are you sure you want to train selected file (s)?')
@@ -110,3 +121,26 @@ class BotTrainFileView(FileAdmin):
                 
             count += 1
         flash("{0} file (s) charges is trained".format(count))
+        
+        
+        
+class RelearnView(MyModelView):
+    can_create=False
+    can_delete=False
+    edit_template = 'admin/relearn_model.html'
+    @expose('/edit/')
+    def edit_view(self):
+        tag = request.args.get('id')
+        children = (db.session.query(Statement)
+                    .join(Statement.tags)
+                    .filter(Tag.id == tag)
+                    )
+        
+        self._template_args.update(dict(children=children,
+                                        edit_url=url_for('statement.edit_view', id=id)))
+
+        return super(RelearnView, self).edit_view()
+    
+class MyStatementView(MyModelView):
+    column_list = ('in_response_to', 'text')
+    column_editable_list = ('in_response_to', 'text', 'tags')

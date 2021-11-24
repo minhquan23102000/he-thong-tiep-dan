@@ -32,3 +32,5 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(150))
     role = db.Column(db.Enum(Role), nullable=False)
     create_at = db.Column(db.DateTime(timezone=True), default=func.now())
+    
+    

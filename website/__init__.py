@@ -54,13 +54,21 @@ def create_app():
 
 def admin_setting(app):
     #Import model
+    from website.admin_view import MyModelView
     from .models import UnknownStatement
-    from .admin_view import UnknownStatementView, BotTrainFileView, MyAdminIndexView
+    from .admin_view import UnknownStatementView, BotTrainFileView, MyAdminIndexView, RelearnView, MyStatementView
+    from chatterbot.ext.sqlalchemy_app.models import Statement, Tag
     #Admin setting
-    admin = Admin(app, name = "Hệ thống tiếp dân thông minh", template_mode='bootstrap4', index_view=MyAdminIndexView())
+    admin = Admin(app, name = "Admin", template_mode='bootstrap4', index_view=MyAdminIndexView())
+    
+    #Unknow statement view, view store all message that the chatbot did not know
     admin.add_view(UnknownStatementView(UnknownStatement, db.session, name='Unknown Sentences'))
+    #Corpus manager view, we can add a new file corpus and train it
     path = op.join(ROOT_PATH, 'chatbot/corpus')
     admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Bot Train Files'))
+    #RelearnView, view manager all the statements chatbot has learned.
+    admin.add_view(RelearnView(Tag, db.session, name="Chatbot Relearns"))
+    admin.add_view(MyStatementView(Statement, db.session, endpoint='statement'))
     
 
 
