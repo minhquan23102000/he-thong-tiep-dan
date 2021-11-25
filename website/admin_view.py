@@ -19,6 +19,7 @@ from flask_login import current_user, logout_user, login_user, login_required
 from .form import LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import timedelta
+from chatbot.tag import VietnameseTager
 
 
 # Create customized index view class that handles login & registration
@@ -125,7 +126,6 @@ class BotTrainFileView(FileAdmin):
         
         
 class RelearnView(MyModelView):
-    can_create=False
     can_delete=False
     edit_template = 'admin/relearn_model.html'
     @expose('/edit/')
@@ -144,7 +144,12 @@ class RelearnView(MyModelView):
 class MyStatementView(MyModelView):
     column_list = ('in_response_to', 'text', 'tags')
     form_edit_rules  = ('in_response_to', 'text', 'tags')
+    form_create_rules = ('in_response_to', 'text', 'tags')
     column_labels = dict(in_response_to = 'question', text = 'answer')
+    
+    def __init__(self, model, session, name=None, category=None, endpoint=None, url=None, static_folder=None, menu_class_name=None, menu_icon_type=None, menu_icon_value=None):
+        super().__init__(model, session, name=name, category=category, endpoint=endpoint, url=url, static_folder=static_folder, menu_class_name=menu_class_name, menu_icon_type=menu_icon_type, menu_icon_value=menu_icon_value)
+        self.tagger = VietnameseTager()
     
     def delete_model(self, model):
         try:
@@ -167,3 +172,79 @@ class MyStatementView(MyModelView):
             self.after_model_delete(model)
 
         return True
+    
+    def update_model(self, form, model):
+        """
+            Update model from form.
+
+            :param form:
+                Form instance
+            :param model:
+                Model instance
+        """
+        try:
+            form.populate_obj(model)
+            #Update question statement
+            question_statement = (db.session.query(Statement)
+                              .filter_by(id = model.id-1).first())
+            question_statement.text = model.in_response_to
+            search_text = self.tagging(model.in_response_to)
+            question_statement.search_text = search_text
+            
+            #Update answer statement
+            model.search_text = self.tagging(model.text)
+            model.search_in_response_to = search_text
+            
+            self._on_model_change(form, model, False)
+            self.session.commit()
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                flash('Failed to update record. %(error)s', error=str(ex), category='error')
+
+            self.session.rollback()
+
+            return False
+        else:
+            self.after_model_change(form, model, False)
+
+        return True
+    
+    def create_model(self, form):
+        """
+            Create model from form.
+
+            :param form:
+                Form instance
+        """
+        try:
+            model = self.build_new_instance()
+
+            form.populate_obj(model)
+            
+            #Create question statement
+            question_statement = Statement(text = model.in_response_to)
+            search_text = self.tagging(model.in_response_to)
+            question_statement.search_text = search_text
+            
+            #Update answer statement
+            model.search_text = self.tagging(model.text)
+            model.search_in_response_to = search_text
+            
+            self.session.add(question_statement)
+            self.session.add(model)
+            self._on_model_change(form, model, True)
+            self.session.commit()
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                flash('Failed to create record. %(error)s', error=str(ex), category='error')
+
+            self.session.rollback()
+
+            return False
+        else:
+            self.after_model_change(form, model, True)
+
+        return model
+    
+    def tagging(self, text):
+        return self.tagger.get_bigram_pair_string(text)

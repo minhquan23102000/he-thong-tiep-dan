@@ -16,7 +16,6 @@ class VietnameseTager(object):
 
         self.tokenize = ViTokenizer.tokenize
 
-
         self.tag_remove = TAG_REMOVE
        
         self.stopwords = STOPWORDS
@@ -39,7 +38,7 @@ class VietnameseTager(object):
 
         for word, tag in zip(document[0], document[1]):
             word = word.replace('_', ' ')
-            if word not in self.stopwords and tag not in self.tag_remove or word == 'Sonny':
+            if word not in self.stopwords and tag not in self.tag_remove:
                 bigram_pairs.append('{}:{}'.format(
                         tag,
                         word
@@ -48,10 +47,18 @@ class VietnameseTager(object):
         if not bigram_pairs:
             for word, tag in zip(document[0], document[1]):
                 word = word.replace('_', ' ')
+                if tag not in self.tag_remove:
+                    bigram_pairs.append('{}:{}'.format(
+                                tag,
+                                word
+                            ))
+        if not bigram_pairs:
+            for word, tag in zip(document[0], document[1]):
+                word = word.replace('_', ' ')
                 bigram_pairs.append('{}:{}'.format(
                             tag,
                             word
-                        ))
+                        )) 
 
         return ' '.join(bigram_pairs)
 

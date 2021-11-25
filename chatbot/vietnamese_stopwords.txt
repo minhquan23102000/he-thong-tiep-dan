@@ -77,7 +77,6 @@ bất kì
 bất kể
 bất kỳ
 bất luận
-bất ngờ
 bất nhược
 bất quá
 bất quá chỉ
@@ -112,7 +111,6 @@ bệt
 bị
 bị chú
 bị vì
-bỏ
 bỏ bà
 bỏ cha
 bỏ cuộc
@@ -406,8 +404,6 @@ cả tin
 cả ăn
 cả đến
 cảm thấy
-cảm ơn
-cấp
 cấp số
 cấp trực tiếp
 cần
@@ -517,7 +513,6 @@ gây thêm
 gì
 gì gì
 gì đó
-gần
 gần bên
 gần hết
 gần ngày
@@ -762,7 +757,6 @@ mà thôi
 mà vẫn
 mình
 mạnh
-mất
 mất còn
 mọi
 mọi giờ
@@ -1022,7 +1016,6 @@ năm
 năm tháng
 nơi
 nơi nơi
-nước
 nước bài
 nước cùng
 nước lên
@@ -1373,7 +1366,6 @@ thốt nhiên
 thốt nói
 thốt thôi
 thộc
-thời gian
 thời gian sử dụng
 thời gian tính
 thời điểm
@@ -1405,7 +1397,6 @@ trong mình
 trong ngoài
 trong này
 trong số
-trong vùng
 trong đó
 trong ấy
 tránh
@@ -1526,7 +1517,6 @@ tỏ ra
 tỏ vẻ
 tốc tả
 tối ư
-tốt
 tốt bạn
 tốt bộ
 tốt hơn
@@ -1616,7 +1606,6 @@ vô hình trung
 vô kể
 vô luận
 vô vàn
-vùng
 vùng lên
 vùng nước
 văng tê
@@ -1658,7 +1647,6 @@ vừa mới
 vừa qua
 vừa rồi
 vừa vừa
-xa
 xa cách
 xa gần
 xa nhà
@@ -1906,7 +1894,6 @@ yêu cầu
 ớ này
 ờ
 ờ ờ
-ở
 ở lại
 ở như
 ở nhờ
@@ -1928,3 +1915,13 @@ yêu cầu
 thủ tục
 giấy
 giấy tờ
+:
+-
+–
+)
+(
+_
+T
+^
+v
+x

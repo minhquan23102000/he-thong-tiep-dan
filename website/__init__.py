@@ -12,7 +12,7 @@ import json
 
 db = SQLAlchemy()
 
-TAG_REMOVE = ('F', 'Np', 'C', 'M', 'L')
+TAG_REMOVE = ['F', 'Np', 'C', 'M', 'L']
 with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
     STOPWORDS = np.array(f.read().split('\n'))
 

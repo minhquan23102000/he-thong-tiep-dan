@@ -35,7 +35,7 @@ def chatbot_reponse(msg: str):
     from website.models import UnknownStatement
     #Get reponse from bot
     reponse = Sonny.get_response(msg)
-    if reponse.confidence <= 0.1:
+    if reponse.confidence <= 0.2:
         reponse = DEFAULT_REPONSE
     else:
         reponse = reponse.text
