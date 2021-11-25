@@ -2,6 +2,8 @@
 
 {% macro table(columns, items, endpoint) %}
 <table class="table table-striped table-bordered model-list">
+    <a class ="button" href="{{ url_for('statement.create_view', url=edit_url) }}"><button type="button" class="btn btn-primary">Create</button></a>
+    <p> </p>
 	<thead>
 	    <tr>
 	    	<th></th>

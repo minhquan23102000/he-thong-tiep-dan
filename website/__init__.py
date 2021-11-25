@@ -67,7 +67,7 @@ def admin_setting(app):
     path = op.join(ROOT_PATH, 'chatbot/corpus')
     admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Bot Train Files'))
     #RelearnView, view manager all the statements chatbot has learned.
-    admin.add_view(RelearnView(Tag, db.session, name="Chatbot Relearns"))
+    admin.add_view(RelearnView(Tag, db.session, name="Tags"))
     admin.add_view(MyStatementView(Statement, db.session, endpoint='statement'))
     
 

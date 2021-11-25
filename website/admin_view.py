@@ -127,6 +127,7 @@ class BotTrainFileView(FileAdmin):
         
 class RelearnView(MyModelView):
     can_delete=False
+    
     edit_template = 'admin/relearn_model.html'
     @expose('/edit/')
     def edit_view(self):
@@ -146,6 +147,9 @@ class MyStatementView(MyModelView):
     form_edit_rules  = ('in_response_to', 'text', 'tags')
     form_create_rules = ('in_response_to', 'text', 'tags')
     column_labels = dict(in_response_to = 'question', text = 'answer')
+    
+    column_searchable_list = ['in_response_to', 'text']
+    column_filters = ['tags']
     
     def __init__(self, model, session, name=None, category=None, endpoint=None, url=None, static_folder=None, menu_class_name=None, menu_icon_type=None, menu_icon_value=None):
         super().__init__(model, session, name=name, category=category, endpoint=endpoint, url=url, static_folder=static_folder, menu_class_name=menu_class_name, menu_icon_type=menu_icon_type, menu_icon_value=menu_icon_value)
@@ -245,6 +249,9 @@ class MyStatementView(MyModelView):
             self.after_model_change(form, model, True)
 
         return model
+    
+    def get_query(self):
+        return super(MyStatementView, self).get_query().filter(Statement.in_response_to != None)
     
     def tagging(self, text):
         return self.tagger.get_bigram_pair_string(text)

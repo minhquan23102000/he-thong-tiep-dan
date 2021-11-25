@@ -120,3 +120,9 @@ class Statement(Base, StatementMixin):
         self.tags.extend([
             Tag(name=tag) for tag in tags
         ])
+        
+    def __str__(self):
+        return f'{self.text}: {self.in_response_to}'
+    
+    def __unicode__(self):
+        return f'{self.text}: {self.in_response_to}'
