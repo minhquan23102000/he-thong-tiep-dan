@@ -28,15 +28,15 @@ class MyAdminIndexView(AdminIndexView):
     def index(self):
         if current_user.is_authenticated and session.get('user_role', None) == Role.ADMIN.value:
             return self.render('admin/dashboard.html')
-        return redirect(url_for('admin.admin_login'))
+        return redirect(url_for('admin.login'))
         
 
     @expose('/login', methods=['GET','POST'])
-    def admin_login(self):
+    def login(self):
         form = LoginForm()
         if form.validate_on_submit():
             user = User.query.filter_by(email = form.email.data).first()
-            if user:
+            if user and user.role == Role.ADMIN:
                 if check_password_hash(user.password, form.password.data):
                     flash('Đăng nhập thành công', category='success')
                     session['user_role'] = user.role.value
@@ -46,13 +46,13 @@ class MyAdminIndexView(AdminIndexView):
                     flash("Sai mật khẩu", category='error')
             else:
                 flash("Tài khoản không tồn tại", category='error')
-        return self.render('admin/login.html', form=form)
+        return self.render('admin/login_user.html', form=form)
 
 
     @expose('/logout/')
     @login_required
-    def logout_view(self):
-        session.update('user_role', None)
+    def logout(self):
+        session['user_role'] = None
         logout_user()
         return redirect(url_for('admin.index'))
 
