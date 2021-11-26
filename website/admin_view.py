@@ -77,7 +77,7 @@ class UnknownStatementView(MyModelView):
     
     can_create = False
     
-    @action('train_unknown', 'Train', 'Are you sure you want to train selected sentences(s)?')
+    @action('train_unknown', 'Train', 'Train chatbot với những câu đã chọn?')
     def action_train(self, ids):
         count = 0
         for _id in ids:
@@ -92,7 +92,7 @@ class UnknownStatementView(MyModelView):
             db.session.delete(learningSentence)
             db.session.commit()
             count += 1
-        flash("{0} sentences (s) charges is trained".format(count))
+        flash("{0} câu (s) đã được train thành công".format(count))
         
 class BotTrainFileView(FileAdmin):
     def is_accessible(self):
