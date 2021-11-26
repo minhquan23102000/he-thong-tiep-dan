@@ -68,6 +68,13 @@ class MyModelView(ModelView):
    
 
 class UnknownStatementView(MyModelView):
+    column_list = ('question', 'answer', 'create_at')
+    form_edit_rules  = ('question', 'answer')
+    form_create_rules = ('question', 'answer')
+    column_labels = {'question': 'người dùng hỏi',
+                     'answer': 'chatbot trả lời',
+                     'create_at': 'ngày hỏi'}
+    
     can_create = False
     
     @action('train_unknown', 'Train', 'Are you sure you want to train selected sentences(s)?')
@@ -98,7 +105,7 @@ class BotTrainFileView(FileAdmin):
     
     can_delete=False
     
-    @action('train_file', 'Train', 'Are you sure you want to train selected file (s)?')
+    @action('train_file', 'Train', 'Bạn có chắc là train chatbot với mấy file (s) đã chọn?')
     def action_train_file(self, ids):
 
         dir_path = op.join(ROOT_PATH, 'chatbot/corpus')
@@ -146,7 +153,7 @@ class MyStatementView(MyModelView):
     column_list = ('in_response_to', 'text', 'tags')
     form_edit_rules  = ('in_response_to', 'text', 'tags')
     form_create_rules = ('in_response_to', 'text', 'tags')
-    column_labels = dict(in_response_to = 'question', text = 'answer')
+    column_labels = dict(in_response_to = 'Người dùng hỏi', text = 'Chatbot trả lời', tags='Ngữ cảnh')
     
     column_searchable_list = ['in_response_to', 'text']
     column_filters = ['tags']
