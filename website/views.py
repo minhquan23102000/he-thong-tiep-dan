@@ -12,13 +12,19 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    return render_template("home.html")
+    return render_template("index.html")
 
 @views.route('/get')
 def get_bot_response():    
     userText = request.args.get('msg')
     return chatbot_reponse(str(userText))
 
+  
+  
+  
+  
+  
+ #=================================WEB HOOK DOWN HERE============================================= 
   
 # Step up webhook for fb chat messenger
 @views.route('/webhook', methods=["GET"])
