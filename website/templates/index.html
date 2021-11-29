@@ -26,14 +26,21 @@
 
       <div class="chat-box">
         <div class="chat-box-header">
-          Sonny
+          Trợ lý ảo Sonny
           <span class="chat-box-toggle"
             ><i class="material-icons">close</i></span
           >
         </div>
         <div class="chat-box-body">
           <div class="chat-box-overlay"></div>
-          <div class="chat-logs"></div>
+          <div class="chat-logs">
+            <div id='cm-msg-0' class="chat-msg user">
+              <span class="msg-avatar"><img src="/static/img/chatbot.jpg"></span>
+              <div class ='cm-msg-text'>
+                Chào bạn, mình là Sonny, rất vui lòng được giải đáp các thắc mắc của bạn về dịch vụ công.
+              </div>
+            </div>
+          </div>
           <!--chat-log -->
         </div>
         <div class="chat-input">
@@ -41,7 +48,7 @@
             <input
               type="text"
               id="chat-input"
-              placeholder="Send a message..."
+              placeholder="Nhập câu hỏi..."
             />
             <button type="submit" class="chat-submit" id="chat-submit">
               <i class="material-icons">send</i>
@@ -51,6 +58,6 @@
       </div>
     </div>
 
-    <script src="" async defer></script>
+     
   </body>
 </html>

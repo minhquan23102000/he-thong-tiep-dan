@@ -1,14 +1,16 @@
-from chatterbot import ChatBot
+from .mychatbot import MyChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.response_selection import get_random_response
 from chatbot.sentence_similarity import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
 from website.config import SQLALCHEMY_DATABASE_URI
+import json
+from flask import jsonify
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
 
 
-Sonny = ChatBot("Sonny",
+Sonny = MyChatBot("Sonny",
     storage_adapter='chatbot.storage_adapter.MySQLStorageAdapter',
     read_only = True,
     statement_comparison_function=VietnameseCosineSimilarity,
@@ -33,8 +35,18 @@ def __train__(filePath):
 def chatbot_reponse(msg: str):
     from website import db
     from website.models import UnknownStatement
+    #Check message lem
+    if len(msg) >=600:
+        return jsonify({'response': '...', 'tag': 'None'})
+    
     #Get reponse from bot
     reponse = Sonny.get_response(msg)
+    tag = reponse.get_tags()
+    if not tag:
+        tag = "None"
+    else:
+        tag = tag[0]
+    
     if reponse.confidence <= 0.2:
         reponse = DEFAULT_REPONSE
     else:
@@ -63,7 +75,9 @@ def chatbot_reponse(msg: str):
         #Get unknown reponse
         reponse = get_unknow_reponse()
 
-    return reponse
+    response_data = {'response': reponse, 
+                     'tag': tag}
+    return jsonify(response_data)
 
 def get_unknow_reponse():
     import random

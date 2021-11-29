@@ -99,7 +99,7 @@ def init_api(app):
     class GetBotReponse(Resource):
         def get(self):
             message = request.form['message']
-            reponse = {'reponse': chatbot_reponse(message)}
+            reponse = {'response': chatbot_reponse(message)}
             return make_response(json.dumps(reponse))
         
     api.add_resource(GetBotReponse, '/get-reponse')

@@ -1,16 +1,21 @@
 $(function() {
-    var INDEX = 0; 
+    var INDEX = 1; 
     $("#chat-submit").click(function(e) {
       e.preventDefault();
       var msg = $("#chat-input").val(); 
-      $.get("/get", { msg: msg }).done(function(data) {
-        data = linkify(data)
-        generate_message(msg, 'self');
-
-        setTimeout(function() {      
-          generate_message(data, 'user');  
-        }, 1000)
-      });
+      if (msg.trim()) {
+        $.get("/get", { msg: msg }).done(function(data) {
+          console.log(data)
+          //myData = JSON.parse(data)
+          var response = linkify(String(data.response))
+          var tag = data.tag
+          generate_message(msg, 'self');
+  
+          setTimeout(function() {      
+            generate_message(response, 'user');  
+          }, 1000)
+        });
+      }
 
     
       
@@ -33,9 +38,12 @@ $(function() {
       INDEX++;
       var str="";
       str += "<div id='cm-msg-"+INDEX+"' class=\"chat-msg "+type+"\">";
-      // str += "          <span class=\"msg-avatar\">";
-      // str += "            <img src=\"https:\/\/image.crisp.im\/avatar\/operator\/196af8cc-f6ad-4ef7-afd1-c45d5231387c\/240\/?1483361727745\">";
-      // str += "          <\/span>";
+      if (type != 'self') {
+        str += "          <span class=\"msg-avatar\">";
+        str += "            <img src=\"/static/img/chatbot.jpg\">";
+        str += "          <\/span>";
+      }
+   
       str += "          <div class=\"cm-msg-text\">";
       str += msg;
       str += "          <\/div>";

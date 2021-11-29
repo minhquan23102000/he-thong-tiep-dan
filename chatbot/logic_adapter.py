@@ -114,6 +114,8 @@ class MyBestMatch(LogicAdapter):
 
             response.confidence = closest_match.confidence
             self.chatbot.logger.info('Alternate response selected. Using "{}"'.format(response.text))
+        # elif not alternate_response_list and not response_list:
+        #     response = closest_match
         else:
             response = self.get_default_response(input_statement)
 
