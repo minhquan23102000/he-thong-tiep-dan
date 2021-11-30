@@ -13,3 +13,4 @@ requests
 spacy==2.1.0
 flask-login
 flask-restful
+flask-wtf
