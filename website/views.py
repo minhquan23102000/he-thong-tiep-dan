@@ -6,9 +6,21 @@ from . import db
 from .models import UnknownStatement    
 from . import secret
 import json
+from flask import jsonify
 
 views = Blueprint('views', __name__)
- 
+
+
+temp_db = {
+    'khai sinh': [ 
+            {'title': 'giấy chứng nhận kết hôn', 'src': '/static/img/chung_nhan_ket_hon.jpg'},
+            {'title': 'chứng minh nơi ở', 'src': '/static/img/cm_noi_o.jpg'},
+            {'title': 'giấy chứng sinh', 'src': '/static/img/giay_chung_sinh.jpg'},
+            {'title': 'giấy tờ tùy thân', 'src': '/static/img/giay_tuy_than.jpg'},
+            {'title': 'to_khai', 'src': '/static/img/to_khai_khai_sinh.jpg'}
+        ]
+    
+}
 
 @views.route('/')
 def home():
@@ -17,8 +29,18 @@ def home():
 @views.route('/get')
 def get_bot_response():    
     userText = request.args.get('msg')
-    return chatbot_reponse(str(userText))
+    reponse = chatbot_reponse(str(userText))
+    return jsonify(reponse)
 
+
+@views.route('/get-img')
+def get_img():
+    tag = request.args.get('tag')
+    try:
+        data = temp_db[tag]
+    except:
+        data = {}
+    return jsonify(data)
   
   
   
@@ -45,7 +67,7 @@ def fb_receive_message():
                 user_message = message['message']['text']
                 user_id = message['sender']['id']
                 reponse = chatbot_reponse(user_message)
-                send_reponse(reponse, user_id)
+                send_reponse(reponse['response'], user_id)
                 return Response(response="EVENT RECIEVED",status=200)
     return Response(response="NO MESSAGE",status=204)
 

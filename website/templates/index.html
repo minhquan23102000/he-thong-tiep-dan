@@ -11,14 +11,42 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-
     <link rel="stylesheet" type="text/css" href="/static/css/chatbox.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/gallery.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="static/plugins/jQuery/jquery-2.2.3.min.js"
+    ></script>
     <script type="text/javascript" src="/static/js/chatbox.js"></script>
+
+
+    <script type="text/javascript" src="/static/plugins/intense/intense.js">
+     
+    </script>
+    <script type="text/javascript" src="/static/plugins/intense/intense.min.js">
+    
+    </script>
   </head>
+
   <body>
     <div id="body">
+
+      <h1 id ="tag"></h1>
+      </br>
+      <h2>Các giấy tờ cần chuẩn bị </h2>
+      <div class="wrapper" id="prepare-paper">
+        
+      </div>
+    </br>
+    <h2> Tờ khai </h2>
+    <div class="media full" id="to-khai">
+      
+    </div>
+
       <div id="chat-circle" class="btn btn-raised">
         <div id="chat-overlay"></div>
         <i class="material-icons">chat</i>
@@ -34,10 +62,13 @@
         <div class="chat-box-body">
           <div class="chat-box-overlay"></div>
           <div class="chat-logs">
-            <div id='cm-msg-0' class="chat-msg user">
-              <span class="msg-avatar"><img src="/static/img/chatbot.jpg"></span>
-              <div class ='cm-msg-text'>
-                Chào bạn, mình là Sonny, rất vui lòng được giải đáp các thắc mắc của bạn về dịch vụ công.
+            <div id="cm-msg-0" class="chat-msg user">
+              <span class="msg-avatar"
+                ><img src="/static/img/chatbot.jpg"
+              /></span>
+              <div class="cm-msg-text">
+                Xin chào, mình là Sonny. Bạn có thể hỏi mình bất cứ điều gì về
+                dịch vụ công.
               </div>
             </div>
           </div>
@@ -45,11 +76,7 @@
         </div>
         <div class="chat-input">
           <form>
-            <input
-              type="text"
-              id="chat-input"
-              placeholder="Nhập câu hỏi..."
-            />
+            <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." />
             <button type="submit" class="chat-submit" id="chat-submit">
               <i class="material-icons">send</i>
             </button>
@@ -58,6 +85,5 @@
       </div>
     </div>
 
-     
   </body>
 </html>

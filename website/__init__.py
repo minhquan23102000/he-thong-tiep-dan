@@ -4,7 +4,6 @@ from flask_restful import Resource, Api
 import os.path as op
 from flask_admin import Admin
 from flask_login import LoginManager
-from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from definition import ROOT_PATH
 import numpy as np
@@ -46,9 +45,11 @@ def create_app():
     #User setting
     from .views import views
     app.register_blueprint(views, url_prefix='/')
+    
 
     #Admin setting
     admin_setting(app)
+    
     
     return app
 
@@ -99,7 +100,7 @@ def init_api(app):
     class GetBotReponse(Resource):
         def get(self):
             message = request.form['message']
-            reponse = {'response': chatbot_reponse(message)}
+            reponse =  chatbot_reponse(message)
             return make_response(json.dumps(reponse))
         
     api.add_resource(GetBotReponse, '/get-reponse')

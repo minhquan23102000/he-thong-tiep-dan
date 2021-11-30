@@ -4,7 +4,7 @@ from chatterbot.response_selection import get_random_response
 from chatbot.sentence_similarity import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
 from website.config import SQLALCHEMY_DATABASE_URI
 import json
-from flask import jsonify
+
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
@@ -77,7 +77,7 @@ def chatbot_reponse(msg: str):
 
     response_data = {'response': reponse, 
                      'tag': tag}
-    return jsonify(response_data)
+    return response_data
 
 def get_unknow_reponse():
     import random
