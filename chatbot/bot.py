@@ -37,7 +37,7 @@ def chatbot_reponse(msg: str):
     from website.models import UnknownStatement
     #Check message lem
     if len(msg) >=600:
-        return {'response': '...', 'tag': 'None'}
+        return {'response': 'Dài quá!!', 'tag': 'None'}
     
     #Get reponse from bot
     reponse = Sonny.get_response(msg)

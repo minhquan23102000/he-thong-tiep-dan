@@ -5,16 +5,17 @@ $(function () {
     var msg = $("#chat-input").val();
     var oldtag = $("#tag").text();
     if (msg.trim()) {
+      generate_message(msg, "self");
+
       $.get("/get", { msg: msg }).done(function (data) {
         console.log(data);
         //myData = JSON.parse(data)
         var response = linkify(String(data.response));
         var tag = data.tag;
-        if (tag != "lời chào" && tag != "cảm xúc" && tag != oldtag) {
+        if (tag != "lời chào" && tag != "cảm xúc" && tag != oldtag && tag != "None") {
           $("#tag").text(tag).trigger("change");
         }
-        generate_message(msg, "self");
-
+  
         setTimeout(function () {
           generate_message(response, "user");
         }, 1000);
@@ -55,10 +56,26 @@ $(function () {
         var element = document.querySelectorAll( 'img' );
           console.log(element)
           Intense( element );
+
+          $(".layer p").on('click', function() {
+            var msg = $(this).text() ;
+            console.log(msg)
+            generate_message(msg, "self");
+      
+            $.get("/get", { msg: msg }).done(function (data) {
+              var response = linkify(String(data.response));
+        
+              setTimeout(function () {
+                generate_message(response, "user");
+              }, 1000);
+            });
+          });
       });
+
+      
     });
 
-    
+  
   });
 
   function generate_message(msg, type) {

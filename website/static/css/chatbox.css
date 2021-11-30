@@ -84,12 +84,13 @@ html, body {
   bottom: 0;
   right: 0;
   position: absolute;
+  margin-bottom:10px;
   z-index: -1;   
 }
 #chat-input {
   background: #f4f7f9;
   width:100%; 
-  position:absolute;
+  position:relative;
   bottom:0;
   height:47px;  
   padding-top:15px;
@@ -137,6 +138,7 @@ html, body {
   padding:15px; 
   height:370px;
   overflow-y:scroll;
+  margin-bottom:15px;
 }
 
 .chat-logs::-webkit-scrollbar-track
