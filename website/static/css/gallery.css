@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata|Source+Sans+Pro:200,300,400,600');
+@import url("https://fonts.googleapis.com/css?family=Inconsolata|Source+Sans+Pro:200,300,400,600");
 
 body {
   height: 100vh;
@@ -6,15 +6,13 @@ body {
   flex-direction: column;
   justify-content: left;
   align-items: left;
-  background: #E0E0E0;
-  background-size: cover;   -ms-background-size: cover;   -o-background-size: cover;   -moz-background-size: cover;   -webkit-background-size: cover; 
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  
+  background: #e0e0e0;
+  padding-left: 20px;
+  padding-right: 0px;
 }
 
 h1 {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 32px;
   color: 0000;
   font-weight: 300;
@@ -22,17 +20,17 @@ h1 {
 }
 
 h2 {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 22px;
-    color: 0000;
-    font-weight: 300;
-    letter-spacing: 2px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 22px;
+  color: 0000;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .wrapper {
   display: flex;
-  width:80%;
-  justify-content: left;
+  width: 80%;
+  justify-content: center;
   align-items: center;
   > * {
     margin: 5px;
@@ -47,17 +45,26 @@ h2 {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  img {
-      max-width:100%;
-      max-height:100%;
-      vertical-align: middle;
-    }
+  background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+.media img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  cursor: -webkit-zoom-in;
 }
 
 .full {
-    display:inline-block;
-    width: fit-content;
-    height: fit-content;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
 }
 
 .layer {
@@ -67,41 +74,42 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 10px;
-  height: 90%;
-  background: #FFF;
-  color: #151E3F;
+  height: 20%;
+  background: #fff;
+  color: #151e3f;
   transition: all 0.9s ease;
-  p {
-    transition: all 0.9s ease;
-    transform: scale(0.1)
-  }
+}
+.layer p {
+  transition: all 0.9s ease;
+  transform: scale(0.1);
 }
 
 p {
-  font-family: 'Inconsolata', monospace;
+  font-family: "Inconsolata", monospace;
   text-align: center;
   font-size: 15px;
-  letter-spacing:1px;
+  letter-spacing: 1px;
 }
 
 .media:hover .layer {
   opacity: 0.8;
   width: 90%;
   transition: all 0.5s ease;
-  p {
-    transform: scale(1);
-    transition: all 0.9s ease;
-  }
 }
 
-@media (max-width: 800px){
+.media:hover .layer p {
+  transform: scale(1);
+  transition: all 0.9s ease;
+}
+
+@media (max-width: 800px) {
   body {
     transform: scale(0.6);
   }
 }
 
 @media (max-width: 600px) {
-    .wrapper {
+  .wrapper {
     display: block;
     > * {
       margin: 10px;

@@ -12,10 +12,15 @@ $(function () {
         //myData = JSON.parse(data)
         var response = linkify(String(data.response));
         var tag = data.tag;
-        if (tag != "lời chào" && tag != "cảm xúc" && tag != oldtag && tag != "None") {
+        if (
+          tag != "lời chào" &&
+          tag != "cảm xúc" &&
+          tag != oldtag &&
+          tag != "None"
+        ) {
           $("#tag").text(tag).trigger("change");
         }
-  
+
         setTimeout(function () {
           generate_message(response, "user");
         }, 1000);
@@ -49,33 +54,29 @@ $(function () {
             str += "\n";
           }
         }
-        
+
         $("#prepare-paper").append(str);
         $("#to-khai").append(tokhai);
 
-        var element = document.querySelectorAll( 'img' );
-          console.log(element)
-          Intense( element );
+        var element = document.querySelectorAll("img");
+        console.log(element);
+        Intense(element);
 
-          $(".layer p").on('click', function() {
-            var msg = $(this).text() ;
-            console.log(msg)
-            generate_message(msg, "self");
-      
-            $.get("/get", { msg: msg }).done(function (data) {
-              var response = linkify(String(data.response));
-        
-              setTimeout(function () {
-                generate_message(response, "user");
-              }, 1000);
-            });
+        $(".layer").on("click", function () {
+          var msg = $(this).text();
+          console.log(msg);
+          generate_message(msg, "self");
+
+          $.get("/get", { msg: msg }).done(function (data) {
+            var response = linkify(String(data.response));
+
+            setTimeout(function () {
+              generate_message(response, "user");
+            }, 1000);
           });
+        });
       });
-
-      
     });
-
-  
   });
 
   function generate_message(msg, type) {
