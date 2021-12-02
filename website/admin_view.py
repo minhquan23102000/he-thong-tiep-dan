@@ -8,8 +8,8 @@ from flask_login.utils import login_user
 from sqlalchemy.sql.expression import column, text
 from sqlalchemy.sql.functions import user
 from . import db
-from .models import UnknownStatement, User, Role
-from chatbot.models import Statement, Tag
+from .models import User, Role
+from chatbot.models import Statement, Tag, UnknownStatement
 import os.path as op
 import yaml
 from definition import ROOT_PATH
@@ -68,12 +68,12 @@ class MyModelView(ModelView):
    
 
 class UnknownStatementView(MyModelView):
-    column_list = ('question', 'answer', 'create_at')
-    form_edit_rules  = ('question', 'answer')
-    form_create_rules = ('question', 'answer')
+    column_list = ('question', 'answer', 'create_at', 'tag')
+    form_edit_rules  = ('question', 'answer', 'tag')
     column_labels = {'question': 'người dùng hỏi',
                      'answer': 'chatbot trả lời',
-                     'create_at': 'ngày hỏi'}
+                     'create_at': 'thời điểm hỏi',
+                     'tag': 'ngữ cảnh'}
     
     can_create = False
     
@@ -104,6 +104,7 @@ class BotTrainFileView(FileAdmin):
     
     
     can_delete=False
+    can_edit = True
     
     @action('train_file', 'Train', 'Bạn có chắc là train chatbot với mấy file (s) đã chọn?')
     def action_train_file(self, ids):

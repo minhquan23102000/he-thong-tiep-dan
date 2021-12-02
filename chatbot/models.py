@@ -1,5 +1,5 @@
 from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declared_attr, declarative_base
 
@@ -55,6 +55,16 @@ class Tag(Base):
     def __unicode__(self):
         return self.name
 
+
+class UnknownStatement(Base):
+    question = Column(String(255), nullable=False)
+    answer = Column(String(255))
+    tag_id = Column(Integer(), ForeignKey('tag.id'))
+    tag = relationship('Tag', backref=backref('unknowstatements', lazy='dynamic'))
+    create_at = Column(DateTime(timezone=True), default=func.now())
+    
+    def __repr__(self) -> str:
+        return f'<UnknowStatement {self.question}>'  
 
 class Statement(Base, StatementMixin):
     """

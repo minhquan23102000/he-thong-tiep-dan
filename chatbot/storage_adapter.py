@@ -1,6 +1,7 @@
 from chatterbot.storage.sql_storage import SQLStorageAdapter
 from .tag import VietnameseTager
 
+
 class MySQLStorageAdapter(SQLStorageAdapter):
     """
     The SQLStorageAdapter allows ChatterBot to store conversation
@@ -47,19 +48,23 @@ class MySQLStorageAdapter(SQLStorageAdapter):
 
         self.Session = sessionmaker(bind=self.engine, expire_on_commit=True)
 
-        
-        def get_statement_model(self):
-            """
-            Return the statement model.
-            """
-            from chatbot.models import Statement
-            return Statement
+    def get_statement_model(self):
+        """
+        Return the statement model.
+        """
+        from chatbot.models import Statement
+        return Statement
 
-        def get_tag_model(self):
-            """
-            Return the conversation model.
-            """
-            from chatbot.models import Tag
-            return Tag
+    def get_tag_model(self):
+        """
+        Return the conversation model.
+        """
+        from chatbot.models import Tag
+        return Tag
 
-
+    def create_database(self):
+        """
+        Populate the database with the tables.
+        """
+        from chatbot.models import Base
+        Base.metadata.create_all(self.engine)

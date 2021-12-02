@@ -1,9 +1,6 @@
 from flask import Blueprint, render_template, request, flash, request, Response
 import requests
-from chatbot import bot
 from chatbot.bot import chatbot_reponse
-from . import db
-from .models import UnknownStatement
 from . import secret
 import json
 from flask import jsonify

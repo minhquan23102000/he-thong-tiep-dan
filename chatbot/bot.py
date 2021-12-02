@@ -37,7 +37,7 @@ def __train__(filePath):
 
 def chatbot_reponse(msg: str, oldtag: str = None):
     from website import db
-    from website.models import UnknownStatement
+    from .models import UnknownStatement
     # Check message lem
     if len(msg) > 255:
         return {'response': 'Dài quá!!', 'tag': 'None'}
@@ -60,10 +60,17 @@ def chatbot_reponse(msg: str, oldtag: str = None):
     else:
         reponse = reponse.text
 
+
     # Google search this paper if bot does not know about it
     flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn',
                   'giấy phép', 'đăng ký', 'văn bản', 'biên bản']
     if reponse == DEFAULT_REPONSE:
+        # Store question to database if bot has not learned it yet
+        unknownStatement = UnknownStatement(question=msg)
+        db.session.add(unknownStatement)
+        db.session.commit()
+        
+         # Google search this paper if bot does not know about it
         from pyvi import ViTokenizer
         words = ViTokenizer.tokenize(msg)
         if any(w.replace('_', ' ').lower() in flag_words for w in words.split(' ')):
@@ -75,15 +82,10 @@ def chatbot_reponse(msg: str, oldtag: str = None):
                 reponse = f'{DEFAULT_REPONSE} Nhưng mình nghĩ bạn có thể tham khảo thêm tại đây: {url}'
             except Exception as e:
                 reponse = DEFAULT_REPONSE
+        else:
+            reponse = get_unknow_reponse()
 
-    # Get random choice for default reponse
-    if reponse == DEFAULT_REPONSE:
-        # Store question to database if bot has not learned it yet
-        unknownStatement = UnknownStatement(question=msg)
-        db.session.add(unknownStatement)
-        db.session.commit()
-        # Get unknown reponse
-        reponse = get_unknow_reponse()
+ 
 
     response_data = {'response': reponse,
                      'tag': tag}

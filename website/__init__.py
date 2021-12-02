@@ -23,7 +23,7 @@ def create_app():
     #Connect db to app
     db.init_app(app)
     
-    #Init database, only run it once
+    #Init database, only run it once or run when create new models
     #init_database(app)
     
     #Init api
@@ -56,17 +56,16 @@ def create_app():
 def admin_setting(app):
     #Import model
     from website.admin_view import MyModelView
-    from .models import UnknownStatement
     from .admin_view import UnknownStatementView, BotTrainFileView, MyAdminIndexView, RelearnView, MyStatementView
-    from chatbot.models import Statement, Tag
+    from chatbot.models import Statement, Tag, UnknownStatement
     #Admin setting
     admin = Admin(app, name = "Hệ thống quản lý dành cho cán bộ", template_mode='bootstrap4', index_view=MyAdminIndexView())
     
     #Unknow statement view, view store all message that the chatbot did not know
     admin.add_view(UnknownStatementView(UnknownStatement, db.session, name='Các câu chưa học'))
     #Corpus manager view, we can add a new file corpus and train it
-    path = op.join(ROOT_PATH, 'chatbot/corpus')
-    admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Dữ liệu huấn luyện'))
+    # path = op.join(ROOT_PATH, 'chatbot/corpus')
+    # admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Dữ liệu huấn luyện'))
     #RelearnView, view manager all the statements chatbot has learned.
     admin.add_view(RelearnView(Tag, db.session, name="Quản lý ngữ cảnh"))
     admin.add_view(MyStatementView(Statement, db.session, endpoint='statement', name = 'Huấn luyện chatbot'))
@@ -75,11 +74,12 @@ def admin_setting(app):
 
 def init_database(app):
     #Import model
-    from .models import UnknownStatement, User, Role
+    from .models import  User, Role
+    from chatbot.models import Statement, Tag, UnknownStatement
     with app.app_context():
         db.create_all(app=app)
         
-    check = input("tạo test data? Y:N\n")
+    check = input("tạo test data cho tài khoản admin? Y:N\n")
     if (check == "Y"):
         from werkzeug.security import generate_password_hash
         with app.app_context():
