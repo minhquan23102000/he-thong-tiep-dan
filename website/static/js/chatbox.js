@@ -4,10 +4,11 @@ $(function () {
     e.preventDefault();
     var msg = $("#chat-input").val();
     var oldtag = $("#tag").text();
+
     if (msg.trim()) {
       generate_message(msg, "self");
 
-      $.get("/get", { msg: msg }).done(function (data) {
+      $.get("/get", { msg: msg, oldtag: oldtag}).done(function (data) {
         console.log(data);
         //myData = JSON.parse(data)
         var response = linkify(String(data.response));
@@ -16,7 +17,7 @@ $(function () {
           tag != "lời chào" &&
           tag != "cảm xúc" &&
           tag != oldtag &&
-          tag != "None"
+          tag != "none"
         ) {
           $("#tag").text(tag).trigger("change");
         }
@@ -59,15 +60,15 @@ $(function () {
         $("#to-khai").append(tokhai);
 
         var element = document.querySelectorAll("img");
-        console.log(element);
         Intense(element);
 
         $(".layer").on("click", function () {
+          var oldtag = $("#tag").text();
           var msg = $(this).text();
           console.log(msg);
           generate_message(msg, "self");
 
-          $.get("/get", { msg: msg }).done(function (data) {
+          $.get("/get", { msg: msg, oldtag: oldtag }).done(function (data) {
             var response = linkify(String(data.response));
 
             setTimeout(function () {

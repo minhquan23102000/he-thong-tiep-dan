@@ -21,9 +21,11 @@ temp_db = {
         {'title': 'to_khai', 'src': '/static/img/to_khai_khai_sinh.jpg'}
     ],
     'đăng ký kết hôn': [
-        {'title': 'giấy tờ tùy thân vợ/chồng ', 'src': '/static/img/giay_tuy_than.jpg'},
+        {'title': 'giấy tờ tùy thân vợ/chồng ',
+            'src': '/static/img/giay_tuy_than.jpg'},
         {'title': 'to_khai', 'src': '/static/img/to_khai_ket_hon.jpg'},
-        {'title': 'giấy xác nhận tình trạng hôn nhân', 'src': '/static/img/giay_xac_nhan_tinh_trang_hon_nhan.jpg'}
+        {'title': 'giấy xác nhận tình trạng hôn nhân',
+            'src': '/static/img/giay_xac_nhan_tinh_trang_hon_nhan.jpg'}
     ],
     'khai sinh lại': [
         {'title': 'giấy tờ tùy thân', 'src': '/static/img/giay_tuy_than.jpg'},
@@ -46,7 +48,9 @@ def home():
 @views.route('/get')
 def get_bot_response():
     userText = request.args.get('msg')
-    reponse = chatbot_reponse(str(userText))
+    oldtag = request.args.get('oldtag')
+
+    reponse = chatbot_reponse(str(userText), oldtag)
     return jsonify(reponse)
 
 

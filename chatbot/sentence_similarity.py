@@ -47,6 +47,10 @@ class VietnameseJaccardSimilarity(Comparator):
         numerator = len(statement_a_lemmas.intersection(statement_b_lemmas))
         denominator = float(len(statement_a_lemmas.union(statement_b_lemmas)))
         ratio = numerator / denominator
+        
+        if any(a_tags in statement_b.get_tags() for a_tags in statement_a.get_tags()) and ratio < 1:
+            ratio += 0.05
+        
         return ratio
 
         
@@ -103,16 +107,21 @@ class VietnameseCosineSimilarity(Comparator):
         """
         from sklearn.feature_extraction.text import TfidfVectorizer
         from sklearn.metrics.pairwise import cosine_similarity
-
+        
         statement_a_bag_words = self.get_bag_words(statement_a.text.lower())
         statement_b_bag_words = self.get_bag_words(statement_b.text.lower())
 
+        #Caculate tfidf cosine similarity
         tfidf = TfidfVectorizer(token_pattern=r'\S+')
         content = [' '.join(statement_a_bag_words), ' '.join(statement_b_bag_words)]
         matrix = tfidf.fit_transform(content)
-     #   print(content, f'confidence {cosine_similarity(matrix[0], matrix[1])[0][0]}')
+        confidence = round(cosine_similarity(matrix[0], matrix[1])[0][0],2)
 
-        return round(cosine_similarity(matrix[0], matrix[1])[0][0],2)
+        #If any statement has oldtags value, add 5% confidence to it
+        if any(a_tags in statement_b.get_tags() for a_tags in statement_a.get_tags()) and confidence < 1:
+            confidence += 0.05
+            
+        return confidence
 
         
 
