@@ -48,7 +48,7 @@ class VietnameseJaccardSimilarity(Comparator):
         denominator = float(len(statement_a_lemmas.union(statement_b_lemmas)))
         ratio = numerator / denominator
         
-        if any(a_tags in statement_b.get_tags() for a_tags in statement_a.get_tags()) and ratio < 1:
+        if any(a_tags in statement_b.get_tags() for a_tags in statement_a.get_tags()) and ratio < 0.95:
             ratio += 0.05
         
         return ratio
@@ -118,7 +118,7 @@ class VietnameseCosineSimilarity(Comparator):
         confidence = round(cosine_similarity(matrix[0], matrix[1])[0][0],2)
 
         #If any statement has oldtags value, add 5% confidence to it
-        if any(a_tags in statement_b.get_tags() for a_tags in statement_a.get_tags()) and confidence < 1:
+        if any(a_tags in statement_b.get_tags() for a_tags in statement_a.get_tags()) and confidence < 0.95:
             confidence += 0.05
             
         return confidence
