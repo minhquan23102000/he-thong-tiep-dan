@@ -8,7 +8,6 @@ alô
 amen
 anh
 anh ấy
-ba
 ba ba
 ba bản
 ba cùng
@@ -159,7 +158,6 @@ cao số
 cao thấp
 cao thế
 cao xa
-cha
 cha chả
 chao ôi
 chia sẻ
@@ -293,7 +291,6 @@ chứ như
 chứ sao
 coi bộ
 coi mòi
-con
 con con
 con dạ
 con nhà
@@ -937,7 +934,6 @@ nhất tâm
 nhất tề
 nhất đán
 nhất định
-nhận
 nhận biết
 nhận họ
 nhận làm
@@ -1222,7 +1218,6 @@ sắp đặt
 sẽ
 sẽ biết
 sẽ hay
-số
 số cho biết
 số cụ thể
 số loại
@@ -1912,14 +1907,12 @@ yêu cầu
 ừ ào
 ừ ừ
 ử
-thủ tục
-giấy
-giấy tờ
 điền
 ghi
 viết
 mục
 dòng
+ok
 ô
 :
 -
