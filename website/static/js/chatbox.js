@@ -21,16 +21,15 @@ $(function () {
         send_message(transcript);
       };
 
-      this.speechApi.onstart = function() { 
+      this.speechApi.onstart = function () {
         $("#speech-icon").text("mic_none");
         ISSPEECH = true;
-      }
-      
-      this.speechApi.onspeechend = function() {
+      };
+
+      this.speechApi.onspeechend = function () {
         $("#speech-icon").text("mic_off");
-        ISSPEECH=false;
-      }
-    
+        ISSPEECH = false;
+      };
     }
     init() {
       this.speechApi.start();
@@ -89,7 +88,9 @@ $(function () {
 
         $.get("/get", { msg: msg, oldtag: oldtag }).done(function (data) {
           var response = linkify(String(data.response));
-
+          
+          text2Speech.text = response;
+          speechSynthesis.speak(text2Speech);
           setTimeout(function () {
             generate_message(response, "user");
           }, 1000);
@@ -97,11 +98,12 @@ $(function () {
       });
     });
   });
-
-  // Speech recoginition
-  var speech = new SpeechRecognitionApi({
-  });
+  // Text to speech
+  var text2Speech = new SpeechSynthesisUtterance();
+  text2Speech.lang = "vi-VN";
   
+  // Speech recoginition
+  var speech = new SpeechRecognitionApi({});
 
   $("#speech").click(function (e) {
     e.preventDefault();
@@ -228,7 +230,9 @@ $(function () {
         ) {
           $("#tag").text(tag).trigger("change");
         }
-
+        
+        text2Speech.text = response;
+        speechSynthesis.speak(text2Speech);
         setTimeout(function () {
           generate_message(response, "user");
         }, 1000);
