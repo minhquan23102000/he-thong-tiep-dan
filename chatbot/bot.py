@@ -66,7 +66,8 @@ def chatbot_reponse(msg: str, oldtag: str = None):
     if reponse == DEFAULT_REPONSE:
         # Store question to database if bot has not learned it yet
         unknownStatement = UnknownStatement(question=msg)
-        unknownStatement.tag = Tag(name=oldtag)
+        tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
+        unknownStatement.tag_id = tag_db.id
         db.session.add(unknownStatement)
         db.session.commit()
 

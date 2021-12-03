@@ -1,83 +1,120 @@
 $(function () {
+  var ISSPEECH = false;
+  class SpeechRecognitionApi {
+    constructor(options) {
+      const SpeechToText =
+        window.speechRecognition || window.webkitSpeechRecognition;
+      this.speechApi = new SpeechToText();
+      this.speechApi.continuous = false;
+      this.speechApi.interimResults = false;
+      this.speechApi.lang = "vi-VN";
+      this.output = options.output
+        ? options.output
+        : document.createElement("div");
+      this.speechApi.onresult = (event) => {
+        console.log(event);
+        var resultIndex = event.resultIndex;
+        var transcript = event.results[resultIndex][0].transcript;
+
+        console.log("transcript>>", transcript);
+        console.log(this.output);
+        send_message(transcript);
+      };
+
+      this.speechApi.onstart = function() { 
+        $("#speech-icon").text("mic_none");
+        ISSPEECH = true;
+      }
+      
+      this.speechApi.onspeechend = function() {
+        $("#speech-icon").text("mic_off");
+        ISSPEECH=false;
+      }
+    
+    }
+    init() {
+      this.speechApi.start();
+    }
+    stop() {
+      this.speechApi.stop();
+    }
+  }
+
   var INDEX = 1;
   $("#chat-submit").click(function (e) {
     e.preventDefault();
     var msg = $("#chat-input").val();
-    var oldtag = $("#tag").text();
+    send_message(msg);
+  });
 
-    if (msg.trim()) {
-      generate_message(msg, "self");
+  //Tag change event
+  $("#tag").change(function () {
+    var newtag = $("#tag").text();
+    $.get("/get-img", { tag: newtag }).done(function (data) {
+      $("#prepare-paper").empty();
+      $("#to-khai").empty();
+      if (Object.keys(data).length === 0) {
+        return 0;
+      }
 
-      $.get("/get", { msg: msg, oldtag: oldtag}).done(function (data) {
-        console.log(data);
-        //myData = JSON.parse(data)
-        var response = linkify(String(data.response));
-        var tag = data.tag;
-        if (
-          tag != "lời chào" &&
-          tag != "cảm xúc" &&
-          tag != oldtag &&
-          tag != "none"
-        ) {
-          $("#tag").text(tag).trigger("change");
+      var str = "";
+      var tokhai = "";
+      for (const element of data) {
+        if (element.title == "to_khai") {
+          tokhai += "<div class='media full'> ";
+          tokhai += "<div class = 'layer'>";
+          tokhai += "<p>" + "Tờ khai " + newtag + "</p>" + "</div>";
+          tokhai += "<img " + "src='" + element.src + "' alt='' />" + "</div>";
+          tokhai += "\n";
+        } else {
+          str += "<div class='media'> ";
+          str += "<div class = 'layer'>";
+          str += "<p>" + element.title + "</p>" + "</div>";
+          str += "<img " + "src='" + element.src + "' alt='' />" + "</div>";
+          str += "\n";
         }
+      }
 
-        setTimeout(function () {
-          generate_message(response, "user");
-        }, 1000);
-      });
-    }
+      $("#prepare-paper").append(str);
+      $("#to-khai").append(tokhai);
 
-    $("#tag").change(function () {
-      var newtag = $("#tag").text();
-      $.get("/get-img", { tag: newtag }).done(function (data) {
-        $("#prepare-paper").empty();
-        $("#to-khai").empty();
-        if (Object.keys(data).length === 0) {
-          return 0;
-        }
+      var element = document.querySelectorAll("img");
+      Intense(element);
 
-        var str = "";
-        var tokhai = "";
-        for (const element of data) {
-          if (element.title == "to_khai") {
-            tokhai += "<div class='media full'> ";
-            tokhai += "<div class = 'layer'>";
-            tokhai += "<p>" + "Tờ khai " + newtag + "</p>" + "</div>";
-            tokhai +=
-              "<img " + "src='" + element.src + "' alt='' />" + "</div>";
-            tokhai += "\n";
-          } else {
-            str += "<div class='media'> ";
-            str += "<div class = 'layer'>";
-            str += "<p>" + element.title + "</p>" + "</div>";
-            str += "<img " + "src='" + element.src + "' alt='' />" + "</div>";
-            str += "\n";
-          }
-        }
+      $(".layer").on("click", function () {
+        var oldtag = $("#tag").text();
+        var msg = $(this).text();
+        console.log(msg);
+        generate_message(msg, "self");
 
-        $("#prepare-paper").append(str);
-        $("#to-khai").append(tokhai);
+        $.get("/get", { msg: msg, oldtag: oldtag }).done(function (data) {
+          var response = linkify(String(data.response));
 
-        var element = document.querySelectorAll("img");
-        Intense(element);
-
-        $(".layer").on("click", function () {
-          var oldtag = $("#tag").text();
-          var msg = $(this).text();
-          console.log(msg);
-          generate_message(msg, "self");
-
-          $.get("/get", { msg: msg, oldtag: oldtag }).done(function (data) {
-            var response = linkify(String(data.response));
-
-            setTimeout(function () {
-              generate_message(response, "user");
-            }, 1000);
-          });
+          setTimeout(function () {
+            generate_message(response, "user");
+          }, 1000);
         });
       });
     });
+  });
+
+  // Speech recoginition
+  var speech = new SpeechRecognitionApi({
+  });
+  
+
+  $("#speech").click(function (e) {
+    e.preventDefault();
+
+    if (!ISSPEECH) {
+      speech.init();
+      $("#speech-icon").text("mic_none");
+      ISSPEECH = true;
+    } else {
+      speech.stop();
+      $("#speech-icon").text("mic_off");
+      ISSPEECH = false;
+    }
   });
 
   function generate_message(msg, type) {
@@ -172,32 +209,61 @@ $(function () {
     $("#chat-circle").toggle("scale");
     $(".chat-box").toggle("scale");
   });
+
+  function send_message(msg) {
+    var oldtag = $("#tag").text();
+    if (msg.trim()) {
+      generate_message(msg, "self");
+
+      $.get("/get", { msg: msg, oldtag: oldtag }).done(function (data) {
+        console.log(data);
+        //myData = JSON.parse(data)
+        var response = linkify(String(data.response));
+        var tag = data.tag;
+        if (
+          tag != "lời chào" &&
+          tag != "cảm xúc" &&
+          tag != oldtag &&
+          tag != "none"
+        ) {
+          $("#tag").text(tag).trigger("change");
+        }
+
+        setTimeout(function () {
+          generate_message(response, "user");
+        }, 1000);
+      });
+    }
+  }
+
+  function linkify(inputText) {
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+    //URLs starting with http://, https://, or ftp://
+    replacePattern1 =
+      /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(
+      replacePattern1,
+      '<a href="$1" target="_blank">$1</a>'
+    );
+
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    replacedText = replacedText.replace(
+      replacePattern2,
+      '$1<a href="http://$2" target="_blank">$2</a>'
+    );
+
+    //Change email addresses to mailto:: links.
+    replacePattern3 =
+      /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+    replacedText = replacedText.replace(
+      replacePattern3,
+      '<a href="mailto:$1">$1</a>'
+    );
+
+    return replacedText;
+  }
+
+  /////==========script end point==============////
 });
-
-function linkify(inputText) {
-  var replacedText, replacePattern1, replacePattern2, replacePattern3;
-
-  //URLs starting with http://, https://, or ftp://
-  replacePattern1 =
-    /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-  replacedText = inputText.replace(
-    replacePattern1,
-    '<a href="$1" target="_blank">$1</a>'
-  );
-
-  //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-  replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-  replacedText = replacedText.replace(
-    replacePattern2,
-    '$1<a href="http://$2" target="_blank">$2</a>'
-  );
-
-  //Change email addresses to mailto:: links.
-  replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
-  replacedText = replacedText.replace(
-    replacePattern3,
-    '<a href="mailto:$1">$1</a>'
-  );
-
-  return replacedText;
-}
