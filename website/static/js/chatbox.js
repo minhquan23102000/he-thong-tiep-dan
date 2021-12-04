@@ -89,7 +89,7 @@ $(function () {
         $.get("/get", { msg: msg, oldtag: oldtag }).done(function (data) {
           var response = linkify(String(data.response));
 
-          text2Speech.text = response;
+          text2Speech.text = clean_url(response);
           speechSynthesis.speak(text2Speech);
 
           generate_message(response, "user");
@@ -230,7 +230,7 @@ $(function () {
           $("#tag").text(tag).trigger("change");
         }
 
-        text2Speech.text = response;
+        text2Speech.text = clean_url(response);
         speechSynthesis.speak(text2Speech);
 
         generate_message(response, "user");
@@ -265,6 +265,10 @@ $(function () {
     );
 
     return replacedText;
+  }
+  function clean_url(inputText){
+    inputText = String(inputText)
+    return inputText.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
   }
 
   /////==========script end point==============////
