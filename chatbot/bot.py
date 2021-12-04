@@ -5,7 +5,7 @@ from chatterbot.response_selection import get_random_response
 from chatbot.sentence_similarity import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
 from website.config import SQLALCHEMY_DATABASE_URI
 from .models import Statement
-
+import langid
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
@@ -65,11 +65,12 @@ def chatbot_reponse(msg: str, oldtag: str = None):
                   'giấy phép', 'đăng ký', 'văn bản', 'biên bản']
     if reponse == DEFAULT_REPONSE:
         # Store question to database if bot has not learned it yet
-        unknownStatement = UnknownStatement(question=msg)
-        tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
-        unknownStatement.tag_id = tag_db.id
-        db.session.add(unknownStatement)
-        db.session.commit()
+        if (langid.classify(msg)[0] in ['en', 'vi']):
+            unknownStatement = UnknownStatement(question=msg)
+            tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
+            unknownStatement.tag_id = tag_db.id
+            db.session.add(unknownStatement)
+            db.session.commit()
 
         # Google search this paper if bot does not know about it
         from pyvi import ViTokenizer
