@@ -3,6 +3,7 @@ html, body {
   background: #efefef;      
   height:100%;  
   font-size:18px;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 #chat-circle {
