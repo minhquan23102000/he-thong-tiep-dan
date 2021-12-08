@@ -30,6 +30,17 @@ $(function () {
         $("#speech-icon").text("mic_off");
         ISSPEECH = false;
       };
+
+      this.speechApi.onnomatch = function() {
+        $("#speech-icon").text("mic_off");
+        ISSPEECH = false;
+        generate_message("Bạn có thể nói rõ hơn được không?", 'user');
+        this.stop();
+      }
+      this.speechApi.onaudioend = function() {
+        $("#speech-icon").text("mic_off");
+        ISSPEECH = false;
+      }
     }
     init() {
       this.speechApi.start();

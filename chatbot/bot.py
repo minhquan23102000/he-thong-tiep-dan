@@ -40,7 +40,7 @@ def chatbot_reponse(msg: str, oldtag: str = None):
     from .models import UnknownStatement, Tag
     # Check message lem
     if len(msg) > 255:
-        return {'response': 'Dài quá!!', 'tag': 'None'}
+        return {'response': 'Dài quá!!', 'tag': 'none'}
 
     # Get reponse from bot
     if not oldtag:
@@ -55,7 +55,7 @@ def chatbot_reponse(msg: str, oldtag: str = None):
     else:
         tag = tag[0]
 
-    if reponse.confidence <= 0.2:
+    if reponse.confidence < 0.25:
         reponse = DEFAULT_REPONSE
     else:
         reponse = reponse.text
@@ -68,7 +68,8 @@ def chatbot_reponse(msg: str, oldtag: str = None):
         if (langid.classify(msg)[0] in ['en', 'vi']):
             unknownStatement = UnknownStatement(question=msg)
             tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
-            unknownStatement.tag_id = tag_db.id
+            if (tag_db):
+                unknownStatement.tag_id = tag_db.id
             db.session.add(unknownStatement)
             db.session.commit()
 
