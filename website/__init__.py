@@ -34,13 +34,13 @@ def create_app():
     init_login(app)
 
    # Retrain chatbot
-    from chatbot import bot
-    check = ""
-    while (check != 'Y' and check != 'N'):
-        check = input("Train lại chatbot? Y:N\n")
-        if (check == "Y"):
-            bot.Sonny.storage.drop()
-            bot.__retrain__()
+    # from chatbot import bot
+    # check = ""
+    # while (check != 'Y' and check != 'N'):
+    #     check = input("Train lại chatbot? Y:N\n")
+    #     if (check == "Y"):
+    #         bot.Sonny.storage.drop()
+    #         bot.__retrain__()
 
     # User setting
     from .views import views
