@@ -65,7 +65,9 @@ def chatbot_reponse(msg: str, oldtag: str = None):
                   'giấy phép', 'đăng ký', 'văn bản', 'biên bản']
     if reponse == DEFAULT_REPONSE:
         # Store question to database if bot has not learned it yet
-        if (langid.classify(msg)[0] in ['en', 'vi']):
+        msg_lang = langid.classify(msg)[0]
+        if msg_lang in ['vi']:
+            print(msg_lang)
             unknownStatement = UnknownStatement(question=msg)
             tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
             if (tag_db):

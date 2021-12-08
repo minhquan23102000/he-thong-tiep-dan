@@ -84,7 +84,7 @@ class UnknownStatementView(MyModelView):
         count = 0
         for _id in ids:
             # Do some work with the id, e.g. call a service method
-            learningSentence = UnknownStatement.query.filter_by(id=_id).first()
+            learningSentence = db.session.query(UnknownStatement).filter_by(id=_id).first()
             if not learningSentence.answer:
                 continue
             question = Statement(text=learningSentence.question)
@@ -137,6 +137,7 @@ class BotTrainFileView(FileAdmin):
 
 class RelearnView(MyModelView):
     can_delete = False
+    form_columns = ('name',)
 
     edit_template = 'admin/relearn_model.html'
 

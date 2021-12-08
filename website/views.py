@@ -26,7 +26,8 @@ temp_db = {
     ],
     'khai sinh lại': [
         {'title': 'giấy tờ tùy thân', 'src': '/static/img/giay_tuy_than.jpg'},
-        {'title': 'to_khai', 'src': '/static/img/to_khai_khai_sinh.jpg'},
+        {'title': 'to_khai', 'src': '/static/img/to_khai_khai_sinh_lai.jpg'},
+        {'title': 'sổ thường trú', 'src': '/static/img/cm_noi_o.jpg'},
         {'title': 'bản sao khai sinh', 'src': '/static/img/trich_luc_khai_sinh.jpg'}
     ],
     'Đăng ký thường trú': [
