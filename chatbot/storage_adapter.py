@@ -68,3 +68,21 @@ class MySQLStorageAdapter(SQLStorageAdapter):
         """
         from chatbot.models import Base
         Base.metadata.create_all(self.engine)
+
+    def drop(self):
+        """
+        Drop the database.
+        """
+        from chatbot.models import UnknownStatement, tag_association_table
+        Statement = self.get_model('statement')
+        Tag = self.get_model('tag')
+
+        session = self.Session()
+
+        session.query(tag_association_table).delete(synchronize_session=False)
+        session.query(Statement).delete()
+        session.query(UnknownStatement).delete()
+        session.query(Tag).delete()
+
+        session.commit()
+        session.close()
