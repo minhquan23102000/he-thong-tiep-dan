@@ -36,8 +36,6 @@ def __train__(filePath):
 
 
 def chatbot_reponse(msg: str, oldtag: str = None):
-    from website import db
-    from .models import UnknownStatement, Tag
     # Check message lem
     if len(msg) > 255:
         return {'response': 'Dài quá!!', 'tag': 'none'}
@@ -60,40 +58,50 @@ def chatbot_reponse(msg: str, oldtag: str = None):
     else:
         reponse = reponse.text
 
-    # Google search this paper if bot does not know about it
-    flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn',
-                  'giấy phép', 'đăng ký', 'văn bản', 'biên bản']
     if reponse == DEFAULT_REPONSE:
         # Store question to database if bot has not learned it yet
-        msg_lang = langid.classify(msg)[0]
-        if msg_lang in ['vi']:
-            print(msg_lang)
-            unknownStatement = UnknownStatement(question=msg)
-            tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
-            if (tag_db):
-                unknownStatement.tag_id = tag_db.id
-            db.session.add(unknownStatement)
-            db.session.commit()
+        store_unknow_question(msg, oldtag)
 
         # Google search this paper if bot does not know about it
-        from pyvi import ViTokenizer
-        words = ViTokenizer.tokenize(msg)
-        if any(w.replace('_', ' ').lower() in flag_words for w in words.split(' ')):
-            from googlesearch import search
-            # Make a request to google search
-            try:
-                url = list(search(msg, tld='com', lang='vi', num=1,
-                           stop=1, pause=2, country='vi'))[0]
-                reponse = f'{DEFAULT_REPONSE} Nhưng mình nghĩ bạn có thể tham khảo thêm tại đây: {url}'
-            except Exception as e:
-                reponse = DEFAULT_REPONSE
-        else:
-            reponse = get_unknow_reponse()
+        reponse = google_search_paper(msg)
 
     response_data = {'response': reponse,
                      'tag': tag}
     return response_data
 
+
+def store_unknow_question(msg:str, oldtag):
+    from website import db
+    from .models import UnknownStatement, Tag
+    msg_lang = langid.classify(msg)[0]
+    if msg_lang in ['vi']:
+        print(msg_lang)
+        unknownStatement = UnknownStatement(question=msg)
+        tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
+        if (tag_db):
+            unknownStatement.tag_id = tag_db.id
+        db.session.add(unknownStatement)
+        db.session.commit()
+
+def google_search_paper(msg:str):
+    # Google search this paper if bot does not know about it
+    flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn',
+                  'giấy phép', 'đăng ký', 'văn bản', 'biên bản']
+    # Google search this paper if bot does not know about it
+    from pyvi import ViTokenizer
+    words = ViTokenizer.tokenize(msg)
+    if any(w.replace('_', ' ').lower() in flag_words for w in words.split(' ')):
+        from googlesearch import search
+        # Make a request to google search
+        try:
+            url = list(search(msg, tld='com', lang='vi', num=1,
+                       stop=1, pause=2, country='vi'))[0]
+            reponse = f'{DEFAULT_REPONSE} Nhưng mình nghĩ bạn có thể tham khảo thêm tại đây: {url}'
+        except Exception as e:
+            reponse = DEFAULT_REPONSE
+    else:
+        reponse = get_unknow_reponse()
+    return reponse
 
 def get_unknow_reponse():
     import random
