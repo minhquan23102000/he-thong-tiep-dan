@@ -2,6 +2,7 @@
 {% block title %}Phòng tiếp dân{% endblock %}
 {% block head %}
   {{ super() }}
+   <link rel="stylesheet" type="text/css" href="/static/css/gallery.css" />
 {% endblock %}
 
 {% block content %}
@@ -22,46 +23,6 @@
       
     </div>
 
-      <div id="chat-circle" class="btn btn-raised">
-        <div id="chat-overlay"></div>
-        <i class="material-icons">chat</i>
-      </div>
-
-      <div class="chat-box">
-        <div class="chat-box-header">
-          Trợ lý ảo Sonny
-          <span class="chat-box-toggle"
-            ><i class="material-icons">close</i></span
-          >
-        </div>
-        <div class="chat-box-body">
-          <div class="chat-box-overlay"></div>
-          <div class="chat-logs">
-            <div id="cm-msg-0" class="chat-msg user">
-              <span class="msg-avatar"
-                ><img src="/static/img/chatbot.jpg"
-              /></span>
-              <div class="cm-msg-text">
-                Xin chào, mình là Sonny. Bạn có thể hỏi mình bất cứ điều gì về
-                dịch vụ công.
-              </div>
-            </div>
-          </div>
-          <!--chat-log -->
-        </div>
-        <div class="chat-input">
-          <form>
-            <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." />
-            <button type="submit" class="chat-submit" id="chat-submit">
-            </button>
-
-            
-          </form>
-          <button class="chat-submit" id="speech">
-            <i class="material-icons" id="speech-icon"> mic_off </i>
-          </button>
-        </div>
-      </div>
     </div>
 
   </body>
