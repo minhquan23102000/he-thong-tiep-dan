@@ -1,38 +1,13 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+{% extends "base.html" %}
+{% block title %}Phòng tiếp dân{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
 
-    <link rel="stylesheet" type="text/css" href="/static/css/chatbox.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/gallery.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <script
-      type="text/javascript"
-      src="static/plugins/jQuery/jquery-2.2.3.min.js"
-    ></script>
-    <script type="text/javascript" src="/static/js/chatbox.js"></script>
-
-
-    <script type="text/javascript" src="/static/plugins/intense/intense.js">
-     
-    </script>
-    <script type="text/javascript" src="/static/plugins/intense/intense.min.js">
-    
-    </script>
-  </head>
+{% block content %}
 
   <body>
+
     <div id="body">
 
       <h1 id ="tag"></h1>
@@ -90,4 +65,6 @@
     </div>
 
   </body>
-</html>
+{% endblock %}
+
+
