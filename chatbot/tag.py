@@ -38,21 +38,18 @@ class VietnameseTager(object):
         document = self.postag(document)
 
         for word, tag in zip(document[0], document[1]):
-            word = word.replace('_', ' ')
             word = word.lower()
             if word not in self.stopwords and tag not in self.tag_remove:
-                bigram_pairs.append('{}:{}'.format(tag, word))
+                bigram_pairs.append(word)
 
         if not bigram_pairs:
             for word, tag in zip(document[0], document[1]):
-                word = word.replace('_', ' ')
                 word = word.lower()
                 if tag not in self.tag_remove:
-                    bigram_pairs.append('{}:{}'.format(tag, word))
+                    bigram_pairs.append(word)
         if not bigram_pairs:
             for word, tag in zip(document[0], document[1]):
-                word = word.replace('_', ' ')
                 word = word.lower()
-                bigram_pairs.append('{}:{}'.format(tag, word))
+                bigram_pairs.append(word)
 
         return ' '.join(bigram_pairs)
