@@ -33,14 +33,14 @@ def create_app():
     # Init flask login
     init_login(app)
 
-   # Retrain chatbot
-    # from chatbot import bot
-    # check = ""
-    # while (check != 'Y' and check != 'N'):
-    #     check = input("Train lại chatbot? Y:N\n")
-    #     if (check == "Y"):
-    #         bot.Sonny.storage.drop()
-    #         bot.__retrain__()
+    # Retrain chatbot
+    #from chatbot import bot
+    #check = ""
+    #while (check != 'Y' and check != 'N'):
+    #    check = input("Train lại chatbot? Y:N\n")
+    #    if (check == "Y"):
+    #        bot.Sonny.storage.drop()
+    #        bot.__retrain__()
 
     # User setting
     from .views import views
@@ -58,20 +58,27 @@ def admin_setting(app):
     from .admin_view import UnknownStatementView, BotTrainFileView, MyAdminIndexView, RelearnView, MyStatementView
     from chatbot.models import Statement, Tag, UnknownStatement
     # Admin setting
-    admin = Admin(app, name="Hệ thống quản lý dành cho cán bộ",
-                  template_mode='bootstrap4', index_view=MyAdminIndexView())
+    admin = Admin(app,
+                  name="Hệ thống quản lý dành cho cán bộ",
+                  template_mode='bootstrap4',
+                  index_view=MyAdminIndexView())
 
     # Unknow statement view, view store all message that the chatbot did not know
-    admin.add_view(UnknownStatementView(UnknownStatement,
-                   db.session, name='Các câu chưa học'))
+    admin.add_view(
+        UnknownStatementView(UnknownStatement,
+                             db.session,
+                             name='Các câu chưa học'))
     # Corpus manager view, we can add a new file corpus and train it
     # path = op.join(ROOT_PATH, 'chatbot/corpus')
     # admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Dữ liệu huấn luyện'))
 
     # RelearnView, view manager all the statements chatbot has learned.
     admin.add_view(RelearnView(Tag, db.session, name="Quản lý ngữ cảnh"))
-    admin.add_view(MyStatementView(Statement, db.session,
-                   endpoint='statement', name='Huấn luyện chatbot'))
+    admin.add_view(
+        MyStatementView(Statement,
+                        db.session,
+                        endpoint='statement',
+                        name='Huấn luyện chatbot'))
 
 
 def init_database(app):
@@ -85,8 +92,10 @@ def init_database(app):
     if (check == "Y"):
         from werkzeug.security import generate_password_hash
         with app.app_context():
-            admin_user = User(email='admin', password=generate_password_hash(
-                "adminNCKH"), last_name="admin", role=Role.ADMIN)
+            admin_user = User(email='admin',
+                              password=generate_password_hash("adminNCKH"),
+                              last_name="admin",
+                              role=Role.ADMIN)
             db.session.add(admin_user)
             db.session.commit()
 
@@ -96,9 +105,7 @@ def init_api(app):
     from chatbot.bot import chatbot_reponse
 
     api = Api(app)
-    api.app.config['RESTFUL_JSON'] = {
-        'ensure_ascii': False
-    }
+    api.app.config['RESTFUL_JSON'] = {'ensure_ascii': False}
 
     class GetBotReponse(Resource):
         def get(self):

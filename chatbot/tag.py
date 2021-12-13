@@ -4,20 +4,22 @@ from chatterbot.comparisons import Comparator
 from website import STOPWORDS, TAG_REMOVE
 from .preprocessor import clean_url
 
+
 class VietnameseTager(object):
     def __init__(self):
         from pyvi import ViTokenizer, ViPosTagger
 
         self.language = languages.VIE
 
-        self.punctuation_table = str.maketrans(dict.fromkeys(string.punctuation))
+        self.punctuation_table = str.maketrans(
+            dict.fromkeys(string.punctuation))
 
         self.postag = ViPosTagger.postagging
 
         self.tokenize = ViTokenizer.tokenize
 
         self.tag_remove = TAG_REMOVE
-       
+
         self.stopwords = STOPWORDS
 
     def get_bigram_pair_string(self, text):
@@ -32,35 +34,25 @@ class VietnameseTager(object):
         #     if len(text_without_punctuation) >= 1:
         #         text = text_without_punctuation
 
-        
         document = self.tokenize(text)
         document = self.postag(document)
 
         for word, tag in zip(document[0], document[1]):
             word = word.replace('_', ' ')
+            word = word.lower()
             if word not in self.stopwords and tag not in self.tag_remove:
-                bigram_pairs.append('{}:{}'.format(
-                        tag,
-                        word
-                    ))
+                bigram_pairs.append('{}:{}'.format(tag, word))
 
         if not bigram_pairs:
             for word, tag in zip(document[0], document[1]):
                 word = word.replace('_', ' ')
+                word = word.lower()
                 if tag not in self.tag_remove:
-                    bigram_pairs.append('{}:{}'.format(
-                                tag,
-                                word
-                            ))
+                    bigram_pairs.append('{}:{}'.format(tag, word))
         if not bigram_pairs:
             for word, tag in zip(document[0], document[1]):
                 word = word.replace('_', ' ')
-                bigram_pairs.append('{}:{}'.format(
-                            tag,
-                            word
-                        )) 
+                word = word.lower()
+                bigram_pairs.append('{}:{}'.format(tag, word))
 
         return ' '.join(bigram_pairs)
-
-
-

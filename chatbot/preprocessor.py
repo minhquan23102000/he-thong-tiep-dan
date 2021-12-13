@@ -6,4 +6,4 @@ def clean_url(text):
 
     text = re.sub('http://\S+|https://\S+', '', text)
 
-    return text.lower()
+    return text
