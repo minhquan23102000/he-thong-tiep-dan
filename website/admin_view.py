@@ -1,4 +1,3 @@
-
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_admin import expose, BaseView, AdminIndexView
@@ -26,12 +25,20 @@ from chatbot.tag import VietnameseTager
 class MyAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
-        if current_user.is_authenticated and session.get('user_role', None) == Role.ADMIN.value:
+        if current_user.is_authenticated and session.get(
+                'user_role', None) == Role.ADMIN.value:
             return self.render('admin/dashboard.html')
         return redirect(url_for('admin.login'))
 
     @expose('/login', methods=['GET', 'POST'])
     def login(self):
+        #Make sure that session will not be delete when close browser
+        session.permanent = True
+        if (session.get('attempt_login', 0) > 3):
+            flash(
+                f"Đăng nhập không thành công {session.get('attempt_login', 0)} lần. Lưu ý nếu quá năm lần bạn sẽ bị khóa trong một tiếng!!"
+            )
+
         form = LoginForm()
         if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
@@ -39,13 +46,19 @@ class MyAdminIndexView(AdminIndexView):
                 if check_password_hash(user.password, form.password.data):
                     flash('Đăng nhập thành công', category='success')
                     session['user_role'] = user.role.value
-                    login_user(user, remember=True,
+                    session['attempt_login'] = 0
+                    login_user(user,
+                               remember=True,
                                duration=timedelta(hours=1))
                     return redirect(url_for('admin.index'))
                 else:
                     flash("Sai mật khẩu", category='error')
             else:
                 flash("Tài khoản không tồn tại", category='error')
+        session['attempt_login'] = session.get('attempt_login', 0) + 1
+        #If user login invalid five times in a rows. Lock this user for one hours
+        if (session.get('attempt_login', 0) == 5):
+            return " Bạn đã bị khóa! Xin hãy quay lại trong vòng 1 tiếng nữa!!!"
         return self.render('admin/login_user.html', form=form)
 
     @expose('/logout/')
@@ -71,10 +84,12 @@ class UnknownStatementView(MyModelView):
 
     column_list = ('question', 'answer', 'tag', 'create_at')
     form_edit_rules = ('question', 'answer', 'tag')
-    column_labels = {'question': 'người dùng hỏi',
-                     'answer': 'chatbot trả lời',
-                     'create_at': 'thời điểm hỏi',
-                     'tag': 'ngữ cảnh'}
+    column_labels = {
+        'question': 'người dùng hỏi',
+        'answer': 'chatbot trả lời',
+        'create_at': 'thời điểm hỏi',
+        'tag': 'ngữ cảnh'
+    }
 
     column_searchable_list = ['question']
     column_filters = ['tag']
@@ -84,7 +99,8 @@ class UnknownStatementView(MyModelView):
         count = 0
         for _id in ids:
             # Do some work with the id, e.g. call a service method
-            learningSentence = db.session.query(UnknownStatement).filter_by(id=_id).first()
+            learningSentence = db.session.query(UnknownStatement).filter_by(
+                id=_id).first()
             if not learningSentence.answer:
                 continue
             question = Statement(text=learningSentence.question)
@@ -109,7 +125,8 @@ class BotTrainFileView(FileAdmin):
     can_delete = False
     can_edit = True
 
-    @action('train_file', 'Train', 'Bạn có chắc là train chatbot với mấy file (s) đã chọn?')
+    @action('train_file', 'Train',
+            'Bạn có chắc là train chatbot với mấy file (s) đã chọn?')
     def action_train_file(self, ids):
 
         dir_path = op.join(ROOT_PATH, 'chatbot/corpus')
@@ -122,10 +139,8 @@ class BotTrainFileView(FileAdmin):
                 tag = data['categories']
 
                 # Remove already learning tags
-                (db.session.query(Statement)
-                    .join(Statement.tags)
-                    .filter(Tag.name == tag)
-                 ).delete()
+                (db.session.query(Statement).join(
+                    Statement.tags).filter(Tag.name == tag)).delete()
                 db.session.commit()
 
                 # Train file again
@@ -137,20 +152,19 @@ class BotTrainFileView(FileAdmin):
 
 class RelearnView(MyModelView):
     can_delete = False
-    form_columns = ('name',)
+    form_columns = ('name', )
 
     edit_template = 'admin/relearn_model.html'
 
     @expose('/edit/')
     def edit_view(self):
         tag = request.args.get('id')
-        children = (db.session.query(Statement)
-                    .join(Statement.tags)
-                    .filter(Tag.id == tag)
-                    )
+        children = (db.session.query(Statement).join(
+            Statement.tags).filter(Tag.id == tag))
 
-        self._template_args.update(dict(children=children,
-                                        edit_url=url_for('statement.edit_view', id=id)))
+        self._template_args.update(
+            dict(children=children,
+                 edit_url=url_for('statement.edit_view', id=id)))
 
         return super(RelearnView, self).edit_view()
 
@@ -160,21 +174,41 @@ class MyStatementView(MyModelView):
     form_edit_rules = ('in_response_to', 'text', 'tags')
     form_create_rules = ('in_response_to', 'text', 'tags')
     column_labels = dict(in_response_to='Người dùng hỏi',
-                         text='Chatbot trả lời', tags='Ngữ cảnh', created_at='Thời điểm tạo')
+                         text='Chatbot trả lời',
+                         tags='Ngữ cảnh',
+                         created_at='Thời điểm tạo')
 
     column_searchable_list = ['in_response_to', 'text']
     column_filters = ['tags']
 
-    def __init__(self, model, session, name=None, category=None, endpoint=None, url=None, static_folder=None, menu_class_name=None, menu_icon_type=None, menu_icon_value=None):
-        super().__init__(model, session, name=name, category=category, endpoint=endpoint, url=url, static_folder=static_folder,
-                         menu_class_name=menu_class_name, menu_icon_type=menu_icon_type, menu_icon_value=menu_icon_value)
+    def __init__(self,
+                 model,
+                 session,
+                 name=None,
+                 category=None,
+                 endpoint=None,
+                 url=None,
+                 static_folder=None,
+                 menu_class_name=None,
+                 menu_icon_type=None,
+                 menu_icon_value=None):
+        super().__init__(model,
+                         session,
+                         name=name,
+                         category=category,
+                         endpoint=endpoint,
+                         url=url,
+                         static_folder=static_folder,
+                         menu_class_name=menu_class_name,
+                         menu_icon_type=menu_icon_type,
+                         menu_icon_value=menu_icon_value)
         self.tagger = VietnameseTager()
 
     def delete_model(self, model):
         try:
             self.on_model_delete(model)
-            question_statement = (db.session.query(Statement)
-                                  .filter_by(id=model.id-1).first())
+            question_statement = (db.session.query(Statement).filter_by(
+                id=model.id - 1).first())
 
             self.session.flush()
             self.session.delete(model)
@@ -204,8 +238,8 @@ class MyStatementView(MyModelView):
         try:
             form.populate_obj(model)
             # Update question statement
-            question_statement = (db.session.query(Statement)
-                                  .filter_by(id=model.id-1).first())
+            question_statement = (db.session.query(Statement).filter_by(
+                id=model.id - 1).first())
             question_statement.text = model.in_response_to
             search_text = self.tagging(model.in_response_to)
             question_statement.search_text = search_text
@@ -219,7 +253,8 @@ class MyStatementView(MyModelView):
         except Exception as ex:
             if not self.handle_view_exception(ex):
                 flash('Failed to update record. %(error)s',
-                      error=str(ex), category='error')
+                      error=str(ex),
+                      category='error')
 
             self.session.rollback()
 
@@ -257,7 +292,8 @@ class MyStatementView(MyModelView):
         except Exception as ex:
             if not self.handle_view_exception(ex):
                 flash('Failed to create record. %(error)s',
-                      error=str(ex), category='error')
+                      error=str(ex),
+                      category='error')
 
             self.session.rollback()
 
@@ -268,7 +304,8 @@ class MyStatementView(MyModelView):
         return model
 
     def get_query(self):
-        return super(MyStatementView, self).get_query().filter(Statement.in_response_to != None)
+        return super(MyStatementView,
+                     self).get_query().filter(Statement.in_response_to != None)
 
     def tagging(self, text):
         return self.tagger.get_bigram_pair_string(text)
