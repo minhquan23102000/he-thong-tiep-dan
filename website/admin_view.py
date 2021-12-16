@@ -34,7 +34,11 @@ class MyAdminIndexView(AdminIndexView):
     def login(self):
         #Make sure that session will not be delete when close browser
         session.permanent = True
-        if (session.get('attempt_login', 0) > 3):
+        attempt_login = session.get('attempt_login', 0)
+        #If user login invalid five times in a rows. Lock this user for one hours
+        if (attempt_login >= 5):
+            return " Bạn đã bị khóa! Xin hãy quay lại trong vòng 1 tiếng nữa!!!"
+        elif (attempt_login > 3):
             flash(
                 f"Đăng nhập không thành công {session.get('attempt_login', 0)} lần. Lưu ý nếu quá năm lần bạn sẽ bị khóa trong một tiếng!!"
             )
@@ -55,10 +59,7 @@ class MyAdminIndexView(AdminIndexView):
                     flash("Sai mật khẩu", category='error')
             else:
                 flash("Tài khoản không tồn tại", category='error')
-        session['attempt_login'] = session.get('attempt_login', 0) + 1
-        #If user login invalid five times in a rows. Lock this user for one hours
-        if (session.get('attempt_login', 0) == 5):
-            return " Bạn đã bị khóa! Xin hãy quay lại trong vòng 1 tiếng nữa!!!"
+        session['attempt_login'] = attempt_login + 1
         return self.render('admin/login_user.html', form=form)
 
     @expose('/logout/')
