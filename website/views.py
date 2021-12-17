@@ -7,34 +7,58 @@ from flask import jsonify
 
 views = Blueprint('views', __name__)
 
-
 temp_db = {
-    'khai sinh': [
-        {'title': 'giấy chứng nhận kết hôn',
-            'src': '/static/img/chung_nhan_ket_hon.jpg'},
-        {'title': 'sổ thường trú', 'src': '/static/img/cm_noi_o.jpg'},
-        {'title': 'giấy chứng sinh', 'src': '/static/img/giay_chung_sinh.jpg'},
-        {'title': 'giấy tờ tùy thân', 'src': '/static/img/giay_tuy_than.jpg'},
-        {'title': 'to_khai', 'src': '/static/img/to_khai_khai_sinh.jpg'}
-    ],
-    'đăng ký kết hôn': [
-        {'title': 'giấy tờ tùy thân vợ/chồng ',
-            'src': '/static/img/giay_tuy_than.jpg'},
-        {'title': 'to_khai', 'src': '/static/img/to_khai_ket_hon.jpg'},
-        {'title': 'giấy xác nhận tình trạng hôn nhân',
-            'src': '/static/img/giay_xac_nhan_tinh_trang_hon_nhan.jpg'}
-    ],
-    'khai sinh lại': [
-        {'title': 'giấy tờ tùy thân', 'src': '/static/img/giay_tuy_than.jpg'},
-        {'title': 'to_khai', 'src': '/static/img/to_khai_khai_sinh_lai.jpg'},
-        {'title': 'sổ thường trú', 'src': '/static/img/cm_noi_o.jpg'},
-        {'title': 'bản sao khai sinh', 'src': '/static/img/trich_luc_khai_sinh.jpg'}
-    ],
-    'Đăng ký thường trú': [
-        {'title': 'giấy tờ tùy thân', 'src': '/static/img/giay_tuy_than.jpg'},
-        {'title': 'chứng minh nơi ở', 'src': '/static/img/cm_noi_o.jpg'},
-        {'title': 'to_khai', 'src': '/static/img/to_khai_thuong_tru.jpg'}
-    ]
+    'khai sinh': [{
+        'title': 'giấy chứng nhận kết hôn',
+        'src': '/static/img/chung_nhan_ket_hon.jpg'
+    }, {
+        'title': 'sổ thường trú',
+        'src': '/static/img/cm_noi_o.jpg'
+    }, {
+        'title': 'giấy chứng sinh',
+        'src': '/static/img/giay_chung_sinh.jpg'
+    }, {
+        'title': 'giấy tờ tùy thân',
+        'src': '/static/img/giay_tuy_than.jpg'
+    }, {
+        'title': 'to_khai',
+        'src': '/static/img/to_khai_khai_sinh.jpg'
+    }],
+    'đăng ký kết hôn': [{
+        'title': 'giấy tờ tùy thân vợ/chồng ',
+        'src': '/static/img/giay_tuy_than.jpg'
+    }, {
+        'title': 'to_khai',
+        'src': '/static/img/to_khai_ket_hon.jpg'
+    }, {
+        'title':
+        'giấy xác nhận tình trạng hôn nhân',
+        'src':
+        '/static/img/giay_xac_nhan_tinh_trang_hon_nhan.jpg'
+    }],
+    'khai sinh lại': [{
+        'title': 'giấy tờ tùy thân',
+        'src': '/static/img/giay_tuy_than.jpg'
+    }, {
+        'title': 'to_khai',
+        'src': '/static/img/to_khai_khai_sinh_lai.jpg'
+    }, {
+        'title': 'sổ thường trú',
+        'src': '/static/img/cm_noi_o.jpg'
+    }, {
+        'title': 'bản sao khai sinh',
+        'src': '/static/img/trich_luc_khai_sinh.jpg'
+    }],
+    'Đăng ký thường trú': [{
+        'title': 'giấy tờ tùy thân',
+        'src': '/static/img/giay_tuy_than.jpg'
+    }, {
+        'title': 'chứng minh nơi ở',
+        'src': '/static/img/cm_noi_o.jpg'
+    }, {
+        'title': 'to_khai',
+        'src': '/static/img/to_khai_thuong_tru.jpg'
+    }]
 }
 
 
@@ -61,7 +85,8 @@ def get_img():
         data = {}
     return jsonify(data)
 
- # =================================WEB HOOK DOWN HERE=============================================
+
+# =================================WEB HOOK DOWN HERE=============================================
 
 # Step up webhook for fb chat messenger
 
@@ -91,10 +116,9 @@ def fb_receive_message():
 
 
 def send_reponse(reponse: str, user_id):
-    data = {
-        'recipient': {'id': user_id},
-        'message': {}
-    }
+    data = {'recipient': {'id': user_id}, 'message': {}}
     data['message']['text'] = reponse
     requests.post(
-        'https://graph.facebook.com/v12.0/me/messages/?access_token=' + secret.FB_PAGE_ACCESS_TOKEN, json=data)
+        'https://graph.facebook.com/v12.0/me/messages/?access_token=' +
+        secret.FB_PAGE_ACCESS_TOKEN,
+        json=data)

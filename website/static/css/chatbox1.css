@@ -1,7 +1,7 @@
 .chat-box-container {
   background: #efefef;
   height: 100%;
-  font-size: 18px;
+  font-size: 15px;
   font-family: "Source Sans Pro", sans-serif;
 }
 
@@ -10,8 +10,8 @@
   bottom: 20px;
   right: 20px;
   background: #1976d2;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   color: white;
   padding: 15px;
@@ -45,15 +45,15 @@
   display: none;
   background: #efefef;
   position: fixed;
-  right: 50px;
-  bottom: 50px;
-  width: 450px;
+  right: 10px;
+  bottom: 10px;
+  width: 420px;
   height: 480px;
   max-width: 85vw;
   max-height: 100vh;
   border-radius: 5px;
   /*   box-shadow: 0px 5px 35px 9px #464a92; */
-  box-shadow: 0px 5px 35px 9px #ccc;
+  box-shadow: none;
 }
 
 .chat-box-toggle {
@@ -64,7 +64,6 @@
 
 .chat-box-header {
   background: #1976d2;
-  height: 30px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color: white;
@@ -75,8 +74,8 @@
 
 .chat-box-body {
   position: relative;
-  height: 370px;
   height: auto;
+  width: 100%;
   border: 1px solid #ccc;
   overflow: hidden;
 }
@@ -95,9 +94,8 @@
 
 #chat-input {
   background: #f4f7f9;
-  width: 95%;
+  width: 100%;
   position: relative;
-  bottom: 0;
   height: 47px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -138,7 +136,7 @@
 
 .chat-submit {
   position: absolute;
-  bottom: -40px;
+  bottom: 0px;
   right: 10px;
   background: transparent;
   box-shadow: none;
@@ -147,6 +145,12 @@
   color: #1976d2;
   width: 35px;
   height: 35px;
+}
+
+.chat-open-icon {
+  position: absolute;
+  bottom: 4px;
+  right: 5px;
 }
 
 .chat-logs {

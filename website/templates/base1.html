@@ -1,39 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
   {% block head %}
+
   <title>{% block title %}{% endblock %} - Hệ thống tiếp dân</title>
-  {% endblock %}
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link rel="stylesheet" type="text/css" href="/static/css/chatbox.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/chatbox1.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <script type="text/javascript" src="static/plugins/jQuery/jquery-2.2.3.min.js"></script>
   <script type="text/javascript" src="/static/js/chatbox.js"></script>
-
-
-  <script type="text/javascript" src="/static/plugins/intense/intense.js">
-
-  </script>
-  <script type="text/javascript" src="/static/plugins/intense/intense.min.js">
-
-  </script>
-
+  {% endblock %}
 </head>
 
 <body>
-  <div id="content">{% block content %}{% endblock %}
-  </div>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+        <a class="navbar-brand page-scroll" href="#page-top"><img src="static/img/logo.png" alt="website template image"></a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="hidden"><a href="#page-top"></a></li>
+          <li><a class="page-scroll" href="#about">About</a></li>
+          <li><a class="page-scroll" href="#portfolio">Portfolio</a></li>
+          <li><a class="page-scroll" href="#team">Team</a></li>
+          <li><a class="page-scroll" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="content">{% block content %}{% endblock %}</div>
 
   <div class="chat-box-container">
     
   <div id="chat-circle" class="btn btn-raised">
     <div id="chat-overlay"></div>
-    <i class="material-icons">chat</i>
+    <i class="material-icons chat-open-icon">chat</i>
   </div>
 
   <div class="chat-box">
@@ -65,10 +73,18 @@
       </button>
     </div>
   </div>
-  </div>
-  </div>
 
+  </div>
   <div id="footer">
+    <footer>
+      <div class="container text-center">
+        <p>
+          &copy; All Rights Reserved | Design by:
+          <a target="_blank" rel="nofollow noopener" href="//moozthemes.com">MOOZ Themes</a>
+        </p>
+      </div>
+    </footer>
+    {% block footer %} {% endblock %}
   </div>
 </body>
 
