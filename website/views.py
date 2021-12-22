@@ -4,62 +4,9 @@ from chatbot.bot import chatbot_reponse
 from . import secret
 import json
 from flask import jsonify
+from .constant.temp_db import paper, thutuc
 
 views = Blueprint('views', __name__)
-
-temp_db = {
-    'khai sinh': [{
-        'title': 'giấy chứng nhận kết hôn',
-        'src': '/static/img/chung_nhan_ket_hon.jpg'
-    }, {
-        'title': 'sổ thường trú',
-        'src': '/static/img/cm_noi_o.jpg'
-    }, {
-        'title': 'giấy chứng sinh',
-        'src': '/static/img/giay_chung_sinh.jpg'
-    }, {
-        'title': 'giấy tờ tùy thân',
-        'src': '/static/img/giay_tuy_than.jpg'
-    }, {
-        'title': 'to_khai',
-        'src': '/static/img/to_khai_khai_sinh.jpg'
-    }],
-    'đăng ký kết hôn': [{
-        'title': 'giấy tờ tùy thân vợ/chồng ',
-        'src': '/static/img/giay_tuy_than.jpg'
-    }, {
-        'title': 'to_khai',
-        'src': '/static/img/to_khai_ket_hon.jpg'
-    }, {
-        'title':
-        'giấy xác nhận tình trạng hôn nhân',
-        'src':
-        '/static/img/giay_xac_nhan_tinh_trang_hon_nhan.jpg'
-    }],
-    'khai sinh lại': [{
-        'title': 'giấy tờ tùy thân',
-        'src': '/static/img/giay_tuy_than.jpg'
-    }, {
-        'title': 'to_khai',
-        'src': '/static/img/to_khai_khai_sinh_lai.jpg'
-    }, {
-        'title': 'sổ thường trú',
-        'src': '/static/img/cm_noi_o.jpg'
-    }, {
-        'title': 'bản sao khai sinh',
-        'src': '/static/img/trich_luc_khai_sinh.jpg'
-    }],
-    'Đăng ký thường trú': [{
-        'title': 'giấy tờ tùy thân',
-        'src': '/static/img/giay_tuy_than.jpg'
-    }, {
-        'title': 'chứng minh nơi ở',
-        'src': '/static/img/cm_noi_o.jpg'
-    }, {
-        'title': 'to_khai',
-        'src': '/static/img/to_khai_thuong_tru.jpg'
-    }]
-}
 
 
 @views.route('/')
@@ -80,7 +27,7 @@ def get_bot_response():
 def get_img():
     tag = request.args.get('tag')
     try:
-        data = temp_db[tag]
+        data = paper[tag]
     except:
         data = {}
     return jsonify(data)
