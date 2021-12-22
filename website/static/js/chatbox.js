@@ -56,60 +56,59 @@ $(function() {
   $("#tag").change(function() {
     var newtag = $("#tag").text();
     $.get("/get-img", {tag : newtag}).done(function(data) {
-      $("#prepare-paper").empty();
+      $("#img-guide").empty();
       $("#to-khai").empty();
       if (Object.keys(data).length === 0) {
         return 0;
       }
 
+
+
       var str = "";
       var tokhai = "";
-      for (const element of data) {
-        if (element.title == "to_khai") {
-          tokhai += "<div class='media full'> ";
-          tokhai += "<div class = 'layer'>";
-          tokhai += "<p>" +
-                    "Tờ khai " + newtag + "</p>" +
-                    "</div>";
-          tokhai += "<img " +
-                    "src='" + element.src + "' alt='' />" +
-                    "</div>";
-          tokhai += "\n";
-        } else {
-          str += "<div class='media'> ";
-          str += "<div class = 'layer'>";
-          str += "<p>" + element.title + "</p>" +
-                 "</div>";
-          str += "<img " +
-                 "src='" + element.src + "' alt='' />" +
-                 "</div>";
-          str += "\n";
+      for (var i = 0; i < data.length; i+=2) {
+        // Init a rows
+        str += "<div class='row row-0-gutter'> ";
+        for (var j = i; j < i+2 && j < data.length; j++) {
+          // Init a columns
+          str += "<div class='col-md-6 col-0-gutter'> ";
+
+          //Init image container
+          str += "<div class='ot-portfolio-item'> ";
+          str += "<figure class='effect-bubba'> ";
+          //Add image data
+          str += "<img src='" + data[j].src + "' "; 
+          str += " alt='website template image' class='img-responsive'></img>";
+          //Add caption
+          str += "<figcaption> ";
+          str += "<h2> " + data[j].title +"</h2> ";
+          str += "<p> giấy tờ xuất trình </p> ";
+          str += "<a href='javascript:void(0)' data-toggle='modal' data-target='#Modal-" + j + "'>View more</a>";
+          str+= "</figcaption> ";
+
+          //Close img header
+          str += " </div> ";
+          str += " </figure> ";
+          //Close a columns
+          str += " </div> ";
+          
         }
+
+        //Close a row
+        str += " </div>";
+       
+          
+      
       }
 
-      $("#prepare-paper").append(str);
+      $("#img-guide").append(str);
       $("#to-khai").append(tokhai);
-
-      var element = document.querySelectorAll("img");
-      Intense(element);
-
-      $(".layer").on("click", function() {
-        var oldtag = $("#tag").text();
-        var msg = $(this).text();
-        console.log(msg);
-        generate_message(msg, "self");
-
-        $.get("/get", {msg : msg, oldtag : oldtag}).done(function(data) {
-          var response = linkify(String(data.response));
-
-          text2Speech.text = clean_url(response);
-          speechSynthesis.speak(text2Speech);
-
-          generate_message(response, "user");
-        });
-      });
     });
   });
+
+
+
+
   // Text to speech
   var text2Speech = new SpeechSynthesisUtterance();
   text2Speech.lang = "vi-VN";
@@ -135,11 +134,6 @@ $(function() {
     INDEX++;
     var str = "";
     str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
-    if (type != "self") {
-      str += '          <span class="msg-avatar">';
-      str += '            <img src="/static/img/chatbot.jpg">';
-      str += "          </span>";
-    }
 
     str += '          <div class="cm-msg-text">';
     str += msg;

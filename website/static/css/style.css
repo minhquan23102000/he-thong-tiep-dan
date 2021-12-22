@@ -276,7 +276,8 @@ figure {
   margin: 0 1px 1px 0;
   background: #726FB9;
   text-align: center;
-  cursor: pointer
+  cursor: pointer;
+  
 }
 
 figcaption {
@@ -306,13 +307,16 @@ figcaption {
 
 figure.effect-bubba {
   background: #000;
-  margin-bottom: 1px
+  margin-bottom: 1px;
+  background-size:cover;
+  height: 35vh;
 }
 
 figure.effect-bubba img {
   opacity: 0.8;
   -webkit-transition: opacity 0.35s;
-  transition: opacity 0.35s
+  transition: opacity 0.35s;
+  //object-fit: cover;
 }
 
 figure.effect-bubba:hover img {

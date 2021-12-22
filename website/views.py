@@ -64,7 +64,7 @@ temp_db = {
 
 @views.route('/')
 def home():
-    return render_template("index.html")
+    return render_template("index1.html")
 
 
 @views.route('/get')
