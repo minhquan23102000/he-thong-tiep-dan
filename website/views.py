@@ -4,7 +4,7 @@ from chatbot.bot import chatbot_reponse
 from . import secret
 import json
 from flask import jsonify
-from .constant.temp_db import paper, thutuc
+from .constant.temp_db import make_img_guide
 
 views = Blueprint('views', __name__)
 
@@ -27,7 +27,7 @@ def get_bot_response():
 def get_img():
     tag = request.args.get('tag')
     try:
-        data = paper[tag]
+        data = make_img_guide(tag)
     except:
         data = {}
     return jsonify(data)

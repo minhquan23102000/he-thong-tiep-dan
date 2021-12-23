@@ -37,7 +37,6 @@ class Tag(Base):
 
     name = Column(String(constants.TAG_NAME_MAX_LENGTH), unique=True)
 
-    description = Column(String(500))
 
     def __repr__(self):
         return '<Tag %r>' % (self.name)
