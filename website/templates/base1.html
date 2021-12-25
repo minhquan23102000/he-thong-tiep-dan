@@ -4,85 +4,230 @@
 <head>
   {% block head %}
 
-  <title>{% block title %}{% endblock %} - Hệ thống tiếp dân</title>
+  <title>{% block title %}{% endblock %} - Cổng dịch vụ công</title>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <meta name="description"
+    content="Cổng Dịch vụ công Quốc gia hỗ trợ thông tin, đăng ký thủ tục hành chính như đổi giấy phép lái xe, nộp thuế điện tử, thông báo khuyến mại, cấp lại thẻ BHYT, cấp điện mới..." />
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+  <meta content="index, follow" name="ROBOTS" />
+
   <link rel="stylesheet" type="text/css" href="/static/css/chatbox1.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <script type="text/javascript" src="static/plugins/jQuery/jquery-2.2.3.min.js"></script>
   <script type="text/javascript" src="/static/js/chatbox.js"></script>
+
+
+  <link rel="stylesheet" href="/static/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/icon.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/slick.css" />
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+
   {% endblock %}
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header page-scroll">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-        <a class="navbar-brand page-scroll" href="#page-top"><img src="static/img/logo.png" alt="website template image"></a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="hidden"><a href="#page-top"></a></li>
-          <li><a class="page-scroll" href="#about">About</a></li>
-          <li><a class="page-scroll" href="#portfolio">Portfolio</a></li>
-          <li><a class="page-scroll" href="#team">Team</a></li>
-          <li><a class="page-scroll" href="#contact">Contact</a></li>
-        </ul>
-      </div>
+  <!--  header -->
+  <div class="loading-all" id="loading-all" style="display: none">
+    <div class="icon">
+      <img src="/static/img/loading.png" alt="" />
+      <span style="color: blue">Đang xử lý...<span> </span></span>
     </div>
-  </nav>
-  <div id="content">{% block content %}{% endblock %}</div>
+    <style type="text/css">
+      .loading-all {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index: 10000;
+        background: #dbdcdc40;
+      }
 
-  <div class="chat-box-container">
-    
-  <div id="chat-circle" class="btn btn-raised">
-    <div id="chat-overlay"></div>
-    <i class="material-icons chat-open-icon">chat</i>
+      .loading-all .icon {
+        width: 100px;
+        position: absolute;
+        top: 0px;
+        height: 100px;
+        bottom: 0px;
+        right: 0px;
+        margin: auto;
+        left: 0px;
+      }
+    </style>
   </div>
-
-  <div class="chat-box">
-    <div class="chat-box-header">
-      <p></p>
-      <p></p>
-      <p></p>
-      <span class="chat-box-toggle"><i class="material-icons">close</i></span>
-    </div>
-    <div class="chat-box-body">
-      <div class="chat-box-overlay"></div>
-      <div class="chat-logs">
-        <div id="cm-msg-0" class="chat-msg user">
-          <div class="cm-msg-text">
-            Xin chào, mình là tư vấn viên. Vui lòng được giải đáp các thắc mắc của bạn về
-            dịch vụ công.
+  <!--DEFINE CONSTANT -->
+  <!--END CONSTANT-->
+  <div class="overlay-common"></div>
+  <!-- /mtv/ Log propertise-->
+  <div class="header">
+    <div class="container">
+      <div class="relative content">
+        <div class="logo-text">
+          <a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" class="logo">
+            <img src="/static/img/logo.png" alt="" />
+          </a>
+        </div>
+        <div class="nav-toggle">
+          <span class="-ap icon icon-menu"></span>
+        </div>
+        <div class="header-account">
+          <div class="buttons">
+            <a href="https://dangky.dichvucong.gov.vn/register" class="btn btn-login">Đăng ký</a>
+            <a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&amp;client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&amp;scope=openid&amp;redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html"
+              class="btn btn-register">Đăng nhập</a>
           </div>
         </div>
       </div>
-      <!--chat-log -->
     </div>
-    <div class="chat-input">
-      <form>
-        <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." />
-        <button type="submit" class="chat-submit" id="chat-submit">
-        </button>
-      </form>
-      <button class="chat-submit" id="speech">
-        <i class="material-icons" id="speech-icon"> mic_off </i>
-      </button>
+  </div>
+  <nav class="header-nav">
+    <div class="container">
+      <ul id="main-menu" class="pull-left menus">
+        <li class="active" id="home-page">
+          <a href="#"><span><i class="material-icons">home</i></span></a>
+        </li>
+        <li><a href="#">Giới thiệu</a></li>
+        <li>
+          <a href="#">Thông tin và dịch vụ<span class="down"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Công dân</a></li>
+            <li><a href="#">Doanh nghiệp</a></li>
+            <li><a href="#">Dịch vụ công trực tuyến</a></li>
+            <li><a href="#">Dịch vụ công nổi bật</a></li>
+            <li><a href="#">Tra cứu hồ sơ</a></li>
+            <li><a href="#">Tòa án nhân dân</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Thanh toán trực tuyến</a>
+          <!-- <ul class="dropdown-menu">
+        <li><a href="dvc-thanh-toan.html">Nộp thuế doanh nghiệp</a></li>
+        <li><a href="dvc-thanh-toan-thue-ca-nhan.html">Nộp thuế cá nhân/Trước bạ</a></li>
+        <li>
+          <a href="#">Thanh toán vi phạm hành chính</a>
+          <ul class="dropdown-menu">
+            <li><a href="dvc-thanh-toan-vi-pham-giao-thong.html">Tra cứu/Thanh toán vi phạm giao thông</a></li>
+            <li><a href="dvc-thanh-toan-vi-pham-xay-dung.html">Tra cứu/Thanh toán vi phạm xây dựng</a></li>
+          </ul>
+        </li>
+        <li><a href="dvc-thanh-toan-phi-le-phi-ho-so.html">Thanh toán phí/lệ phí dịch vụ công</a></li>
+        <li><a href="dvc-thanh-toan-bhxh-bhyt.html">Đóng tiếp BHXH tự nguyện, gia hạn BHYT</a></li>
+        <li><a href="dvc-thanh-toan-bhxh-doanh-nghiep.html">Đóng BHXH, BHYT, BHTN, BHTNLĐ-BNN</a></li>
+        <li><a href="dvc-thanh-toan-thue-dat-dai.html">Thanh toán nghĩa vụ tài chính về đất đai</a></li>
+        <li><a href="dvc-thanh-toan-dien.html">Thanh toán tiền điện</a></li>
+        <li><a href="dvc-thanh-toan-vien-phi.html">Thanh toán viện phí</a></li>
+        <li><a href="dvc-thanh-toan-an-phi.html">Thanh toán tạm ứng án phí</a></li>
+      </ul> -->
+        </li>
+        <li>
+          <a href="#">Phản ánh kiến nghị<span class="down"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Gửi PAKN</a></li>
+            <li><a href="">Tra cứu kết quả trả lời</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="">Thủ tục hành chính<span class="down"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="">Tra cứu TTHC</a></li>
+            <li><a href="">Thủ tục hành chính</a></li>
+            <li><a href="">Thủ tục hành chính liên thông</a></li>
+            <li><a href="">Quyết định công bố</a></li>
+            <li><a href="">Cơ quan</a></li>
+            <!-- <li id="coquan"><a href="dvc-tthc-co-quan.html">Cơ quan</a></li>
+      <li hidden id="bn-ttp"><a href="dvc-tthc-bonganh-tinhtp.html">TTHC Bộ ngành Tỉnh thành phố</a></li> -->
+          </ul>
+        </li>
+        <li class="">
+          <a href="#">Hỗ trợ<span class="down"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="">Điều khoản sử dụng</a></li>
+            <li><a href="">Hướng dẫn sử dụng</a></li>
+            <li><a href="">Thông báo</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="header-account mobile-ds">
+        <div class="buttons">
+          <a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&amp;client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&amp;scope=openid&amp;redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html"
+            class="btn btn-login">Đăng nhập</a>
+          <a href="https://dangky.dichvucong.gov.vn/register" class="btn btn-register">Đăng ký</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="header-bottom">
+    <div class="container">
+      <ul id="list-dropdown"></ul>
     </div>
   </div>
 
+  <!-- content-->
+
+  <div id="content">{% block content %}{% endblock %}</div>
+
+  <!-- chatbox -->
+  <div class="chat-box-container">
+    <div id="chat-circle" class="btn btn-raised">
+      <div id="chat-overlay"></div>
+      <i class="material-icons chat-open-icon">chat</i>
+    </div>
+
+    <div class="chat-box">
+      <div class="chat-box-header">
+        <p></p>
+        <p></p>
+        <p></p>
+        <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+      </div>
+      <div class="chat-box-body">
+        <div class="chat-box-overlay"></div>
+        <div class="chat-logs">
+          <div id="cm-msg-0" class="chat-msg user">
+            <div class="cm-msg-text">
+              Xin chào, mình là tư vấn viên. Vui lòng được giải đáp các thắc
+              mắc của bạn về dịch vụ công.
+            </div>
+          </div>
+        </div>
+        <!--chat-log -->
+      </div>
+      <div class="chat-input">
+        <form>
+          <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." />
+          <button type="submit" class="chat-submit" id="chat-submit"></button>
+        </form>
+        <button class="chat-submit" id="speech">
+          <i class="material-icons" id="speech-icon"> mic_off </i>
+        </button>
+      </div>
+    </div>
   </div>
+
+  <!-- footer -->
   <div id="footer">
-    <footer>
-      <div class="container text-center">
-        <p>
-          &copy; All Rights Reserved | Design by:
-          <a target="_blank" rel="nofollow noopener" href="//moozthemes.com">MOOZ Themes</a>
-        </p>
+    <footer class="footer">
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="add">
+            <p>Cơ quan chủ quản: Văn phòng Chính phủ</p>
+          </div>
+          <div class="add">
+            <p>www.dichvucong.gov.vn</p>
+          </div>
+          <div class="add">
+            <p>Tổng đài hỗ trợ: 18001096</p>
+          </div>
+          <div class="add">
+            <p>Email: dichvucong@chinhphu.vn</p>
+          </div>
+        </div>
       </div>
     </footer>
     {% block footer %} {% endblock %}

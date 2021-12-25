@@ -11,7 +11,7 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    return render_template("index1.html")
+    return render_template("dichvucong.html")
 
 
 @views.route('/get')

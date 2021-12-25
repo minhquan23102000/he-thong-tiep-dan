@@ -1,0 +1,456 @@
+{% extends 'base1.html' %}
+{%block title %} Phòng tiếp dân {% endblock %}
+{%block head %}
+{{super()}}
+<link rel="stylesheet" href="/static/css/img.css" />
+
+
+{%endblock%}
+
+{%block content%}
+
+
+<!--
+<div class="hero-banner">
+	<div class="container">
+		<div class="box-wrap-search">
+			<div class="box-search -adv">
+				<input type="text" class="form-control search-input"  placeholder="Nhập từ khoá tìm kiếm" id="searchKeyWord">
+				<div class="adv" data-toggle="modal" data-target="#advsearch" onclick="showAdvSearch()">Tìm kiếm nâng cao</div>
+				<button class="btn btn-search" onclick="searchProcedure()">
+					<span class="-ap icon-ion-ios-search-strong icon"></span> 
+				</button>
+			</div>
+			<button class="btn btn-dvctt" onclick="goToPage('dvc-dich-vu-cong-truc-tuyen.html')">Dịch vụ công trực tuyến</button>
+		</div>
+	</div>
+	
+	
+	
+</div>
+-->
+<div class="hero-banner">
+    <div class="container">
+        <div class="maxw991">
+            <div class="form-group">
+                <div class="box-search -adv">
+                    <span class="twitter-typeahead" style="position: relative; display: inline-block"><input type="text"
+                            class="form-control search-input tt-hint" readonly="" autocomplete="off" spellcheck="false"
+                            tabindex="-1" style="
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    border-color: transparent;
+                    box-shadow: none;
+                    opacity: 1;
+                    background: none 0% 0% / auto repeat scroll padding-box
+                      border-box rgb(255, 255, 255);
+                  " dir="ltr" /><input type="text" class="form-control search-input tt-input"
+                            placeholder="Nhập từ khoá tìm kiếm" id="searchKeyWord" autocomplete="off" spellcheck="false"
+                            dir="auto" style="
+                    position: relative;
+                    vertical-align: top;
+                    background-color: transparent;
+                  " />
+                        <pre aria-hidden="true" style="
+                    position: absolute;
+                    visibility: hidden;
+                    white-space: pre;
+                    font-family: Nunito, Arial;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-variant: normal;
+                    font-weight: 500;
+                    word-spacing: 0px;
+                    letter-spacing: 0px;
+                    text-indent: 0px;
+                    text-rendering: auto;
+                    text-transform: none;
+                  "></pre>
+                        <div class="tt-menu tt-open" style="
+                    position: absolute;
+                    top: 100%;
+                    left: 0px;
+                    z-index: 100;
+                    display: none;
+                  ">
+                            <div class="tt-dataset tt-dataset-usersList"></div>
+                        </div>
+                    </span>
+                    <div class="adv" data-toggle="modal" data-target="#advsearch" onclick="showAdvSearch()">
+                        Tìm kiếm nâng cao
+                    </div>
+                    <button class="btn btn-search" onclick="searchProcedure()">
+                        <span> <i class="material-icons">search</i></span>
+                    </button>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <button onclick="goToPage(&#39;dvc-dich-vu-cong-truc-tuyen.html&#39;)"
+                            class="btn btn-fourth fullw">
+                            Dịch vụ công trực tuyến
+                        </button>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <button onclick="goToPage(&#39;https://ncovi.dichvucong.gov.vn/&#39;)"
+                            class="btn btn-fourth fullw">
+                            Hỗ trợ đối tượng gặp khó khăn do đại dịch COVID-19
+                        </button>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <button onclick="goToPage(&#39;https://nq68.baocaochinhphu.gov.vn/ioc/page/FNC100.htm&#39;)"
+                            class="btn btn-fourth fullw">
+                            Tham vấn quy định về hoạt động kinh doanh
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal search-->
+<div class="modal" id="advsearch" data-toggle="modal">
+    <div class="popup-box" style="max-width: 471px">
+        <div class="close -ap icon-close" id="divClosePopupSearch"></div>
+        <div class="head">
+            <div class="title">Nhập từ khoá tìm kiếm</div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="txtKEYWORD" autofocus="" />
+        </div>
+        <div class="title">Chọn cấp thực hiện</div>
+        <div class="list-check form-group">
+            <div class="check-action">
+                <input type="radio" checked="" class="check" name="cap_thuc_hien" value="tinhthanhpho"
+                    id="rdoTINH_THANH" />
+                <span class="name">Tỉnh/ Thành phố</span>
+            </div>
+            <div class="check-action">
+                <input type="radio" class="check" name="cap_thuc_hien" value="bonganh" id="rdoBO_NGANH" />
+                <span class="name">Bộ ngành</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="select-custom">
+                <select name="tinh_thanh" class="form-control select2-hidden-accessible" id="cboTINH_THANH"
+                    tabindex="-1" aria-hidden="true"></select><span
+                    class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%"><span
+                        class="selection"><span class="select2-selection select2-selection--single" role="combobox"
+                            aria-haspopup="true" aria-expanded="false" tabindex="0"
+                            aria-labelledby="select2-cboTINH_THANH-container"><span class="select2-selection__rendered"
+                                id="select2-cboTINH_THANH-container"></span><span class="select2-selection__arrow"
+                                role="presentation"><b role="presentation"></b></span></span></span><span
+                        class="dropdown-wrapper" aria-hidden="true"></span></span>
+                <select name="bo_nganh" class="form-control select2-hidden-accessible" id="cboBO_NGANH"
+                    style="display: none" tabindex="-1" aria-hidden="true"></select><span
+                    class="select2 select2-container select2-container--default" dir="ltr"
+                    style="width: 100px; display: none"><span class="selection"><span
+                            class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true"
+                            aria-expanded="false" tabindex="0" aria-labelledby="select2-cboBO_NGANH-container"><span
+                                class="select2-selection__rendered" id="select2-cboBO_NGANH-container"></span><span
+                                class="select2-selection__arrow" role="presentation"><b
+                                    role="presentation"></b></span></span></span><span class="dropdown-wrapper"
+                        aria-hidden="true"></span></span>
+            </div>
+        </div>
+        <div id="popupChange" style="color: white; height: 0" height="0">_</div>
+        <div id="hide_for_bo_nganh">
+            <div class="list-check form-group">
+                <div class="check-action">
+                    <input type="radio" checked="" class="check" value="quan/huyen" name="quan_huyen_or_so"
+                        id="rdoQUAN_HUYEN" />
+                    <span class="name">Quận huyện</span>
+                </div>
+                <div class="check-action">
+                    <input type="radio" class="check" value="so" name="quan_huyen_or_so" id="rdoSO" />
+                    <span class="name">Sở</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <select name="" id="cboQUAN_HUYEN" class="form-control select2-hidden-accessible" tabindex="-1"
+                        aria-hidden="true"></select><span class="select2 select2-container select2-container--default"
+                        dir="ltr" style="width: 100%"><span class="selection"><span
+                                class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true"
+                                aria-expanded="false" tabindex="0"
+                                aria-labelledby="select2-cboQUAN_HUYEN-container"><span
+                                    class="select2-selection__rendered"
+                                    id="select2-cboQUAN_HUYEN-container"></span><span class="select2-selection__arrow"
+                                    role="presentation"><b role="presentation"></b></span></span></span><span
+                            class="dropdown-wrapper" aria-hidden="true"></span></span>
+                    <select name="" id="cboSO" class="form-control select2-hidden-accessible" style="display: none"
+                        tabindex="-1" aria-hidden="true"></select><span
+                        class="select2 select2-container select2-container--default" dir="ltr"
+                        style="width: 100px; display: none"><span class="selection"><span
+                                class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true"
+                                aria-expanded="false" tabindex="0" aria-labelledby="select2-cboSO-container"><span
+                                    class="select2-selection__rendered" id="select2-cboSO-container"></span><span
+                                    class="select2-selection__arrow" role="presentation"><b
+                                        role="presentation"></b></span></span></span><span class="dropdown-wrapper"
+                            aria-hidden="true"></span></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <select name="" id="cboPHUONG_XA" class="form-control select2-hidden-accessible" tabindex="-1"
+                        aria-hidden="true"></select><span class="select2 select2-container select2-container--default"
+                        dir="ltr" style="width: 100%"><span class="selection"><span
+                                class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true"
+                                aria-expanded="false" tabindex="0"
+                                aria-labelledby="select2-cboPHUONG_XA-container"><span
+                                    class="select2-selection__rendered" id="select2-cboPHUONG_XA-container"></span><span
+                                    class="select2-selection__arrow" role="presentation"><b
+                                        role="presentation"></b></span></span></span><span class="dropdown-wrapper"
+                            aria-hidden="true"></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-main w100">Tìm kiếm</button>
+        </div>
+    </div>
+</div>
+<div class="hotnews-top">
+    <div class="container">
+        <div class="list-news slick-initialized slick-slider" id="new_post">
+            <button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button"
+                style="display: block">
+                Previous
+            </button>
+            <div aria-live="polite" class="slick-list draggable">
+                <div class="slick-track" style="
+                opacity: 1;
+                width: 3612px;
+                transform: translate3d(-903px, 0px, 0px);
+              " role="listbox">
+                    <div class="item slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true"
+                        style="width: 301px" tabindex="-1">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=321"
+                                class="post-title" tabindex="-1">Tổng hợp tình hình kết nối, tích hợp với Cổng Dịch
+                                vụ công
+                                Quốc gia của Bộ, ngành, địa phương</a>
+                            <p class="post-date">Ngày 17/05/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true"
+                        style="width: 301px" tabindex="-1">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=361"
+                                class="post-title" tabindex="-1">Tổng hợp tình hình đồng bộ trạng thái hồ sơ thủ tục
+                                hành
+                                chính lên Cổng Dịch vụ công quốc gia</a>
+                            <p class="post-date">Ngày 17/03/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true"
+                        style="width: 301px" tabindex="-1">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=501"
+                                class="post-title" tabindex="-1">Cung cấp 6 dịch vụ công từ ngày 01/07/2020</a>
+                            <p class="post-date">Ngày 25/06/2020</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false"
+                        style="width: 301px" tabindex="-1" role="option" aria-describedby="slick-slide00">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=581"
+                                class="post-title" tabindex="0">Nộp Lệ phí trước bạ và thuế cá nhân trên Cổng Dịch
+                                vụ công
+                                quốc gia</a>
+                            <p class="post-date">Ngày 09/12/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-active" data-slick-index="1" aria-hidden="false"
+                        style="width: 301px" tabindex="-1" role="option" aria-describedby="slick-slide01">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=561"
+                                class="post-title" tabindex="0">Cung cấp 7 dịch vụ công hỗ trợ đối tượng gặp khó
+                                khăn do
+                                đại dịch Covid-19 trên Cổng Dịch vụ công Quốc gia</a>
+                            <p class="post-date">Ngày 03/08/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-active" data-slick-index="2" aria-hidden="false"
+                        style="width: 301px" tabindex="-1" role="option" aria-describedby="slick-slide02">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=541"
+                                class="post-title" tabindex="0">Lợi ích ‘5K’ khi thanh toán thuế, phí trước bạ đất
+                                đai trên
+                                Cổng Dịch vụ công quốc gia</a>
+                            <p class="post-date">Ngày 09/06/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide" data-slick-index="3" aria-hidden="true" style="width: 301px"
+                        tabindex="-1" role="option" aria-describedby="slick-slide03">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=321"
+                                class="post-title" tabindex="-1">Tổng hợp tình hình kết nối, tích hợp với Cổng Dịch
+                                vụ công
+                                Quốc gia của Bộ, ngành, địa phương</a>
+                            <p class="post-date">Ngày 17/05/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide" data-slick-index="4" aria-hidden="true" style="width: 301px"
+                        tabindex="-1" role="option" aria-describedby="slick-slide04">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=361"
+                                class="post-title" tabindex="-1">Tổng hợp tình hình đồng bộ trạng thái hồ sơ thủ tục
+                                hành
+                                chính lên Cổng Dịch vụ công quốc gia</a>
+                            <p class="post-date">Ngày 17/03/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide" data-slick-index="5" aria-hidden="true" style="width: 301px"
+                        tabindex="-1" role="option" aria-describedby="slick-slide05">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=501"
+                                class="post-title" tabindex="-1">Cung cấp 6 dịch vụ công từ ngày 01/07/2020</a>
+                            <p class="post-date">Ngày 25/06/2020</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-cloned" data-slick-index="6" aria-hidden="true"
+                        style="width: 301px" tabindex="-1">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=581"
+                                class="post-title" tabindex="-1">Nộp Lệ phí trước bạ và thuế cá nhân trên Cổng Dịch
+                                vụ công
+                                quốc gia</a>
+                            <p class="post-date">Ngày 09/12/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-cloned" data-slick-index="7" aria-hidden="true"
+                        style="width: 301px" tabindex="-1">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=561"
+                                class="post-title" tabindex="-1">Cung cấp 7 dịch vụ công hỗ trợ đối tượng gặp khó
+                                khăn do
+                                đại dịch Covid-19 trên Cổng Dịch vụ công Quốc gia</a>
+                            <p class="post-date">Ngày 03/08/2021</p>
+                        </div>
+                    </div>
+                    <div class="item slick-slide slick-cloned" data-slick-index="8" aria-hidden="true"
+                        style="width: 301px" tabindex="-1">
+                        <div class="wrap">
+                            <a href="https://dichvucong.gov.vn/p/home/dvc-chi-tiet-tin-tuc.html?new_id=541"
+                                class="post-title" tabindex="-1">Lợi ích ‘5K’ khi thanh toán thuế, phí trước bạ đất
+                                đai trên
+                                Cổng Dịch vụ công quốc gia</a>
+                            <p class="post-date">Ngày 09/06/2021</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button"
+                style="display: block">
+                Next
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="content-img">
+    <div id="page-top">
+        <section id="portfolio">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="section-title">
+                            <h2 id="tag">Xin chào đến với hệ thống tiếp dân.</h2>
+                            <p id="tag-description">Hiện bạn muốn làm thủ tục nào. Vui lòng hỏi tư vấn viên dưới góc
+                                phải màn hình.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="img-guide">
+
+
+                </div>
+            </div>
+        </section>
+
+        <section class="mz-module">
+            <div class="container light-bg">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="section-title">
+                            <h3>Tờ khai</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="to-khai"></div>
+        </section>
+
+        <div id="img-detail">
+          
+        </div>
+        
+    </div>
+
+</div>
+
+<div class="modal" id="popupNcovi">
+    <div class="popup-ncovi">
+        <div class="banner-top">
+            <div class="close -ap icon icon-uniF108" data-dismiss="modal"></div>
+            <img src="/static/img/ncovi-banner.png" />
+        </div>
+        <div class="box-content">
+            <div class="top">
+                <p>
+                    Theo <a class="main underline">nghị quyết số 42/NQ-CP</a> của
+                    Chính phủ : Về các biện pháp hỗ trợ người dân gặp khó khăn do đại
+                    dịch COVID-19.
+                </p>
+                <a href="https://ncovi.dichvucong.gov.vn/" class="btn btn-link-ncovi">
+                    <span>Gói hỗ trợ do đại dịch NCOVI</span>
+                    <span class="img"> <img src="/static/img/arrow.gif" /> </span>
+                </a>
+            </div>
+            <p>
+                Cổng Dịch vụ công Quốc gia đã và đang triển khai các gói hỗ trợ
+                ncovi trực tuyến giúp người dân nộp hồ sơ hoàn toàn điện tử. Nhấn
+                Gói hỗ trợ do đại dịch NCOVI để tìm hiểu thông tin
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="loading" id="loading" style="display: none">
+    <div class="icon">
+        <img src="/static/img/loading.svg" alt="" />
+    </div>
+    <style type="text/css">
+        .loading {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            z-index: 1000;
+        }
+
+        .loading .icon {
+            width: 100px;
+            position: absolute;
+            top: 0px;
+            height: 100px;
+            bottom: 0px;
+            right: 0px;
+            margin: auto;
+            left: 0px;
+        }
+    </style>
+</div>
+
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/SmoothScroll.js"></script>
+<script src="static/js/theme-scripts.js"></script>
+
+{%endblock%}
