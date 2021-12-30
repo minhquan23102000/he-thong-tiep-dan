@@ -32,7 +32,6 @@ def create_app():
         import website.models
         # Recreate database each time for demo
         Base.metadata.create_all(bind=db.engine)
-        db.session.commit()
 
     # Init database, only run it once or run when create new models
     #init_database(app)
@@ -44,13 +43,13 @@ def create_app():
     init_login(app)
 
     # Retrain chatbot
-    from chatbot import bot
-    check = ""
-    while (check != 'Y' and check != 'N'):
-       check = input("Train lại chatbot? Y:N\n")
-       if (check == "Y"):
-           bot.Sonny.storage.drop()
-           bot.__retrain__()
+    # from chatbot import bot
+    # check = ""
+    # while (check != 'Y' and check != 'N'):
+    #    check = input("Train lại chatbot? Y:N\n")
+    #    if (check == "Y"):
+    #        bot.Sonny.storage.drop()
+    #        bot.__retrain__()
 
     # User setting
     from .views import views
