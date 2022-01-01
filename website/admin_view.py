@@ -7,8 +7,7 @@ from flask_login.utils import login_user
 from sqlalchemy.sql.expression import column, text
 from sqlalchemy.sql.functions import user
 from . import db
-from .models import User, Role
-from chatbot.models import Statement, Tag, UnknownStatement
+from chatbot.models import Statement, Tag, UnknownStatement, User, Role, Question, Conversation
 import os.path as op
 import yaml
 from definition import ROOT_PATH
@@ -32,10 +31,10 @@ class MyAdminIndexView(AdminIndexView):
 
     @expose('/login', methods=['GET', 'POST'])
     def login(self):
-        #Make sure that session will not be delete when close browser
+        # Make sure that session will not be delete when close browser
         session.permanent = True
         attempt_login = session.get('attempt_login', 0)
-        #If user login invalid five times in a rows. Lock this user for one hours
+        # If user login invalid five times in a rows. Lock this user for one hours
         if (attempt_login >= 5):
             return " Bạn đã bị khóa! Xin hãy quay lại trong vòng 1 tiếng nữa!!!"
         elif (attempt_login > 3):
@@ -45,7 +44,8 @@ class MyAdminIndexView(AdminIndexView):
 
         form = LoginForm()
         if form.validate_on_submit():
-            user = User.query.filter_by(email=form.email.data).first()
+            user = db.session.query(User).filter_by(
+                email=form.email.data).first()
             if user and user.role == Role.ADMIN:
                 if check_password_hash(user.password, form.password.data):
                     flash('Đăng nhập thành công', category='success')

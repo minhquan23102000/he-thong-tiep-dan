@@ -1,10 +1,11 @@
-from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey, UniqueConstraint, Enum
+from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey, UniqueConstraint, Enum, Boolean
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declared_attr, declarative_base
 import enum
 from chatterbot.conversation import StatementMixin
 from chatterbot import constants
+from flask_login import UserMixin
 
 
 class ModelBase(object):
@@ -36,7 +37,6 @@ class Tag(Base):
     """
 
     name = Column(String(constants.TAG_NAME_MAX_LENGTH), unique=True)
-
 
     def __repr__(self):
         return '<Tag %r>' % (self.name)
@@ -122,3 +122,39 @@ class Paper(Base):
     paper_name = Column(String(250), unique=True)
     paper_description = Column(String(500))
     paper_type = Column(Enum(PaperType), nullable=False)
+
+
+class Role(enum.Enum):
+    ADMIN = enum.auto()
+    PEOPLE = enum.auto()
+
+
+class User(Base, UserMixin):
+    email = Column(String(150), unique=True)
+    password = Column(String(150))
+    first_name = Column(String(150))
+    last_name = Column(String(150))
+    role = Column(Enum(Role), nullable=False)
+    create_at = Column(DateTime(timezone=True), default=func.now())
+
+
+class Sentiment(enum.Enum):
+    HAILONG = enum.auto()
+    KHONGHAILONG = enum.auto()
+
+
+class Conversation(Base):
+    user_id = Column(Integer(), ForeignKey('user.id'), nullable=True)
+    create_at = Column(DateTime(timezone=True), default=func.now())
+    sentiment = Column(Enum(Sentiment), nullable=True)
+    question = relationship("Question", backref=backref("question"))
+
+
+class Question(Base):
+    conversation_id = Column(Integer(), ForeignKey(
+        'conversation.id'), nullable=False)
+    tag_id = Column(Integer(), ForeignKey('tag.id'), nullable=False)
+    asking = Column(String(255), nullable=False)
+    answer = Column(String(255), nullable=False)
+    create_at = Column(DateTime(timezone=True), default=func.now())
+    is_not_known = Column(Boolean(), default=False)

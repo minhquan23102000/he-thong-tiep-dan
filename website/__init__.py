@@ -11,8 +11,6 @@ import numpy as np
 import json
 
 
-
-
 db = SQLAlchemy()
 
 TAG_REMOVE = ['F', 'Np', 'C', 'M', 'L']
@@ -27,14 +25,8 @@ def create_app():
 
     # Connect db to app
     db.init_app(app)
-    @app.before_first_request
-    def setup():
-        import website.models
-        # Recreate database each time for demo
-        Base.metadata.create_all(bind=db.engine)
-
     # Init database, only run it once or run when create new models
-    #init_database(app)
+    # init_database(app)
 
     # Init api
     init_api(app)
@@ -43,7 +35,7 @@ def create_app():
     init_login(app)
 
     # Retrain chatbot
-    # from chatbot import bot
+    from chatbot import bot
     # check = ""
     # while (check != 'Y' and check != 'N'):
     #    check = input("Train lại chatbot? Y:N\n")
@@ -92,21 +84,24 @@ def admin_setting(app):
 
 def init_database(app):
     # Import model
-    from .models import User, Role
-    from chatbot.models import Statement, Tag, UnknownStatement
-    with app.app_context():
-        db.create_all(app=app)
+    from chatbot.models import Statement, Tag, UnknownStatement, Conversation, Question, User, Role
+    import website.models
+    import chatbot.models
+    from chatbot import bot
+
+    bot.Sonny.storage.create_database()
 
     check = input("tạo test data cho tài khoản admin? Y:N\n")
     if (check == "Y"):
         from werkzeug.security import generate_password_hash
-        with app.app_context():
-            admin_user = User(email='admin',
-                              password=generate_password_hash("adminNCKH"),
-                              last_name="admin",
-                              role=Role.ADMIN)
-            db.session.add(admin_user)
-            db.session.commit()
+        admin_user = User(email='admin',
+                          password=generate_password_hash("adminNCKH"),
+                          last_name="admin",
+                          role=Role.ADMIN)
+        session = bot.Sonny.storage.get_session()
+        session.add(admin_user)
+        session.commit()
+        session.close()
 
 
 def init_api(app):
@@ -126,10 +121,10 @@ def init_api(app):
 
 
 def init_login(app):
-    from .models import User
+    from chatbot.models import User
     login_manager = LoginManager()
     login_manager.init_app(app)
 
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        return db.session.query(User).get(int(id))
