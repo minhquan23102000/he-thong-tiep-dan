@@ -158,3 +158,5 @@ class Question(Base):
     answer = Column(String(255), nullable=False)
     create_at = Column(DateTime(timezone=True), default=func.now())
     is_not_known = Column(Boolean(), default=False)
+    tag = relationship('Tag',
+                       backref=backref('questions', lazy='dynamic'))

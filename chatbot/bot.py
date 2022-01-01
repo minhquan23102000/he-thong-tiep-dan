@@ -35,7 +35,7 @@ def __train__(filePath):
     trainer.train(filePath)
 
 
-def chatbot_reponse(msg: str, oldtag: str = None):
+def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
     # Check message lem
     if len(msg) > 255:
         return {'response': 'Dài quá!!', 'tag': 'none'}
@@ -53,37 +53,43 @@ def chatbot_reponse(msg: str, oldtag: str = None):
     else:
         tag = tag[0]
 
+    # Check if this is an unknown question that chatbot has never learned before
+    is_not_known = False
     if reponse.confidence < 0.25:
         reponse = DEFAULT_REPONSE
+        is_not_known = True
     else:
         reponse = reponse.text
 
-    if reponse == DEFAULT_REPONSE:
-        # Store question to database if bot has not learned it yet
-        store_unknow_question(msg, oldtag)
-
+    if is_not_known:
         # Google search this paper if bot does not know about it
         reponse = google_search_paper(msg)
 
     response_data = {'response': reponse,
                      'tag': tag}
+    # Store this question to database
+    if conversation_id:
+        store_question(asking=msg, answer=reponse, oldtag=oldtag,
+                       conversation_id=conversation_id, is_not_known=is_not_known)
+
     return response_data
 
 
-def store_unknow_question(msg:str, oldtag):
+def store_question(asking: str, answer: str, oldtag, conversation_id, is_not_known):
     from website import db
-    from .models import UnknownStatement, Tag
-    msg_lang = langid.classify(msg)[0]
+    from .models import Question, Tag
+    msg_lang = langid.classify(asking)[0]
     if msg_lang in ['vi']:
-        print(msg_lang)
-        unknownStatement = UnknownStatement(question=msg)
-        tag_db = db.session.query(Tag).filter_by(name = oldtag).first()
+        question = Question(asking=asking, answer=answer,
+                            conversation_id=conversation_id, is_not_known=is_not_known)
+        tag_db = db.session.query(Tag).filter_by(name=oldtag).first()
         if (tag_db):
-            unknownStatement.tag_id = tag_db.id
-        db.session.add(unknownStatement)
+            question.tag_id = tag_db.id
+        db.session.add(question)
         db.session.commit()
 
-def google_search_paper(msg:str):
+
+def google_search_paper(msg: str):
     # Google search this paper if bot does not know about it
     flag_words = ['thủ tục', 'hành chính', 'giấy tờ', 'đơn',
                   'giấy phép', 'đăng ký', 'văn bản', 'biên bản']
@@ -102,6 +108,7 @@ def google_search_paper(msg:str):
     else:
         reponse = get_unknow_reponse()
     return reponse
+
 
 def get_unknow_reponse():
     import random
