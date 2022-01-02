@@ -1,4 +1,5 @@
 from chatterbot.storage.sql_storage import SQLStorageAdapter
+
 from .tag import VietnameseTager
 
 
@@ -35,8 +36,8 @@ class MySQLStorageAdapter(SQLStorageAdapter):
         self.engine = create_engine(self.database_uri, convert_unicode=True)
 
         if self.database_uri.startswith('sqlite://'):
-            from sqlalchemy.engine import Engine
             from sqlalchemy import event
+            from sqlalchemy.engine import Engine
 
             @event.listens_for(Engine, 'connect')
             def set_sqlite_pragma(dbapi_connection, connection_record):
@@ -69,6 +70,11 @@ class MySQLStorageAdapter(SQLStorageAdapter):
         from chatbot.models import Base
         Base.metadata.create_all(self.engine)
 
+    def recreate_database(self):
+        from chatbot.models import Base
+        Base.metadata.drop_all(self.engine)
+        Base.metadata.create_all(self.engine)
+
     def get_session(self):
         return self.Session()
 
@@ -76,7 +82,8 @@ class MySQLStorageAdapter(SQLStorageAdapter):
         """
         Drop the database.
         """
-        from chatbot.models import UnknownStatement, tag_association_table, Conversation, Question
+        from chatbot.models import (Conversation, Question, UnknownStatement,
+                                    tag_association_table)
         Statement = self.get_model('statement')
         Tag = self.get_model('tag')
 

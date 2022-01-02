@@ -1,11 +1,13 @@
-from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey, UniqueConstraint, Enum, Boolean
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.sql import func
-from sqlalchemy.ext.declarative import declared_attr, declarative_base
 import enum
-from chatterbot.conversation import StatementMixin
+
 from chatterbot import constants
+from chatterbot.conversation import StatementMixin
 from flask_login import UserMixin
+from sqlalchemy import (Boolean, Column, DateTime, Enum, ForeignKey, Integer,
+                        String, Table, UniqueConstraint)
+from sqlalchemy.ext.declarative import declarative_base, declared_attr
+from sqlalchemy.orm import backref, relationship
+from sqlalchemy.sql import func
 
 
 class ModelBase(object):
@@ -46,18 +48,6 @@ class Tag(Base):
 
     def __unicode__(self):
         return self.name
-
-
-class UnknownStatement(Base):
-    question = Column(String(255), nullable=False)
-    answer = Column(String(255))
-    tag_id = Column(Integer(), ForeignKey('tag.id'))
-    tag = relationship('Tag',
-                       backref=backref('unknowstatements', lazy='dynamic'))
-    create_at = Column(DateTime(timezone=True), default=func.now())
-
-    def __repr__(self) -> str:
-        return f'<UnknowStatement {self.question}>'
 
 
 class Statement(Base, StatementMixin):
@@ -153,7 +143,7 @@ class Conversation(Base):
 class Question(Base):
     conversation_id = Column(Integer(), ForeignKey(
         'conversation.id'), nullable=False)
-    tag_id = Column(Integer(), ForeignKey('tag.id'), nullable=False)
+    tag_id = Column(Integer(), ForeignKey('tag.id'), nullable=True)
     asking = Column(String(255), nullable=False)
     answer = Column(String(255), nullable=False)
     create_at = Column(DateTime(timezone=True), default=func.now())

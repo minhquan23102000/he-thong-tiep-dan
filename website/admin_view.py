@@ -1,23 +1,25 @@
-from flask_admin.contrib.sqla import ModelView
-from flask_admin.contrib.fileadmin import FileAdmin
-from flask_admin import expose, BaseView, AdminIndexView
+import os.path as op
+from datetime import timedelta
+
+import yaml
+from chatbot import bot
+from chatbot.bot import Sonny
+from chatbot.models import Conversation, Question, Role, Statement, Tag, User
+from chatbot.tag import VietnameseTager
+from definition import ROOT_PATH
+from flask import flash, redirect, request, session, url_for
+from flask_admin import AdminIndexView, BaseView, expose
 from flask_admin.actions import action
-from flask import flash, redirect, url_for, session, request
+from flask_admin.contrib.fileadmin import FileAdmin
+from flask_admin.contrib.sqla import ModelView
+from flask_login import current_user, login_required, login_user, logout_user
 from flask_login.utils import login_user
 from sqlalchemy.sql.expression import column, text
 from sqlalchemy.sql.functions import user
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from . import db
-from chatbot.models import Statement, Tag, UnknownStatement, User, Role, Question, Conversation
-import os.path as op
-import yaml
-from definition import ROOT_PATH
-from chatbot.bot import Sonny
-from chatbot import bot
-from flask_login import current_user, logout_user, login_user, login_required
 from .form import LoginForm
-from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import timedelta
-from chatbot.tag import VietnameseTager
 
 
 # Create customized index view class that handles login & registration
@@ -83,16 +85,16 @@ class MyModelView(ModelView):
 class UnknownStatementView(MyModelView):
     can_create = False
 
-    column_list = ('question', 'answer', 'tag', 'create_at')
-    form_edit_rules = ('question', 'answer', 'tag')
+    column_list = ('asking', 'answer', 'tag', 'create_at')
+    form_edit_rules = ('asking', 'answer', 'tag')
     column_labels = {
-        'question': 'người dùng hỏi',
+        'asking': 'người dùng hỏi',
         'answer': 'chatbot trả lời',
         'create_at': 'thời điểm hỏi',
         'tag': 'ngữ cảnh'
     }
 
-    column_searchable_list = ['question']
+    column_searchable_list = ['asking', 'answer']
     column_filters = ['tag']
 
     @action('train_unknown', 'Train', 'Train chatbot với những câu đã chọn?')
@@ -100,18 +102,23 @@ class UnknownStatementView(MyModelView):
         count = 0
         for _id in ids:
             # Do some work with the id, e.g. call a service method
-            learningSentence = db.session.query(UnknownStatement).filter_by(
+            learningSentence = db.session.query(Question).filter_by(
                 id=_id).first()
             if not learningSentence.answer:
                 continue
-            question = Statement(text=learningSentence.question)
+            question = Statement(text=learningSentence.asking)
             answer = Statement(text=learningSentence.answer)
-            answer.in_response_to = learningSentence.question
+            answer.in_response_to = learningSentence.asking
             Sonny.storage.create_many([question, answer])
-            db.session.delete(learningSentence)
+
+            learningSentence.is_not_known = False
             db.session.commit()
             count += 1
         flash("{0} câu (s) đã được train thành công".format(count))
+
+    def get_query(self):
+        return super(UnknownStatementView,
+                     self).get_query().filter(Question.is_not_known == True)
 
 
 class BotTrainFileView(FileAdmin):

@@ -1,15 +1,16 @@
-from flask import Flask, request, make_response, flash, redirect, url_for, render_template
-from functools import wraps
-from flask_restful import Resource, Api
+import json
 import os.path as op
-from flask_admin import Admin
-from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
+from functools import wraps
+
+import numpy as np
 from chatbot.models import Base
 from definition import ROOT_PATH
-import numpy as np
-import json
-
+from flask import (Flask, flash, make_response, redirect, render_template,
+                   request, url_for)
+from flask_admin import Admin
+from flask_login import LoginManager
+from flask_restful import Api, Resource
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
@@ -36,13 +37,13 @@ def create_app():
 
     # Retrain chatbot
     from chatbot import bot
+
     # check = ""
     # while (check != 'Y' and check != 'N'):
     #    check = input("Train lại chatbot? Y:N\n")
     #    if (check == "Y"):
     #        bot.Sonny.storage.drop()
     #        bot.__retrain__()
-
     # User setting
     from .views import views
     app.register_blueprint(views, url_prefix='/')
@@ -55,9 +56,14 @@ def create_app():
 
 def admin_setting(app):
     # Import model
+    from chatbot.models import Question, Statement, Tag
+
     from website.admin_view import MyModelView
-    from .admin_view import UnknownStatementView, BotTrainFileView, MyAdminIndexView, RelearnView, MyStatementView
-    from chatbot.models import Statement, Tag, UnknownStatement
+
+    from .admin_view import (BotTrainFileView, MyAdminIndexView,
+                             MyStatementView, RelearnView,
+                             UnknownStatementView)
+
     # Admin setting
     admin = Admin(app,
                   name="Hệ thống quản lý dành cho cán bộ",
@@ -66,7 +72,7 @@ def admin_setting(app):
 
     # Unknow statement view, view store all message that the chatbot did not know
     admin.add_view(
-        UnknownStatementView(UnknownStatement,
+        UnknownStatementView(Question,
                              db.session,
                              name='Các câu chưa học'))
     # Corpus manager view, we can add a new file corpus and train it
@@ -84,12 +90,13 @@ def admin_setting(app):
 
 def init_database(app):
     # Import model
-    from chatbot.models import Statement, Tag, UnknownStatement, Conversation, Question, User, Role
-    import website.models
     import chatbot.models
     from chatbot import bot
+    from chatbot.models import (Base, Conversation, Paper, PaperType, Question,
+                                Role, Statement, Tag, User)
 
-    bot.Sonny.storage.create_database()
+    bot.Sonny.storage.recreate_database()
+    bot.__retrain__()
 
     check = input("tạo test data cho tài khoản admin? Y:N\n")
     if (check == "Y"):
