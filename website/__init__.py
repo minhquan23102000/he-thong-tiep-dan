@@ -3,7 +3,6 @@ import os.path as op
 from functools import wraps
 
 import numpy as np
-from chatbot.models import Base
 from definition import ROOT_PATH
 from flask import (Flask, flash, make_response, redirect, render_template,
                    request, url_for)
@@ -36,7 +35,7 @@ def create_app():
     init_login(app)
 
     # Retrain chatbot
-    from chatbot import bot
+    import chatbot
 
     # check = ""
     # while (check != 'Y' and check != 'N'):
@@ -90,13 +89,13 @@ def admin_setting(app):
 
 def init_database(app):
     # Import model
+    import chatbot
     import chatbot.models
-    from chatbot import bot
     from chatbot.models import (Base, Conversation, Paper, PaperType, Question,
                                 Role, Statement, Tag, User)
 
-    bot.Sonny.storage.recreate_database()
-    bot.__retrain__()
+    chatbot.Sonny.storage.recreate_database()
+    chatbot.__retrain__()
 
     check = input("tạo test data cho tài khoản admin? Y:N\n")
     if (check == "Y"):
@@ -105,15 +104,14 @@ def init_database(app):
                           password=generate_password_hash("adminNCKH"),
                           last_name="admin",
                           role=Role.ADMIN)
-        session = bot.Sonny.storage.get_session()
+        session = chatbot.Sonny.storage.get_session()
         session.add(admin_user)
         session.commit()
         session.close()
 
 
 def init_api(app):
-    from chatbot import bot
-    from chatbot.bot import chatbot_reponse
+    from chatbot import chatbot_reponse
 
     api = Api(app)
     api.app.config['RESTFUL_JSON'] = {'ensure_ascii': False}

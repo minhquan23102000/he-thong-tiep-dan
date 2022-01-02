@@ -1,14 +1,17 @@
-from chatterbot import conversation
-from flask import Blueprint, render_template, request, flash, request, Response, session
-import requests
-from chatbot.bot import chatbot_reponse
-from chatbot.models import *
-from . import secret
 import json
-from flask import jsonify
-from .constant.temp_db import make_img_guide
+
+import requests
+from chatbot import chatbot_reponse
+from chatbot.models import *
+from chatterbot import conversation
+from flask import (Blueprint, Response, flash, jsonify, render_template,
+                   request, session)
 from flask_login import current_user
+
 from website import db
+
+from . import secret
+from .constant.temp_db import make_img_guide
 
 views = Blueprint('views', __name__)
 

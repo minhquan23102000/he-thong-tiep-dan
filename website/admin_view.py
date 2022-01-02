@@ -1,9 +1,9 @@
 import os.path as op
 from datetime import timedelta
 
+import chatbot
 import yaml
-from chatbot import bot
-from chatbot.bot import Sonny
+from chatbot import Sonny
 from chatbot.models import Conversation, Question, Role, Statement, Tag, User
 from chatbot.tag import VietnameseTager
 from definition import ROOT_PATH
@@ -152,7 +152,7 @@ class BotTrainFileView(FileAdmin):
                 db.session.commit()
 
                 # Train file again
-                bot.__train__(filePath=file_path)
+                chatbot.__train__(filePath=file_path)
 
             count += 1
         flash("{0} file (s) charges is trained".format(count))

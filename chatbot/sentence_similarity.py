@@ -1,6 +1,4 @@
 from chatterbot.comparisons import Comparator
-from website import STOPWORDS, TAG_REMOVE
-from chatbot.preprocessor import clean_url
 
 
 class VietnameseJaccardSimilarity(Comparator):
@@ -22,6 +20,7 @@ class VietnameseJaccardSimilarity(Comparator):
     Given our similarity threshold above, we would consider this to be a match.
     .. _`Jaccard similarity index`: https://en.wikipedia.org/wiki/Jaccard_index
     """
+
     def compare(self, statement_a, statement_b):
         """
         Return the calculated similarity of two
@@ -48,14 +47,15 @@ class VietnameseCosineSimilarity(Comparator):
     Step 1: We convert statement to tf-idf vector
     Step 2: Caculate similarity base on consine similarity 
     """
+
     def compare(self, statement_a, statement_b):
         """
         Return the calculated similarity of two
         statements based on the cosine similarity.
         """
+        import numpy as np
         from sklearn.feature_extraction.text import TfidfVectorizer
         from sklearn.metrics.pairwise import cosine_similarity
-        import numpy as np
 
         # Caculate tfidf cosine similarity
         tfidf = TfidfVectorizer(token_pattern=r'\S+')
