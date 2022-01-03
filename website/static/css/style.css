@@ -15225,3 +15225,7 @@ label {
   margin-bottom: 0.5rem;
   font-weight: normal;
 }
+
+label strong {
+  color: red;
+}
