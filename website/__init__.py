@@ -46,6 +46,8 @@ def create_app():
     # User setting
     from .views import views
     app.register_blueprint(views, url_prefix='/')
+    from .auth import auth
+    app.register_blueprint(auth, url_prefix='/')
 
     # Admin setting
     admin_setting(app)
