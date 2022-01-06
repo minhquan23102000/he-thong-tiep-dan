@@ -1,8 +1,8 @@
 import enum
 
-from chatterbot import constants
-from chatterbot.conversation import StatementMixin
 from flask_login import UserMixin
+from lib.chatterbot import constants
+from lib.chatterbot.conversation import StatementMixin
 from sqlalchemy import (Boolean, Column, DateTime, Enum, ForeignKey, Integer,
                         String, Table, UniqueConstraint)
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
@@ -25,12 +25,6 @@ class ModelBase(object):
 
 
 Base = declarative_base(cls=ModelBase)
-
-tag_association_table = Table(
-    'tag_association', Base.metadata,
-    Column('tag_id', Integer, ForeignKey('tag.id')),
-    Column('statement_id', Integer, ForeignKey('statement.id')),
-    UniqueConstraint('tag_id', 'statement_id', name='Tag_Statement_Unique'))
 
 
 class Tag(Base):
@@ -69,8 +63,9 @@ class Statement(Base, StatementMixin):
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+    tag_id = Column(Integer(), ForeignKey('tag.id'), nullable=True)
+
     tags = relationship('Tag',
-                        secondary=lambda: tag_association_table,
                         backref='statements')
 
     in_response_to = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
@@ -86,15 +81,15 @@ class Statement(Base, StatementMixin):
 
     def get_tags(self):
         """
-        Return a list of tags for this statement.
+        Return  tags for this statement.
         """
-        return [tag.name for tag in self.tags]
+        return self.tags
 
-    def add_tags(self, *tags):
+    def add_tags(self, tags):
         """
-        Add a list of strings to the statement as tags.
+        Update tag for this statement.
         """
-        self.tags.extend([Tag(name=tag) for tag in tags])
+        self.tags = tags
 
     def __str__(self):
         return f'{self.text}: {self.in_response_to}'

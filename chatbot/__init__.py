@@ -1,11 +1,14 @@
-from sqlalchemy.sql.expression import text
-from .mychatbot import MyChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.response_selection import get_random_response
-from chatbot.sentence_similarity import VietnameseJaccardSimilarity, VietnameseCosineSimilarity
-from website.config import SQLALCHEMY_DATABASE_URI
-from .models import Statement
 import langid
+from lib.chatterbot.response_selection import get_random_response
+from lib.chatterbot.trainers import ChatterBotCorpusTrainer
+from sqlalchemy.sql.expression import text
+from website.config import SQLALCHEMY_DATABASE_URI
+
+from chatbot.sentence_similarity import (VietnameseCosineSimilarity,
+                                         VietnameseJaccardSimilarity)
+
+from .models import Statement
+from .mychatbot import MyChatBot
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
@@ -51,7 +54,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
     if not tag:
         tag = "none"
     else:
-        tag = tag[0]
+        tag = tag.name
 
     # Check if this is an unknown question that chatbot has never learned before
     is_not_known = False
@@ -77,6 +80,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
 
 def store_question(asking: str, answer: str, oldtag, conversation_id, is_not_known):
     from website import db
+
     from .models import Question, Tag
     msg_lang = langid.classify(asking)[0]
     if msg_lang in ['vi']:
@@ -98,6 +102,7 @@ def google_search_paper(msg: str):
     words = ViTokenizer.tokenize(msg)
     if any(w.replace('_', ' ').lower() in flag_words for w in words.split(' ')):
         from googlesearch import search
+
         # Make a request to google search
         try:
             url = list(search(msg, tld='com', lang='vi', num=1,

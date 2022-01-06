@@ -1,5 +1,4 @@
-from chatterbot.logic import LogicAdapter
-from chatterbot import filters
+from lib.chatterbot.logic import LogicAdapter
 
 
 class MyBestMatch(LogicAdapter):
@@ -16,6 +15,7 @@ class MyBestMatch(LogicAdapter):
         Defaults to None
     :type excluded_words: list
     """
+
     def __init__(self, chatbot, **kwargs):
         super().__init__(chatbot, **kwargs)
 

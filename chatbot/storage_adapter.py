@@ -1,4 +1,4 @@
-from chatterbot.storage.sql_storage import SQLStorageAdapter
+from lib.chatterbot.storage.sql_storage import SQLStorageAdapter
 
 from .tag import VietnameseTager
 
@@ -82,14 +82,12 @@ class MySQLStorageAdapter(SQLStorageAdapter):
         """
         Drop the database.
         """
-        from chatbot.models import (Conversation, Question,
-                                    tag_association_table)
+        from chatbot.models import Conversation, Question
         Statement = self.get_model('statement')
         Tag = self.get_model('tag')
 
         session = self.Session()
 
-        session.query(tag_association_table).delete(synchronize_session=False)
         session.query(Statement).delete()
 
         session.query(Question).delete()

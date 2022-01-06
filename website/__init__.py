@@ -26,7 +26,11 @@ def create_app():
     # Connect db to app
     db.init_app(app)
     # Init database, only run it once or run when create new models
-    # init_database(app)
+    # check = ""
+    # while (check != "Y" and check != "N"):
+    #     check = input("Tao lai database? Y:N")
+    #     if (check == "Y"):
+    #         init_database(app)
 
     # Init api
     init_api(app)
@@ -35,14 +39,15 @@ def create_app():
     init_login(app)
 
     # Retrain chatbot
-    import chatbot
+    # import chatbot
 
     # check = ""
     # while (check != 'Y' and check != 'N'):
-    #    check = input("Train lại chatbot? Y:N\n")
-    #    if (check == "Y"):
-    #        bot.Sonny.storage.drop()
-    #        bot.__retrain__()
+    #     check = input("Train lại chatbot? Y:N\n")
+    #     if (check == "Y"):
+    #         chatbot.Sonny.storage.drop()
+    #         chatbot.__retrain__()
+
     # User setting
     from .views import views
     app.register_blueprint(views, url_prefix='/')
@@ -97,7 +102,6 @@ def init_database(app):
                                 Role, Statement, Tag, User)
 
     chatbot.Sonny.storage.recreate_database()
-    chatbot.__retrain__()
 
     check = input("tạo test data cho tài khoản admin? Y:N\n")
     if (check == "Y"):

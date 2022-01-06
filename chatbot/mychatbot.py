@@ -1,5 +1,6 @@
 
-from chatterbot import ChatBot
+from lib.chatterbot import ChatBot
+
 
 class MyChatBot(ChatBot):
     def generate_response(self, input_statement, additional_response_selection_parameters=None):
@@ -16,7 +17,8 @@ class MyChatBot(ChatBot):
         for adapter in self.logic_adapters:
             if adapter.can_process(input_statement):
 
-                output = adapter.process(input_statement, additional_response_selection_parameters)
+                output = adapter.process(
+                    input_statement, additional_response_selection_parameters)
                 results.append(output)
 
                 self.logger.info(
@@ -30,7 +32,8 @@ class MyChatBot(ChatBot):
                     max_confidence = output.confidence
             else:
                 self.logger.info(
-                    'Not processing the statement using {}'.format(adapter.class_name)
+                    'Not processing the statement using {}'.format(
+                        adapter.class_name)
                 )
 
         class ResultOption:
@@ -43,7 +46,8 @@ class MyChatBot(ChatBot):
         if len(results) >= 3:
             result_options = {}
             for result_option in results:
-                result_string = result_option.text + ':' + (result_option.in_response_to or '')
+                result_string = result_option.text + ':' + \
+                    (result_option.in_response_to or '')
 
                 if result_string in result_options:
                     result_options[result_string].count += 1

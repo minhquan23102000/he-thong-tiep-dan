@@ -1,4 +1,4 @@
-from chatterbot.comparisons import Comparator
+from lib.chatterbot.comparisons import Comparator
 
 
 class VietnameseJaccardSimilarity(Comparator):
@@ -34,8 +34,7 @@ class VietnameseJaccardSimilarity(Comparator):
         denominator = float(len(statement_a_lemmas.union(statement_b_lemmas)))
         ratio = numerator / denominator
 
-        if any(a_tags in statement_b.get_tags()
-               for a_tags in statement_a.get_tags()) and ratio < 0.95:
+        if statement_a.tags == statement_b.tags and ratio < 0.95:
             ratio += 0.05
 
         return ratio
@@ -67,8 +66,7 @@ class VietnameseCosineSimilarity(Comparator):
         confidence = cosine_similarity(matrix[0], matrix[1])[0][0]
 
         # If any statement has oldtags value, add 5% confidence to it
-        if any(a_tags in statement_b.get_tags()
-               for a_tags in statement_a.get_tags()) and confidence < 0.95:
+        if statement_a.get_tags() == statement_b.get_tags() and confidence < 0.95:
             confidence += 0.05
 
         return np.round(confidence, 4)
