@@ -48,7 +48,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
         oldtag = 'none'
 
     # Request response to bot
-    reponse = Sonny.get_response(statement=msg, tags=[oldtag])
+    reponse = Sonny.get_response(statement=msg, tags=oldtag)
 
     tag = reponse.get_tags()
     if not tag:

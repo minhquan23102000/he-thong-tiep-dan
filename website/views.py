@@ -3,7 +3,6 @@ import json
 import requests
 from chatbot import chatbot_reponse
 from chatbot.models import *
-from chatterbot import conversation
 from flask import (Blueprint, Response, flash, jsonify, render_template,
                    request, session)
 from flask_login import current_user

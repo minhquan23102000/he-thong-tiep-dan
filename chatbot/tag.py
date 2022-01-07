@@ -1,13 +1,15 @@
-from chatterbot import languages
 import string
-from chatterbot.comparisons import Comparator
+
+from lib.chatterbot import languages
+from lib.chatterbot.comparisons import Comparator
 from website import STOPWORDS, TAG_REMOVE
+
 from .preprocessor import clean_url
 
 
 class VietnameseTager(object):
     def __init__(self):
-        from pyvi import ViTokenizer, ViPosTagger
+        from pyvi import ViPosTagger, ViTokenizer
 
         self.language = languages.VIE
 

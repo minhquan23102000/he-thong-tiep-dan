@@ -89,7 +89,8 @@ class Statement(Base, StatementMixin):
         """
         Update tag for this statement.
         """
-        self.tags = tags
+        print("Calling add tag function")
+        self.tags = Tag(name=tags)
 
     def __str__(self):
         return f'{self.text}: {self.in_response_to}'
