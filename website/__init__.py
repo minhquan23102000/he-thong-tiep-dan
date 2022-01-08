@@ -13,7 +13,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-TAG_REMOVE = ['F', 'Np', 'C', 'M', 'L']
+TAG_REMOVE = ['F', 'Np', 'C', 'M', 'L', 'X']
 with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
     STOPWORDS = np.array(f.read().split('\n'))
 
@@ -40,7 +40,6 @@ def create_app():
 
     # Retrain chatbot
     # import chatbot
-
     # check = ""
     # while (check != 'Y' and check != 'N'):
     #     check = input("Train lại chatbot? Y:N\n")
@@ -103,17 +102,16 @@ def init_database(app):
 
     chatbot.Sonny.storage.recreate_database()
 
-    check = input("tạo test data cho tài khoản admin? Y:N\n")
-    if (check == "Y"):
-        from werkzeug.security import generate_password_hash
-        admin_user = User(email='admin',
-                          password=generate_password_hash("adminNCKH"),
-                          last_name="admin",
-                          role=Role.ADMIN)
-        session = chatbot.Sonny.storage.get_session()
-        session.add(admin_user)
-        session.commit()
-        session.close()
+    # Create test data for admin login
+    from werkzeug.security import generate_password_hash
+    admin_user = User(email='admin',
+                      password=generate_password_hash("adminNCKH"),
+                      last_name="admin",
+                      role=Role.ADMIN)
+    session = chatbot.Sonny.storage.get_session()
+    session.add(admin_user)
+    session.commit()
+    session.close()
 
 
 def init_api(app):

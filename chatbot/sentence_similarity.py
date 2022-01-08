@@ -5,7 +5,7 @@ class VietnameseCosineSimilarity(Comparator):
     """
     Calculates the similarity of two statements based on the Cosine Similarity
     Step 1: We convert statement to tf-idf vector
-    Step 2: Caculate similarity base on consine similarity 
+    Step 2: Calculate similarity base on consine similarity 
     """
 
     def compare(self, statement_a, statement_b):
