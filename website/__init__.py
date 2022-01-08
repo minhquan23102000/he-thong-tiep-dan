@@ -26,11 +26,11 @@ def create_app():
     # Connect db to app
     db.init_app(app)
     # Init database, only run it once or run when create new models
-    # check = ""
-    # while (check != "Y" and check != "N"):
-    #     check = input("Tao lai database? Y:N")
-    #     if (check == "Y"):
-    #         init_database(app)
+    check = ""
+    while (check != "Y" and check != "N"):
+        check = input("Tao lai database? Y:N")
+        if (check == "Y"):
+            init_database(app)
 
     # Init api
     init_api(app)
@@ -39,13 +39,13 @@ def create_app():
     init_login(app)
 
     # Retrain chatbot
-    # import chatbot
-    # check = ""
-    # while (check != 'Y' and check != 'N'):
-    #     check = input("Train lại chatbot? Y:N\n")
-    #     if (check == "Y"):
-    #         chatbot.Sonny.storage.drop()
-    #         chatbot.__retrain__()
+    import chatbot
+    check = ""
+    while (check != 'Y' and check != 'N'):
+        check = input("Train lại chatbot? Y:N\n")
+        if (check == "Y"):
+            chatbot.Sonny.storage.drop()
+            chatbot.__retrain__()
 
     # User setting
     from .views import views

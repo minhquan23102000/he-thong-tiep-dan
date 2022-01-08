@@ -1,4 +1,3 @@
-ChatterBot==1.0.8
 ChatterBot-corpus
 Flask==2.0.2
 Flask-Admin==1.5.8
