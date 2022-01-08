@@ -106,10 +106,11 @@ class UnknownStatementView(MyModelView):
                 id=_id).first()
             if not learningSentence.answer:
                 continue
-            question = Statement(text=learningSentence.asking)
-            answer = Statement(text=learningSentence.answer)
-            answer.in_response_to = learningSentence.asking
-            Sonny.storage.create_many([question, answer])
+            statement = Statement(
+                text=learningSentence.answer, in_response_to=learningSentence.asking)
+            if learningSentence.tag:
+                statement.add_tags(learningSentence.tag.name)
+            Sonny.storage.create_many([statement])
 
             learningSentence.is_not_known = False
             db.session.commit()
@@ -212,28 +213,6 @@ class MyStatementView(MyModelView):
                          menu_icon_value=menu_icon_value)
         self.tagger = VietnameseTager()
 
-    def delete_model(self, model):
-        try:
-            self.on_model_delete(model)
-            question_statement = (db.session.query(Statement).filter_by(
-                id=model.id - 1).first())
-
-            self.session.flush()
-            self.session.delete(model)
-            self.session.delete(question_statement)
-            self.session.commit()
-        except Exception as ex:
-            if not self.handle_view_exception(ex):
-                flash('Failed to delete record. %(error)s', category='error')
-
-            self.session.rollback()
-
-            return False
-        else:
-            self.after_model_delete(model)
-
-        return True
-
     def update_model(self, form, model):
         """
             Update model from form.
@@ -245,16 +224,10 @@ class MyStatementView(MyModelView):
         """
         try:
             form.populate_obj(model)
-            # Update question statement
-            question_statement = (db.session.query(Statement).filter_by(
-                id=model.id - 1).first())
-            question_statement.text = model.in_response_to
-            search_text = self.tagging(model.in_response_to)
-            question_statement.search_text = search_text
 
             # Update answer statement
             model.search_text = self.tagging(model.text)
-            model.search_in_response_to = search_text
+            model.search_in_response_to = self.tagging(model.in_response_to)
 
             self._on_model_change(form, model, False)
             self.session.commit()
@@ -283,17 +256,10 @@ class MyStatementView(MyModelView):
             model = self.build_new_instance()
 
             form.populate_obj(model)
-
-            # Create question statement
-            question_statement = Statement(text=model.in_response_to)
-            search_text = self.tagging(model.in_response_to)
-            question_statement.search_text = search_text
-
             # Update answer statement
             model.search_text = self.tagging(model.text)
-            model.search_in_response_to = search_text
+            model.search_in_response_to = self.tagging(model.in_response_to)
 
-            self.session.add(question_statement)
             self.session.add(model)
             self._on_model_change(form, model, True)
             self.session.commit()
@@ -310,10 +276,6 @@ class MyStatementView(MyModelView):
             self.after_model_change(form, model, True)
 
         return model
-
-    def get_query(self):
-        return super(MyStatementView,
-                     self).get_query().filter(Statement.in_response_to != None)
 
     def tagging(self, text):
         return self.tagger.get_bigram_pair_string(text)

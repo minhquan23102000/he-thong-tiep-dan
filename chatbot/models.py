@@ -83,7 +83,10 @@ class Statement(Base, StatementMixin):
         """
         Return  tags for this statement.
         """
-        return self.tags.name
+        if self.tags:
+            return self.tags.name
+        else:
+            return ''
 
     def add_tags(self, tags):
         """
