@@ -1,13 +1,10 @@
 import langid
 from lib.chatterbot.response_selection import get_random_response
 from lib.chatterbot.trainers import ChatterBotCorpusTrainer
-from sqlalchemy.sql.expression import text
 from website.config import SQLALCHEMY_DATABASE_URI
 
-from chatbot.sentence_similarity import (VietnameseCosineSimilarity,
-                                         VietnameseJaccardSimilarity)
+from chatbot.sentence_similarity import VietnameseCosineSimilarity
 
-from .models import Statement
 from .mychatbot import MyChatBot
 
 DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
@@ -53,8 +50,6 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
     tag = reponse.get_tags()
     if not tag:
         tag = "none"
-    else:
-        tag = tag.name
 
     # Check if this is an unknown question that chatbot has never learned before
     is_not_known = False

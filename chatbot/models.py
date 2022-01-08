@@ -51,10 +51,10 @@ class Statement(Base, StatementMixin):
 
     confidence = 0
 
-    text = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH))
+    text = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True)
 
     search_text = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
-                         nullable=False,
+                         nullable=True,
                          server_default='')
 
     conversation = Column(String(constants.CONVERSATION_LABEL_MAX_LENGTH),
@@ -83,7 +83,7 @@ class Statement(Base, StatementMixin):
         """
         Return  tags for this statement.
         """
-        return self.tags
+        return self.tags.name
 
     def add_tags(self, tags):
         """
