@@ -3,7 +3,8 @@ from lib.chatterbot.response_selection import get_random_response
 from lib.chatterbot.trainers import ChatterBotCorpusTrainer
 from website.config import SQLALCHEMY_DATABASE_URI
 
-from chatbot.sentence_similarity import VietnameseCosineSimilarity
+from chatbot.sentence_similarity import (VietnameseCosineSimilarity,
+                                         Word2VecSimilarity)
 
 from .mychatbot import MyChatBot
 
@@ -14,7 +15,7 @@ NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt.
 Sonny = MyChatBot("Sonny",
                   storage_adapter='chatbot.storage_adapter.MySQLStorageAdapter',
                   read_only=True,
-                  statement_comparison_function=VietnameseCosineSimilarity,
+                  statement_comparison_function=Word2VecSimilarity,
                   logic_adapters=[
                       {
                           'import_path': 'chatbot.logic_adapter.MyBestMatch',
@@ -53,7 +54,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
 
     # Check if this is an unknown question that chatbot has never learned before
     is_not_known = False
-    if reponse.confidence < 0.3:
+    if reponse.confidence < 0.35:
         reponse = DEFAULT_REPONSE
         is_not_known = True
     else:
