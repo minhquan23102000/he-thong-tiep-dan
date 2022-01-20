@@ -214,6 +214,7 @@ class SQLStorageAdapter(StorageAdapter):
         return statement_object
 
     def create_many(self, statements):
+        from gensim.models import Word2Vec
         """
         Creates multiple statement entries.
         """
@@ -223,7 +224,9 @@ class SQLStorageAdapter(StorageAdapter):
         session = self.Session()
 
         create_statements = []
+        list_search_sentences = []
         create_tags = {}
+        w2v_model = Word2Vec.load('chatbot/vietnamese_news_w2v.model')
 
         for statement in statements:
 
@@ -236,7 +239,7 @@ class SQLStorageAdapter(StorageAdapter):
                 statement_model_object.search_text = self.tagger.get_bigram_pair_string(
                     statement.text)
 
-            if not statement.search_in_response_to and statement.in_response_to:
+            if not statement.search_in_response_to:
                 statement_model_object.search_in_response_to = self.tagger.get_bigram_pair_string(
                     statement.in_response_to)
 
@@ -257,9 +260,17 @@ class SQLStorageAdapter(StorageAdapter):
 
             statement_model_object.tags = tag
             create_statements.append(statement_model_object)
+            list_search_sentences.append(
+                statement_model_object.search_in_response_to.split(' '))
 
         session.add_all(create_statements)
         session.commit()
+
+        w2v_model.build_vocab(list_search_sentences, update=True)
+        w2v_model.train(list_search_sentences, total_examples=len(
+            list_search_sentences), epochs=30)
+        w2v_model.save('chatbot/vietnamese_news_w2v.model')
+        del w2v_model
 
     def update(self, statement):
         """

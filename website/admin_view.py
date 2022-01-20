@@ -228,6 +228,7 @@ class MyStatementView(MyModelView):
             # Update answer statement
             model.search_text = self.tagging(model.text)
             model.search_in_response_to = self.tagging(model.in_response_to)
+            self.update_w2v_model(model.search_in_response_to.split(' '))
 
             self._on_model_change(form, model, False)
             self.session.commit()
@@ -259,6 +260,7 @@ class MyStatementView(MyModelView):
             # Update answer statement
             model.search_text = self.tagging(model.text)
             model.search_in_response_to = self.tagging(model.in_response_to)
+            self.update_w2v_model(model.search_in_response_to.split(' '))
 
             self.session.add(model)
             self._on_model_change(form, model, True)
@@ -279,3 +281,11 @@ class MyStatementView(MyModelView):
 
     def tagging(self, text):
         return self.tagger.get_bigram_pair_string(text)
+
+    def update_w2v_model(self, list_vocab):
+        from gensim.models import Word2Vec
+        model = Word2Vec.load('chatbot/vietnamese_news_w2v.model')
+        model.build_vocab([list_vocab], update=True)
+        model.train([list_vocab], total_examples=1, epochs=30)
+        model.save('chatbot/vietnamese_news_w2v.model')
+        del model
