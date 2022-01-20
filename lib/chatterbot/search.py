@@ -58,6 +58,19 @@ class IndexedTextSearch:
                 input_statement.in_response_to
             )
 
+        if self.compare_statements.__class__.__name__ == "Word2VecSimilarity":
+            for word in input_search_in_response_to.split(' '):
+                try:
+                    similar_words = self.compare_statements.model.wv.most_similar(
+                        word, topn=3)
+                    input_search_in_response_to += ' ' + ' '.join(
+                        [w[0] for w in similar_words])
+                except Exception as e:
+                    print(e)
+                    continue
+
+            print("Search in response to: " + input_search_in_response_to)
+
         search_parameters = {
             'search_in_response_to_contains': input_search_in_response_to,
             'persona_not_startswith': 'bot:',
