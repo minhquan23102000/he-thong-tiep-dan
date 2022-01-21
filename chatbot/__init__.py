@@ -57,6 +57,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
     if reponse.confidence < 0.35:
         reponse = DEFAULT_REPONSE
         is_not_known = True
+        tag = "none"
     else:
         reponse = reponse.text
 

@@ -30,7 +30,7 @@ class VietnameseCosineSimilarity(Comparator):
         if statement_a.get_tags() == statement_b.get_tags() and confidence < 0.95:
             confidence += 0.05
 
-        return np.round(confidence, 4)-0.15
+        return np.round(confidence, 4)
 
 
 class Word2VecSimilarity(Comparator):
@@ -57,7 +57,7 @@ class Word2VecSimilarity(Comparator):
         if statement_a.get_tags() == statement_b.get_tags() and confidence < 0.95:
             confidence += 0.05
 
-        return np.round(confidence, 4)
+        return round(confidence, 4)-0.1
 
     def to_vector(self, sentence):
         words = sentence.split(' ')
