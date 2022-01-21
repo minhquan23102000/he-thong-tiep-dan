@@ -30,7 +30,7 @@ class VietnameseCosineSimilarity(Comparator):
         if statement_a.get_tags() == statement_b.get_tags() and confidence < 0.95:
             confidence += 0.05
 
-        return np.round(confidence, 4)
+        return np.round(confidence, 4)-0.15
 
 
 class Word2VecSimilarity(Comparator):
@@ -41,9 +41,9 @@ class Word2VecSimilarity(Comparator):
     """
 
     def __init__(self, language):
-        from gensim.models import Word2Vec
+        from gensim.models import KeyedVectors
         super().__init__(language)
-        self.model = Word2Vec.load('chatbot/vietnamese_news_w2v.model')
+        self.model = KeyedVectors.load('chatbot/vietnamese_news_w2v.model')
 
     def compare(self, statement_a, statement_b):
 
@@ -63,11 +63,11 @@ class Word2VecSimilarity(Comparator):
         words = sentence.split(' ')
         nwords = len(words)
         featureVec = np.zeros(
-            (self.model.wv.vectors.shape[1],), dtype="float32")
+            (self.model.vectors.shape[1],), dtype="float32")
 
         for word in words:
             try:
-                featureVec = np.add(featureVec, self.model.wv[word])
+                featureVec = np.add(featureVec, self.model[word])
             except:
                 continue
 
