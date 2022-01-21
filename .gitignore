@@ -6,6 +6,7 @@ __pycache__/
 
 #Model
 *.model
+*.vectors.npy
 
 # C extensions
 *.so

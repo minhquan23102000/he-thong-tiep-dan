@@ -226,7 +226,6 @@ class SQLStorageAdapter(StorageAdapter):
         create_statements = []
         list_search_sentences = []
         create_tags = {}
-        w2v_model = Word2Vec.load('chatbot/vietnamese_news_w2v.model')
 
         for statement in statements:
 
@@ -265,12 +264,6 @@ class SQLStorageAdapter(StorageAdapter):
 
         session.add_all(create_statements)
         session.commit()
-
-        w2v_model.build_vocab(list_search_sentences, update=True)
-        w2v_model.train(list_search_sentences, total_examples=len(
-            list_search_sentences), epochs=30)
-        w2v_model.save('chatbot/vietnamese_news_w2v.model')
-        del w2v_model
 
     def update(self, statement):
         """
