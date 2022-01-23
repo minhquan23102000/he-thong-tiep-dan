@@ -59,18 +59,19 @@ class IndexedTextSearch:
             )
 
         if self.compare_statements.__class__.__name__ == "Word2VecSimilarity":
-            input_search_in_response_to += ' '
+            similar_keys = ''
             for word in input_search_in_response_to.split(' '):
                 try:
                     similar_words = self.compare_statements.model.most_similar(
-                        word, topn=5)
-                    input_search_in_response_to += ' '.join(
+                        word, topn=4)
+                    similar_keys += ' '.join(
                         [w[0] for w in similar_words]) + ' '
                 except Exception as e:
-                    print(e)
+                    self.chatbot.logger.warn(e)
                     continue
-
-            print("Search in response to: " + input_search_in_response_to)
+            input_search_in_response_to = similar_keys + input_search_in_response_to
+            self.chatbot.logger.info(
+                "Search in response to: " + input_search_in_response_to)
 
         search_parameters = {
             'search_in_response_to_contains': input_search_in_response_to,
