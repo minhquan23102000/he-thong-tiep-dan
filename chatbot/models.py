@@ -104,6 +104,20 @@ class Statement(Base, StatementMixin):
         print("Calling add tag function")
         self.tags = Tag(name=tags)
 
+    def get_next_questions(self):
+        next_questions = []
+
+        if self.next_question_1 != '':
+            next_questions.append(self.next_question_1)
+
+        if self.next_question_2 != '':
+            next_questions.append(self.next_question_2)
+
+        if self.next_question_3 != '':
+            next_questions.append(self.next_question_3)
+
+        return next_questions
+
     def __str__(self):
         return f'{self.text}: {self.in_response_to}'
 

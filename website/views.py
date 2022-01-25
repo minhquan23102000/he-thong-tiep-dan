@@ -31,9 +31,9 @@ def get_bot_response():
         conversation = new_conversation()
         session['conversation_id'] = conversation.id
 
-    reponse = chatbot_reponse(str(userText), oldtag,
-                              session['conversation_id'])
-    return jsonify(reponse)
+    response = chatbot_reponse(str(userText), oldtag,
+                               session['conversation_id'])
+    return jsonify(response)
 
 
 @views.route('/get-img')

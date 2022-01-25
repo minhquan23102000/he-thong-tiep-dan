@@ -56,6 +56,20 @@ class StatementMixin(object):
         if n >= 3:
             self.next_question_3 = next_questions[2]
 
+    def get_next_questions(self):
+        next_questions = []
+
+        if self.next_question_1:
+            next_questions.append(self.next_question_1)
+
+        if self.next_question_2:
+            next_questions.append(self.next_question_2)
+
+        if self.next_question_3:
+            next_questions.append(self.next_question_3)
+
+        return next_questions
+
     def serialize(self):
         """
         :returns: A dictionary representation of the statement object.

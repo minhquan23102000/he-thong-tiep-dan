@@ -46,30 +46,33 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
         oldtag = 'none'
 
     # Request response to bot
-    reponse = Sonny.get_response(statement=msg, tags=oldtag)
+    response = Sonny.get_response(statement=msg, tags=oldtag)
+    tag = response.get_tags()
+    next_questions = response.get_next_questions()
 
-    tag = reponse.get_tags()
     if not tag:
         tag = "none"
 
     # Check if this is an unknown question that chatbot has never learned before
     is_not_known = False
-    if reponse.confidence < 0.35:
-        reponse = DEFAULT_REPONSE
+    if response.confidence < 0.35:
+        response = DEFAULT_REPONSE
         is_not_known = True
         tag = "none"
     else:
-        reponse = reponse.text
+        response = response.text
 
     if is_not_known:
         # Google search this paper if bot does not know about it
-        reponse = google_search_paper(msg)
+        response = google_search_paper(msg)
 
-    response_data = {'response': reponse,
-                     'tag': tag}
+    response_data = {'response': response,
+                     'tag': tag,
+                     'next_questions': next_questions}
+
     # Store this question to database
     if conversation_id:
-        store_question(asking=msg, answer=reponse, oldtag=oldtag,
+        store_question(asking=msg, answer=response, oldtag=oldtag,
                        conversation_id=conversation_id, is_not_known=is_not_known)
 
     return response_data

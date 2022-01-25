@@ -169,6 +169,9 @@ $(function () {
   });
 
   function generate_message(msg, type) {
+    //Clean next questions
+    $(".next-msg").remove();
+
     INDEX++;
     var str = "";
     str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
@@ -177,16 +180,53 @@ $(function () {
     str += msg;
     str += "          </div>";
     str += "        </div>";
+
     $(".chat-logs").append(str);
+
     $("#cm-msg-" + INDEX)
       .hide()
       .fadeIn(300);
+
     if (type == "self") {
       $("#chat-input").val("");
     }
+
     $(".chat-logs")
       .stop()
       .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1200);
+  }
+
+  function generate_next_questions(next_questions) {
+    var str = "";
+    var type = "self";
+    for (let index = 0; index < next_questions.length; index++) {
+      str +=
+        "<div id='cm-msg-" +
+        (INDEX + index) +
+        "' class=\"next-msg " +
+        type +
+        '">';
+
+      str += '          <div class="next-msg-text">';
+      str += next_questions[index];
+      str += "          </div>";
+      str += "        </div>";
+    }
+
+    $(".chat-logs").append(str);
+
+    $(".chat-logs")
+      .stop()
+      .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1200);
+
+    //On click next questions event
+    $(".next-msg-text").click(function (e) {
+      e.preventDefault();
+
+      var text = $(this).text();
+      console.log(text);
+      send_message(text);
+    });
   }
 
   function generate_button_message(msg, buttons) {
@@ -266,6 +306,8 @@ $(function () {
         // myData = JSON.parse(data)
         var response = linkify(String(data.response));
         var tag = data.tag;
+        var next_questions = data.next_questions;
+
         if (
           tag != "lời chào" &&
           tag != "cảm xúc" &&
@@ -279,6 +321,7 @@ $(function () {
         speechSynthesis.speak(text2Speech);
 
         generate_message(response, "user");
+        generate_next_questions(next_questions);
       });
     }
   }

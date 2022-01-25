@@ -67,14 +67,14 @@ class MyChatBot(ChatBot):
             if most_common.count > 1:
                 result = most_common.statement
 
-        response = Statement(
-            text=result.text,
-            in_response_to=input_statement.text,
-            conversation=input_statement.conversation,
-            persona='bot:' + self.name
-        )
+        # response = Statement(
+        #     text=result.text,
+        #     in_response_to=input_statement.text,
+        #     conversation=input_statement.conversation,
+        #     persona='bot:' + self.name
+        # )
 
-        response.confidence = result.confidence
-        response.tags = result.tags
+        # response.confidence = result.confidence
+        # response.tags = result.tags
 
-        return response
+        return result

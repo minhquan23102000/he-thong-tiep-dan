@@ -1,9 +1,9 @@
 categories:
 - khai sinh
-conversations:
+conversations: 
 - - Cho tôi hỏi về giấy khai sinh?
   - Bạn làm giấy khai sinh trong trường hợp nào sau đây, cho trẻ bị bỏ rơi hay cho trẻ em thông thường (các trường hợp khác bị bỏ rơi)?
-  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ em thông thường.']
+  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ thông thường.']
 
 
 - - Giấy khai sinh là gì?
@@ -12,42 +12,42 @@ conversations:
 
 - - Muốn làm giấy khai sinh. 
   - Bạn làm giấy khai sinh trong trường hợp nào sau đây, cho trẻ bị bỏ rơi hay cho trẻ em thông thường (các trường hợp khác bị bỏ rơi)?
-  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ em thông thường.']
+  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ thông thường.']
 
 
 - - Cần trợ giúp làm giấy khai sinh.
   - Bạn làm giấy khai sinh trong trường hợp nào sau đây, cho trẻ bị bỏ rơi hay cho trẻ em thông thường (các trường hợp khác bị bỏ rơi)?
-  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ em thông thường.']
+  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ thông thường.']
 
 - - Chuẩn bị gì để làm giấy khai sinh?
   - Bạn làm giấy khai sinh trong trường hợp nào sau đây, cho trẻ bị bỏ rơi hay cho thông thường (các trường hợp khác bị bỏ rơi)?
-  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ em thông thường.']
+  - nextquestion: ['Cho trẻ bị bỏ rơi.', 'Cho trẻ thông thường.']
 
 - - Khai sinh cho trẻ thông thường.
   - "Vậy bạn cần phải chuẩn bị đầy đủ giấy tờ sau: 
-    + Giấy chứng sinh. 
-    + Giấy chứng nhận kết hôn. 
-    + Sổ hộ khẩu, giấy tờ tùy thân. 
-    + Văn bản ủy quyền nếu có.
-    + Và một tờ khai theo mẫu. 
+    + Giấy chứng sinh.\n
+    + Giấy chứng nhận kết hôn.\n
+    + Sổ hộ khẩu, giấy tờ tùy thân.\n
+    + Văn bản ủy quyền nếu có.\n
+    + Và một tờ khai theo mẫu.\n
     Hãy hỏi mình chi tiết nếu như bạn thắc mắc."
   - nextquestion: ['Không có giấy tờ tùy thân.', 'Giấy chứng sinh là gì?', 'Tôi đã chuẩn bị đầy đủ hồ sơ']
 
 
 - - Khai sinh cho trẻ bị bỏ rơi
-  - "Vậy bạn cần phải chuẩn bị đầy đủ giấy tờ sau: 
-    + Giấy chứng sinh. 
-    + Giấy chứng nhận kết hôn. 
-    + Sổ hộ khẩu, giấy tờ tùy thân. 
-    + Văn bản ủy quyền nếu có.
-    + Biên bản trẻ em bị bỏ rơi.
-    + Và một tờ khai theo mẫu. 
+  - "Vậy bạn cần phải chuẩn bị đầy đủ giấy tờ sau:\n
+    + Giấy chứng sinh.\n
+    + Giấy chứng nhận kết hôn.\n
+    + Sổ hộ khẩu, giấy tờ tùy thân.\n
+    + Văn bản ủy quyền nếu có.\n
+    + Biên bản trẻ em bị bỏ rơi.\n
+    + Và một tờ khai theo mẫu.\n
     Hãy hỏi mình chi tiết nếu như bạn thắc mắc."
-  - nextquestion: ['Biển bản trẻ bị bỏ rơi là gì?.', 'Giấy chứng sinh là gì?', 'Tôi đã chuẩn bị đầy đủ hồ sơ.']
+  - nextquestion: ['Biên bản trẻ em bị bỏ rơi là gì?.', 'Giấy chứng sinh là gì?', 'Tôi đã chuẩn bị đầy đủ hồ sơ.']
   
 
 - - Giấy chứng sinh là gì?
-  - Giấy chứng sinh – một loại giấy tờ quan trọng xác nhận sự ra đời của một con người. Được bệnh viện, trạm y tế, cơ sở sinh ra bé cấp. > 
+  - Giấy chứng sinh – một loại giấy tờ quan trọng xác nhận sự ra đời của một con người. Được bệnh viện, trạm y tế, cơ sở sinh ra bé cấp.\n
     Trường hợp không có giấy chứng sinh thì phải có văn bản xác nhận của người làm chứng về việc sinh. Trong trường hợp không có người làm chứng thì phải có giấy cam đoan về việc sinh.
   - nextquestion: ['Văn bản xác nhận người làm chứng về việc sinh?', 'Giấy cam đoan sinh là gì?', 'Lấy giấy chứng sinh ở đâu?']
 
@@ -57,30 +57,30 @@ conversations:
 
 
 - - Không có chứng sinh?
-  - Giấy chứng sinh được bệnh viện, trạm y tế, cơ sở sinh ra bé cấp. Giấy chứng sinh là bắt buộc có để làm giấy khai sinh >
+  - Giấy chứng sinh được bệnh viện, trạm y tế, cơ sở sinh ra bé cấp. Giấy chứng sinh là bắt buộc có để làm giấy khai sinh. \n
     Trường hợp không có giấy chứng sinh thì phải có văn bản xác nhận của người làm chứng về việc sinh. Trong trường hợp không có người làm chứng thì phải có giấy cam đoan về việc sinh.
   - nextquestion: ['Giấy tùy thân có hiệu lực bao gồm?', 'Tôi đã chuẩn bị đầy đủ hồ sơ.', 'Không có sổ hộ khẩu làm giấy có được không?']
 
 - - Không có sổ hộ khẩu?
-  - "Các giấy tờ chứng minh nơi ở có hiệu lực bao gồm:
-    + Giấy chứng nhận nhân khẩu tập thể 
-    + Sổ thường trú hoặc sổ tạm trú. 
-    + Sổ hộ khẩu.
+  - "Các giấy tờ chứng minh nơi ở có hiệu lực bao gồm:\n
+    + Giấy chứng nhận nhân khẩu tập thể\n
+    + Sổ thường trú hoặc sổ tạm trú.\n
+    + Sổ hộ khẩu.\n
     Nếu không có một trong các giấy tờ trên, bạn phải về thu thập thêm để tiếp tục làm giấy khai sinh."
   - nextquestion: ['Giấy tùy thân có hiệu lực bao gồm?', 'Tôi đã chuẩn bị đầy đủ hồ sơ.']
 
 
 - - Giấy tờ tùy thân?
-  - "Giấy tờ tùy thân có hiệu lực bao gồm:
-    + Giấy CMND, căn cước công dân.
-    + Hộ chiếu.
+  - "Giấy tờ tùy thân có hiệu lực bao gồm:\n
+    + Giấy CMND, căn cước công dân.\n
+    + Hộ chiếu.\n
     + Bất kì loại giấy tờ có hiệu lực pháp lý xác minh bản thân người làm giấy như: thẻ sinh viên, thẻ nhân viên, thẻ quân nhân, ..."
   - nextquestion: ['Tôi chưa kết hôn làm giấy khai sinh được không?', 'Tôi đã chuẩn bị đầy đủ hồ sơ.']
   
 - - Không có tờ tùy thân?
   - "Giấy tờ tùy thân có hiệu lực bao gồm:
-    + Giấy CMND, căn cước công dân.
-    + Hộ chiếu.
+    + Giấy CMND, căn cước công dân.\n
+    + Hộ chiếu.\n
     + Bất kì loại giấy tờ có hiệu lực pháp lý xác minh bản thân người làm giấy như: thẻ sinh viên, thẻ nhân viên, thẻ quân nhân, ..."
   - nextquestion: ['Tôi chưa kết hôn làm giấy khai sinh được không?', 'Tôi đã chuẩn bị đầy đủ hồ sơ.']
   
@@ -101,13 +101,13 @@ conversations:
   - nextquestion: ['Giấy tùy thân có hiệu lực bao gồm?', 'Thủ tục nhận nuôi con là gì?']
 
 - - Trường hợp nhận nuôi bé?
-  - Cha mẹ đẻ chỉ được đồng ý cho con làm con nuôi sau khi con đã được sinh ra ít nhất 15 ngày. Trong trường hợp đó, cha mẹ đẻ sẽ tự mình làm giấy khai sinh cho trẻ. >
-    Sau khi làm giấy khai sinh xong, cả hai gia đình sẽ thống nhất việc nuôi con và hoàn tất hồ sơ nhận nuôi con. >
+  - Cha mẹ đẻ chỉ được đồng ý cho con làm con nuôi sau khi con đã được sinh ra ít nhất 15 ngày. Trong trường hợp đó, cha mẹ đẻ sẽ tự mình làm giấy khai sinh cho trẻ.\n
+    Sau khi làm giấy khai sinh xong, cả hai gia đình sẽ thống nhất việc nuôi con và hoàn tất hồ sơ nhận nuôi con.\n
     Nếu cha mẹ đẻ mất tích thì sẽ xét vào trường hợp trẻ bị bỏ rơi và cần biên bản xác nhận trẻ bị bỏ rơi. 
   - nextquestion: ['Tôi đã chuẩn bị đầy đủ hồ sơ.', 'Làm biên bản trẻ em bị bỏ rơi như thế nào?', 'Hồ sơ nhận nuôi con là gì?']
 
 - - Muốn nhận nuôi bé làm giấy khai sinh ra sao?
-  - Cha mẹ đẻ chỉ được đồng ý cho con làm con nuôi sau khi con đã được sinh ra ít nhất 15 ngày. Trong trường hợp đó, cha mẹ đẻ sẽ tự mình làm giấy khai sinh cho trẻ. Sau khi làm giấy khai sinh xong, cả hai gia đình sẽ thống nhất việc nuôi con và hoàn tất hồ sơ nhân nuôi con. >
+  - Cha mẹ đẻ chỉ được đồng ý cho con làm con nuôi sau khi con đã được sinh ra ít nhất 15 ngày. Trong trường hợp đó, cha mẹ đẻ sẽ tự mình làm giấy khai sinh cho trẻ. Sau khi làm giấy khai sinh xong, cả hai gia đình sẽ thống nhất việc nuôi con và hoàn tất hồ sơ nhân nuôi con.\n
     Nếu cha mẹ đẻ mất tích thì sẽ xét vào trường hợp trẻ bị bỏ rơi và cần biên bản xác nhận trẻ bị bỏ rơi.
   - nextquestion: ['Tôi đã chuẩn bị đầy đủ hồ sơ.', 'Làm biên bản trẻ em bị bỏ rơi như thế nào?', 'Hồ sơ nhận nuôi con là gì?']
 
@@ -192,16 +192,16 @@ conversations:
   - nextquestion: ['Tôi có thể nhận giấy khai sinh trong bao lâu?', 'Lệ phí khai sinh?']
 
 - - Tôi có cần chú ý gì khi làm giấy khai sinh không?
-  - "Bạn nên lưu ý trường hợp của trẻ làm khai sinh. Thông thường sẽ có bốn trường hợp sau đây: 
-    + Trẻ không có mẹ. 
-    + Trẻ không có cha. 
+  - "Bạn nên lưu ý trường hợp của trẻ làm khai sinh. Thông thường sẽ có bốn trường hợp sau đây:\n 
+    + Trẻ không có mẹ.\n 
+    + Trẻ không có cha.\n 
     + Trẻ em bị bỏ rơi, nhận nuôi trẻ. Về cụ thể trường hợp nào bạn có thể đặt thêm câu hỏi."
   - nextquestion: ['Làm giấy khai sinh cho trẻ bị bỏ rơi?', 'Trẻ không có mẹ?', 'Bé không có cha?']
 
 - - Chú ý khi làm giấy khai sinh?
-  - "Bạn nên lưu ý trường hợp của trẻ làm khai sinh. Thông thường sẽ có bốn trường hợp sau đây: 
-    + Trẻ không có mẹ. 
-    + Trẻ không có cha. 
+  - "Bạn nên lưu ý trường hợp của trẻ làm khai sinh. Thông thường sẽ có bốn trường hợp sau đây:\n 
+    + Trẻ không có mẹ.\n 
+    + Trẻ không có cha.\n 
     + Trẻ em bị bỏ rơi, nhận nuôi trẻ. Về cụ thể trường hợp nào bạn có thể đặt thêm câu hỏi."
   - nextquestion: ['Làm giấy khai sinh cho trẻ bị bỏ rơi?', 'Trẻ không có mẹ?', 'Bé không có cha?']
   
@@ -218,14 +218,14 @@ conversations:
 
 - - Tôi đã chuẩn bị đầy đủ giấy tờ cần nộp cho thủ tục khai sinh, bước tiếp theo là gì?
   - Người đăng ký giấy khai sinh xuất trình và nộp hồ sơ tại UBND cấp xã hoặc cấp huyện, nơi trẻ được sinh ra. Bạn có thể nộp trực tuyến tại đây https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.001193 
-
+  - nextquestion: ['Tôi có thể nhận giấy khai sinh trong bao lâu?', 'Lệ phí khai sinh?']
 
 - - Điền tờ khai khai sinh thế nào?
   - Bạn có thể tham khảo tờ khai tại đây https://luatvietnam.vn/bieu-mau/mau-to-khai-dang-ky-khai-sinh-571-19421-article.html Sau khi thảm khảo xong bạn có thể hỏi mình cách điền tờ khai khai sinh.
   - nextquestion: ['Mục họ tên của bé điền như thế nào?', 'Mục kính gửi điền như thế nào?', 'Tôi đã chuẩn bị đầy đủ giấy tờ cần nộp. Tôi nộp hô sơ ở đâu?']
 
 - - Mục kính gửi trong tờ khai ghi gì?
-  - Điền các cơ quan có thẩm quyền bao gồm Ủy ban nhân dân cấp xã, Ủy ban nhân dân cấp huyện hoặc các Cơ quan đại diện có thẩm quyền.>
+  - Điền các cơ quan có thẩm quyền bao gồm Ủy ban nhân dân cấp xã, Ủy ban nhân dân cấp huyện hoặc các Cơ quan đại diện có thẩm quyền.\n
     Ví dụ như Ủy ban nhân dân quận 7, thành phố Hồ Chí Minh; Ủy ban nhân dân xã Phước Kiển, huyện Nhà Bè, thành phố Hồ Chí Minh; Tổng lãnh sự quán Việt Nam tại Osaka, Nhật Bản.
   - nextquestion: ['Mục họ tên của bé điền như thế nào?', 'Quan hệ với người được khai sinh điền như thế nào?', 'Quê quán của bé điền như thế nào']
 
@@ -243,12 +243,12 @@ conversations:
   - nextquestion: ['Mục nơi cư trú điền như thế nào?', 'Mục họ tên của bé điền như thế nào?', 'Quan hệ với người được khai sinh điền như thế nào?']
 
 - - Mục giấy tờ tùy thân trong tờ khai ghi như thế nào?
-  - “Giấy tờ tùy thân” đây là mục điền thông tin các giấy tờ tùy thân của người yêu cầu đăng ký khai sinh. Có thể điền số Chứng minh nhân nhân, hộ chiếu hoặc các giấy tờ thay thế hợp lệ khác. >
+  - “Giấy tờ tùy thân” đây là mục điền thông tin các giấy tờ tùy thân của người yêu cầu đăng ký khai sinh. Có thể điền số Chứng minh nhân nhân, hộ chiếu hoặc các giấy tờ thay thế hợp lệ khác.\n
     Lưu ý cần ghi rõ giấy tờ do cơ quan nào cấp và cấp vào ngày mấy. Ví dụ giấy CMND số 030946299, Công an thành phố Hải Phòng cấp ngày 01/01/2011.
   - nextquestion: ['Mục nơi cư trú điền như thế nào?', 'Mục họ tên của bé điền như thế nào?', 'Quan hệ với người được khai sinh điền như thế nào?']
 
 - - Dòng giấy tờ tùy thân trong tờ khai ghi như thế nào?
-  - “Giấy tờ tùy thân” đây là mục điền thông tin các giấy tờ tùy thân của người yêu cầu đăng ký khai sinh. Có thể điền số Chứng minh nhân nhân, hộ chiếu hoặc các giấy tờ thay thế hợp lệ khác. >
+  - “Giấy tờ tùy thân” đây là mục điền thông tin các giấy tờ tùy thân của người yêu cầu đăng ký khai sinh. Có thể điền số Chứng minh nhân nhân, hộ chiếu hoặc các giấy tờ thay thế hợp lệ khác.\n
     Lưu ý cần ghi rõ giấy tờ do cơ quan nào cấp và cấp vào ngày mấy. Ví dụ giấy CMND số 030946299, Công an thành phố Hải Phòng cấp ngày 01/01/2011.
   - nextquestion: ['Mục nơi cư trú điền như thế nào?', 'Mục họ tên của bé điền như thế nào?', 'Quan hệ với người được khai sinh điền như thế nào?']
 
@@ -273,7 +273,7 @@ conversations:
   - nextquestion: ['Mục nơi sinh điền như thế nào?', 'Dân tộc của bé điền như thế nào?', 'Quê quán của bé điền như thế nào']
 
 - - Mục nơi sinh của bé ghi như thế nào?
-  - Bạn cần ghi rõ nơi sinh của trẻ. Nếu nơi khai sinh là ở cơ sở y tế thì phải ghi rõ tên của cơ sở y tế và cả địa danh hành chính. Nếu không thì ghi địa danh của ba cấp hành chính nơi sinh ra.>
+  - Bạn cần ghi rõ nơi sinh của trẻ. Nếu nơi khai sinh là ở cơ sở y tế thì phải ghi rõ tên của cơ sở y tế và cả địa danh hành chính. Nếu không thì ghi địa danh của ba cấp hành chính nơi sinh ra.\n
     Ví dụ Xã Đình Bảng, huyện Từ Sơn, tỉnh Bắc Ninh; London, Vương quốc Anh; Los Angeles, tiểu bang California, Hoa Kỳ.
   - nextquestion: ['Dân tộc của bé điền như thế nào?', 'Quê quán của bé điền như thế nào']
 
@@ -299,11 +299,11 @@ conversations:
 
 - - Sau đã chuẩn bị đầy đủ hồ sơ rồi, tôi nộp ở đâu?
   - Bạn có thể nộp trực tuyến tại https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.001193 Hoặc có thể nộp qua bưu chính hoặc trực tiếp tại UBND xã hoặc huyện hoặc các cơ quan thẩm quyền gần nhất nơi trẻ sinh ra.  
+  - nextquestion: ['Tôi có thể nhận giấy khai sinh trong bao lâu?', 'Lệ phí khai sinh?']
 
 - - Nếu bố mẹ có hai dân tộc khác nhau thì mình điền dòng dân tộc cho bé như thế nào?
-  - Trường hợp cha đẻ, mẹ đẻ thuộc hai dân tộc khác nhau thì dân tộc của con được xác định theo dân tộc của cha đẻ hoặc mẹ đẻ theo thỏa thuận của cha đẻ, mẹ đẻ.>
+  - Trường hợp cha đẻ, mẹ đẻ thuộc hai dân tộc khác nhau thì dân tộc của con được xác định theo dân tộc của cha đẻ hoặc mẹ đẻ theo thỏa thuận của cha đẻ, mẹ đẻ.\n
     Trường hợp không có thỏa thuận thì dân tộc của con được xác định theo tập quán; trường hợp tập quán khác nhau thì dân tộc của con được xác định theo tập quán của dân tộc ít người hơn.
-
   - nextquestion: ['Mục nơi sinh điền như thế nào?', 'Tôi đã chuẩn bị đầy đủ hồ sơ cần nộp?', 'Trẻ mang hai quốc tịch được không?']
 
 
