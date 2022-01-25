@@ -12,12 +12,9 @@ $(function () {
         ? options.output
         : document.createElement("div");
       this.speechApi.onresult = (event) => {
-        console.log(event);
         var resultIndex = event.resultIndex;
         var transcript = event.results[resultIndex][0].transcript;
 
-        console.log("transcript>>", transcript);
-        console.log(this.output);
         send_message(transcript);
       };
 
@@ -202,7 +199,7 @@ $(function () {
     for (let index = 0; index < next_questions.length; index++) {
       str +=
         "<div id='cm-msg-" +
-        (INDEX + index) +
+        (INDEX + 1 + index) +
         "' class=\"next-msg " +
         type +
         '">';
@@ -215,6 +212,16 @@ $(function () {
 
     $(".chat-logs").append(str);
 
+    $("#cm-msg-" + INDEX + 1)
+      .hide()
+      .fadeIn(300);
+    $("#cm-msg-" + INDEX + 2)
+      .hide()
+      .fadeIn(400);
+    $("#cm-msg-" + INDEX + 3)
+      .hide()
+      .fadeIn(500);
+
     $(".chat-logs")
       .stop()
       .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1200);
@@ -224,7 +231,6 @@ $(function () {
       e.preventDefault();
 
       var text = $(this).text();
-      console.log(text);
       send_message(text);
     });
   }
@@ -318,10 +324,13 @@ $(function () {
         }
 
         text2Speech.text = clean_url(response);
+        speechSynthesis.cancel();
         speechSynthesis.speak(text2Speech);
 
         generate_message(response, "user");
-        generate_next_questions(next_questions);
+        setTimeout(function () {
+          generate_next_questions(next_questions);
+        }, 1100);
       });
     }
   }

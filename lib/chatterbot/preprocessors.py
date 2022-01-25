@@ -11,7 +11,7 @@ def clean_whitespace(statement):
 
     # Replace linebreaks and tabs with spaces
     statement.in_response_to = statement.in_response_to.replace(
-        '\n', ' ').replace('\r', ' ').replace('\t', ' ')
+        '\r', ' ').replace('\t', ' ')
 
     # Remove any leeding or trailing whitespace
     statement.in_response_to = statement.in_response_to.strip()

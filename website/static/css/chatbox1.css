@@ -205,6 +205,7 @@
   position: relative;
   margin-bottom: 20px;
   border-radius: 30px;
+  white-space: pre-line;
 }
 
 .next-msg-text {
@@ -213,9 +214,9 @@
   float: right;
   margin-right: 10px;
   background: #ce7a58;
-  color: whitesmoke;
+  color: white;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   border-radius: 30px;
   font-size: 13px;
 }
