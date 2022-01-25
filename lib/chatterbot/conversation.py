@@ -20,6 +20,9 @@ class StatementMixin(object):
         'in_response_to',
         'search_in_response_to',
         'created_at',
+        'next_question_1',
+        'next_question_2',
+        'next_question_3'
     ]
 
     extra_statement_field_names = []
@@ -41,6 +44,17 @@ class StatementMixin(object):
         Update statement tag
         """
         self.tags = tags
+
+    def add_next_question(self, next_questions):
+        n = len(next_questions)
+        if n >= 1:
+            self.next_question_1 = next_questions[0]
+
+        if n >= 2:
+            self.next_question_2 = next_questions[1]
+
+        if n >= 3:
+            self.next_question_3 = next_questions[2]
 
     def serialize(self):
         """
@@ -80,6 +94,9 @@ class Statement(StatementMixin):
         'created_at',
         'confidence',
         'storage',
+        'next_question_1',
+        'next_question_2',
+        'next_question_3'
     )
 
     def __init__(self, text=None, in_response_to=None, **kwargs):
@@ -93,6 +110,9 @@ class Statement(StatementMixin):
         self.in_response_to = in_response_to
         self.search_in_response_to = kwargs.get('search_in_response_to', '')
         self.created_at = kwargs.get('created_at', datetime.now())
+        self.next_question_1 = kwargs.get('next_question_1', '')
+        self.next_question_2 = kwargs.get('next_question_2', '')
+        self.next_question_3 = kwargs.get('next_question_3', '')
 
         if not isinstance(self.created_at, datetime):
             self.created_at = date_parser.parse(self.created_at)

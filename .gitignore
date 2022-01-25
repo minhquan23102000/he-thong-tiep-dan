@@ -6,7 +6,7 @@ __pycache__/
 **/__pycache__/
 
 #Database
-*.db
+#*.db
 
 #Model
 *.model

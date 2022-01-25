@@ -152,28 +152,42 @@ class ChatterBotCorpusTrainer(Trainer):
 
                 previous_statement_text = None
                 previous_statement_search_text = ''
+                next_questions = []
+                conversation_statements = []
 
                 for text in conversation:
 
-                    statement_search_text = self.chatbot.storage.tagger.get_bigram_pair_string(
-                        text)
+                    if (isinstance(text, dict)):
+                        for next_question in text['nextquestion']:
+                            next_questions.append(next_question)
 
-                    statement = Statement(
-                        text=text,
-                        search_text=statement_search_text,
-                        in_response_to=previous_statement_text,
-                        search_in_response_to=previous_statement_search_text,
-                        conversation='training'
-                    )
+                    else:
 
-                    statement.tags = categories
+                        statement_search_text = self.chatbot.storage.tagger.get_bigram_pair_string(
+                            text)
 
-                    if statement.search_in_response_to:
-                        statement = self.get_preprocessed_statement(statement)
-                        statements_to_create.append(statement)
+                        statement = Statement(
+                            text=text,
+                            search_text=statement_search_text,
+                            in_response_to=previous_statement_text,
+                            search_in_response_to=previous_statement_search_text,
+                            conversation='training'
+                        )
 
-                    previous_statement_text = statement.text
-                    previous_statement_search_text = statement_search_text
+                        statement.tags = categories
+
+                        if statement.search_in_response_to:
+                            statement = self.get_preprocessed_statement(
+                                statement)
+                            conversation_statements.append(statement)
+
+                        previous_statement_text = statement.text
+                        previous_statement_search_text = statement_search_text
+
+                for statement in conversation_statements:
+                    statement.add_next_question(next_questions)
+
+                statements_to_create.extend(conversation_statements)
 
             self.chatbot.storage.create_many(statements_to_create)
 

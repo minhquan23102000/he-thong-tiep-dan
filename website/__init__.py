@@ -65,8 +65,7 @@ def admin_setting(app):
 
     from website.admin_view import MyModelView
 
-    from .admin_view import (BotTrainFileView, MyAdminIndexView,
-                             MyStatementView, RelearnView,
+    from .admin_view import (MyAdminIndexView, MyStatementView, RelearnView,
                              UnknownStatementView)
 
     # Admin setting

@@ -79,6 +79,15 @@ class Statement(Base, StatementMixin):
                      nullable=False,
                      server_default='')
 
+    next_question_1 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
+
+    next_question_2 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
+
+    next_question_3 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
+
     def get_tags(self):
         """
         Return  tags for this statement.
@@ -149,3 +158,26 @@ class Question(Base):
     is_not_known = Column(Boolean(), default=False)
     tag = relationship('Tag',
                        backref=backref('questions', lazy='dynamic'))
+
+    next_question_1 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
+
+    next_question_2 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
+
+    next_question_3 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
+
+    def get_next_questions(self):
+        next_questions = []
+
+        if self.next_question_1:
+            next_questions.append(self.next_question_1)
+
+        if self.next_question_2:
+            next_questions.append(self.next_question_2)
+
+        if self.next_question_3:
+            next_questions.append(self.next_question_3)
+
+        return next_questions

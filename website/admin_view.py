@@ -85,13 +85,18 @@ class MyModelView(ModelView):
 class UnknownStatementView(MyModelView):
     can_create = False
 
-    column_list = ('asking', 'answer', 'tag', 'create_at')
-    form_edit_rules = ('asking', 'answer', 'tag')
+    column_list = ('asking', 'answer', 'tag', 'create_at',
+                   'next_question_1', 'next_question_2', 'next_question_3')
+    form_edit_rules = ('asking', 'answer', 'tag',
+                       'next_question_1', 'next_question_2', 'next_question_3')
     column_labels = {
         'asking': 'người dùng hỏi',
         'answer': 'chatbot trả lời',
         'create_at': 'thời điểm hỏi',
-        'tag': 'ngữ cảnh'
+        'tag': 'ngữ cảnh',
+        'next_question_1': 'câu hỏi kế tiếp 1',
+        'next_question_2': 'câu hỏi kế tiếp 2',
+        'next_question_3': 'câu hỏi kế tiếp 3'
     }
 
     column_searchable_list = ['asking', 'answer']
@@ -106,13 +111,17 @@ class UnknownStatementView(MyModelView):
                 id=_id).first()
             if not learningSentence.answer:
                 continue
+
             statement = Statement(
                 text=learningSentence.answer, in_response_to=learningSentence.asking)
+            statement.add_next_question(learningSentence.get_next_questions())
+
             if learningSentence.tag:
                 statement.add_tags(learningSentence.tag.name)
-            Sonny.storage.create_many([statement])
 
             learningSentence.is_not_known = False
+
+            db.session.add(statement)
             db.session.commit()
             count += 1
         flash("{0} câu (s) đã được train thành công".format(count))
@@ -120,43 +129,6 @@ class UnknownStatementView(MyModelView):
     def get_query(self):
         return super(UnknownStatementView,
                      self).get_query().filter(Question.is_not_known == True)
-
-
-class BotTrainFileView(FileAdmin):
-    def is_accessible(self):
-        if current_user.is_authenticated and current_user.role == Role.ADMIN:
-            return True
-        return False
-
-    def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('admin.index'))
-
-    can_delete = False
-    can_edit = True
-
-    @action('train_file', 'Train',
-            'Bạn có chắc là train chatbot với mấy file (s) đã chọn?')
-    def action_train_file(self, ids):
-
-        dir_path = op.join(ROOT_PATH, 'chatbot/corpus')
-        count = 0
-        for _id in ids:
-            # Do some work with the id, e.g. call a service method
-            file_path = dir_path + '/' + _id
-            with open(file_path, 'r', encoding='utf-8') as f:
-                data = yaml.safe_load(f)
-                tag = data['categories']
-
-                # Remove already learning tags
-                (db.session.query(Statement).join(
-                    Statement.tags).filter(Tag.name == tag)).delete()
-                db.session.commit()
-
-                # Train file again
-                chatbot.__train__(filePath=file_path)
-
-            count += 1
-        flash("{0} file (s) charges is trained".format(count))
 
 
 class RelearnView(MyModelView):
@@ -179,13 +151,19 @@ class RelearnView(MyModelView):
 
 
 class MyStatementView(MyModelView):
-    column_list = ('in_response_to', 'text', 'tags', 'created_at')
-    form_edit_rules = ('in_response_to', 'text', 'tags')
-    form_create_rules = ('in_response_to', 'text', 'tags')
+    column_list = ('in_response_to', 'text', 'tags', 'created_at',
+                   'next_question_1', 'next_question_2', 'next_question_3')
+    form_edit_rules = ('in_response_to', 'text', 'tags',
+                       'next_question_1', 'next_question_2', 'next_question_3')
+    form_create_rules = ('in_response_to', 'text', 'tags',
+                         'next_question_1', 'next_question_2', 'next_question_3')
     column_labels = dict(in_response_to='Người dùng hỏi',
                          text='Chatbot trả lời',
                          tags='Ngữ cảnh',
-                         created_at='Thời điểm tạo')
+                         created_at='Thời điểm tạo',
+                         next_question_1='Câu hỏi kế tiếp 1',
+                         next_question_2='Câu hỏi kế tiếp 2',
+                         next_question_3='Câu hỏi kế tiếp 3')
 
     column_searchable_list = ['in_response_to', 'text']
     column_filters = ['tags']
