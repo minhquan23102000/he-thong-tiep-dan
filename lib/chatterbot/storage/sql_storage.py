@@ -119,6 +119,7 @@ class SQLStorageAdapter(StorageAdapter):
         persona_not_startswith = kwargs.pop('persona_not_startswith', None)
         search_in_response_to_contains = kwargs.pop(
             'search_in_response_to_contains', None)
+        exclude_search = kwargs.pop('exclude_search', None)
 
         if len(kwargs) == 0:
             statements = session.query(Statement).filter()
@@ -128,6 +129,11 @@ class SQLStorageAdapter(StorageAdapter):
         if tags:
             statements = statements.join(Statement.tags).filter(
                 Tag.name == tags
+            )
+
+        if exclude_search:
+            statements = statements.filter(
+                Statement.search_in_response_to != exclude_search
             )
 
         if exclude_text:

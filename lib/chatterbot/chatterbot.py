@@ -56,6 +56,8 @@ class ChatBot(object):
         # Allow the bot to save input it receives so that it can learn
         self.read_only = kwargs.get('read_only', False)
 
+        self.last_search_in_respone = ''
+
     def get_response(self, statement=None, **kwargs):
         """
         Return the bot's response based on the input.
@@ -133,6 +135,7 @@ class ChatBot(object):
             # Save the response generated for the input
             self.storage.create(**response.serialize())
 
+        self.last_search_in_respone = response.search_in_response_to
         return response
 
     def generate_response(self, input_statement, additional_response_selection_parameters=None):

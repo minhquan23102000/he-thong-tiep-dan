@@ -69,14 +69,12 @@ class IndexedTextSearch:
                 except Exception as e:
                     self.chatbot.logger.warn(e)
                     continue
-            input_search_in_response_to = similar_keys + input_search_in_response_to
-            self.chatbot.logger.info(
-                "Search in response to: " + input_search_in_response_to)
-
+        print(self.chatbot.last_search_in_respone)
         search_parameters = {
-            'search_in_response_to_contains': input_search_in_response_to,
+            'search_in_response_to_contains': similar_keys + input_search_in_response_to,
             'persona_not_startswith': 'bot:',
-            'page_size': self.search_page_size
+            'page_size': self.search_page_size,
+            'exclude_search': self.chatbot.last_search_in_respone
         }
 
         if additional_parameters:
