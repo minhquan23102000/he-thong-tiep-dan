@@ -176,9 +176,11 @@ conversations:
 - - Trẻ mất cả cha lẫn mẹ?
   - Trong trường hợp đó, sẽ xác nhận là trường hợp trẻ em bị bỏ rơi. Bạn cần phải nộp thêm biên bản trẻ em bị bỏ rơi và làm thêm thủ tục nhận nuôi bé.
   - nextquestion: ['Biên bản trẻ em bị bỏ rơi là gì?', 'Thủ tục nhận nuôi bé là gì?']
-- - Trẻ mất cả cha và mẹ?
+- - Trẻ không có cha lẫn mẹ?
   - Trong trường hợp đó, sẽ xác nhận là trường hợp trẻ em bị bỏ rơi. Bạn cần phải nộp thêm biên bản trẻ em bị bỏ rơi và làm thêm thủ tục nhận nuôi bé.
   - nextquestion: ['Biên bản trẻ em bị bỏ rơi là gì?', 'Thủ tục nhận nuôi bé là gì?']
+
+
 - - Trẻ không có bố cũng không có mẹ kê khai ra sao?
   - Trong trường hợp đó, sẽ xác nhận là trường hợp trẻ em bị bỏ rơi. Bạn chỉ cần kê khai thông tin của người làm giấy, trong đó ghi rõ quan hệ với trẻ khai sinh. Ngoài ra phải làm thêm thủ tục nhận nuôi con (nếu nhận nuôi con) và phải nộp thêm biên bản trẻ em bị bỏ rơi.
   - nextquestion: ['Biên bản trẻ em bị bỏ rơi là gì?', 'Thủ tục nhận nuôi bé là gì?']
