@@ -114,3 +114,7 @@ env/
 
 #Secret things
 /website/secret.py
+
+#database
+/database.db
+*.db
