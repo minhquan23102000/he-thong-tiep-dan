@@ -118,3 +118,6 @@ env/
 #database
 /database.db
 *.db
+
+#google-cookies
+.google-cookie
