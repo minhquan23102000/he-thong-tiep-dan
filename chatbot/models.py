@@ -21,18 +21,32 @@ class ModelBase(object):
         """
         return cls.__name__.lower()
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
 
 
 Base = declarative_base(cls=ModelBase)
 
 
+class Paper(Base):
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    paper_name = Column(String(250), unique=True)
+    img_src = Column(String(255))
+
+class PaperLinkTag(Base):
+    __tablename__ = 'paperlink'
+    tag_id = Column(Integer, ForeignKey('tag.id'), primary_key=True)
+    paper_id = Column(Integer, ForeignKey('paper.id'), primary_key=True)
+    description = Column(String(255))
+    paper = relationship('Paper')
+
 class Tag(Base):
     """
     A tag that describes a statement.
     """
-
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(constants.TAG_NAME_MAX_LENGTH), unique=True)
+    description = Column(String(255))
+    papers = relationship('PaperLinkTag')
+    tokhai_src = Column(String(255))
 
     def __repr__(self):
         return '<Tag %r>' % (self.name)
@@ -42,13 +56,14 @@ class Tag(Base):
 
     def __unicode__(self):
         return self.name
+    
 
 
 class Statement(Base, StatementMixin):
     """
     A Statement represents a sentence or phrase.
     """
-
+    id = Column(Integer, primary_key=True, autoincrement=True)
     confidence = 0
 
     text = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True)
@@ -125,15 +140,6 @@ class Statement(Base, StatementMixin):
         return f'{self.text}: {self.in_response_to}'
 
 
-class PaperType(enum.Enum):
-    TOKHAI = enum.auto()
-    GIAYTO = enum.auto()
-
-
-class Paper(Base):
-    paper_name = Column(String(250), unique=True)
-    paper_description = Column(String(500))
-    paper_type = Column(Enum(PaperType), nullable=False)
 
 
 class Role(enum.Enum):
@@ -142,6 +148,7 @@ class Role(enum.Enum):
 
 
 class User(Base, UserMixin):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     email = Column(String(150), unique=True)
     password = Column(String(150))
     first_name = Column(String(150))
@@ -156,6 +163,7 @@ class Sentiment(enum.Enum):
 
 
 class Conversation(Base):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer(), ForeignKey('user.id'), nullable=True)
     create_at = Column(DateTime(timezone=True), default=func.now())
     sentiment = Column(Enum(Sentiment), nullable=True)
@@ -163,6 +171,7 @@ class Conversation(Base):
 
 
 class Question(Base):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     conversation_id = Column(Integer(), ForeignKey(
         'conversation.id'), nullable=False)
     tag_id = Column(Integer(), ForeignKey('tag.id'), nullable=True)

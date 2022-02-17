@@ -116,8 +116,8 @@ env/
 /website/secret.py
 
 #database
-/database.db
-*.db
+#/database.db
+#*.db
 
 #google-cookies
 .google-cookie

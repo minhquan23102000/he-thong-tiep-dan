@@ -96,8 +96,8 @@ def init_database(app):
     # Import model
     import chatbot
     import chatbot.models
-    from chatbot.models import (Base, Conversation, Paper, PaperType, Question,
-                                Role, Statement, Tag, User)
+    from chatbot.models import (Base, Conversation, Paper, PaperLinkTag,
+                                Question, Role, Statement, Tag, User)
 
     chatbot.Sonny.storage.recreate_database()
 
