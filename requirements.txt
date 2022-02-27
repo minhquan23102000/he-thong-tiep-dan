@@ -1,4 +1,7 @@
 ChatterBot-corpus
+mathparse>=0.1,<0.2
+python-dateutil>=2.8,<2.9
+pytz
 Flask==2.0.2
 Flask-Admin==1.5.8
 Flask-SQLAlchemy==2.5.1
