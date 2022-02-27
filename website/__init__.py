@@ -32,6 +32,7 @@ def create_app():
     #     if (check == "Y"):
     #         init_database(app)
 
+
     # Init api
     init_api(app)
 
