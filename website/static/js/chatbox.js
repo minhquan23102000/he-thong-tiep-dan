@@ -343,6 +343,8 @@ $(function () {
         }
 
         text2Speech.text = clean_url(response);
+        text2Speech.voice = voices[1];
+        text2Speech.rate = 1.2;
         speechSynthesis.cancel();
         speechSynthesis.speak(text2Speech);
 
