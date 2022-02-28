@@ -53,10 +53,10 @@ paper = {
 }
 
 thutuc = {
-    'khai sinh': "Giấy khai sinh là giấy tờ hộ tịch gốc của cá nhân. Mọi hồ sơ, giấy tờ của cá nhân sau này đều phải cần theo thông tin của giấy khai sinh của người đó.",
-    'khai sinh lại': "Giấy khai sinh là giấy tờ hộ tịch gốc của cá nhân. Mọi hồ sơ, giấy tờ của cá nhân sau này đều phải cần theo thông tin của giấy khai sinh của người đó.",
-    'Đăng ký thường trú': "Là việc công dân đăng ký nơi ở thường trú của mình với cơ quan nhà nước có thẩm quyền và được cơ quan này làm thủ tục đăng ký thường trú, cấp sổ hộ khẩu cho họ.",
-    'đăng ký kết hôn': "Đăng ký kết hôn là thủ tục do pháp luật quy định nhằm công nhận việc xác lập quan hệ hôn nhân giữa hai bên nam, nữ khi kết hôn."
+    'khai sinh': ["Giấy khai sinh là giấy tờ hộ tịch gốc của cá nhân. Mọi hồ sơ, giấy tờ của cá nhân sau này đều phải cần theo thông tin của giấy khai sinh của người đó.", '/static/img/to_khai_khai_sinh.jpg'],
+    'khai sinh lại': ["Giấy khai sinh là giấy tờ hộ tịch gốc của cá nhân. Mọi hồ sơ, giấy tờ của cá nhân sau này đều phải cần theo thông tin của giấy khai sinh của người đó.", '/static/img/to_khai_khai_sinh_lai.jpg'],
+    'Đăng ký thường trú': ["Là việc công dân đăng ký nơi ở thường trú của mình với cơ quan nhà nước có thẩm quyền và được cơ quan này làm thủ tục đăng ký thường trú, cấp sổ hộ khẩu cho họ.", '/static/img/to_khai_thuong_tru.jpg'],
+    'đăng ký kết hôn': ["Đăng ký kết hôn là thủ tục do pháp luật quy định nhằm công nhận việc xác lập quan hệ hôn nhân giữa hai bên nam, nữ khi kết hôn.", '/static/img/to_khai_ket_hon.jpg']
 }
 
 paper_description = {
@@ -72,7 +72,7 @@ paper_description = {
 def make_img_guide(tag):
     data = dict()
     
-    data['description'] = thutuc[tag]
+    data['description'] = thutuc[tag][0]
     data['paper'] = []
     
     for di in paper[tag]:
@@ -117,7 +117,8 @@ def insert_temp_db():
     for tt_name, tt_description in thutuc.items():
         print(tt_name)
         tt = get_thutuc(tt_name)
-        tt.description = tt_description
+        tt.description = tt_description[0]
+        tt.tokhai_src = tt_description[1]
         
         #link paper 
         for mPaper in paper[tt.name]:

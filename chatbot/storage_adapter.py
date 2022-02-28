@@ -82,7 +82,7 @@ class MySQLStorageAdapter(SQLStorageAdapter):
         """
         Drop the database.
         """
-        from chatbot.models import Conversation, Question
+        from chatbot.models import Conversation, Paper, PaperLinkTag, Question
         Statement = self.get_model('statement')
         Tag = self.get_model('tag')
 
@@ -92,6 +92,7 @@ class MySQLStorageAdapter(SQLStorageAdapter):
 
         session.query(Question).delete()
         session.query(Conversation).delete()
+        session.query(PaperLinkTag).delete()
         session.query(Tag).delete()
 
         session.commit()
