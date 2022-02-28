@@ -214,6 +214,7 @@
   float: right;
   margin-right: 10px;
   background: #ce7a58;
+  opacity: 0.3;
   color: white;
   position: relative;
   margin-bottom: 5px;
@@ -232,6 +233,8 @@
 .next-msg-text:hover {
   background: #ffc251;
   color: black;
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .chat-msg.self > .cm-msg-text {

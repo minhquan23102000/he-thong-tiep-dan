@@ -147,7 +147,26 @@ $(function () {
   // Text to speech
   var text2Speech = new SpeechSynthesisUtterance();
   text2Speech.lang = "vi-VN";
+  var voices = [];
 
+  window.speechSynthesis.onvoiceschanged = function() {
+    var hhvoices = window.speechSynthesis.getVoices();
+    voices = [];
+    
+
+    for (var i = 0; i < hhvoices.length; i++) {
+      if (hhvoices[i].lang == "vi-VN") { 
+        console.log(i + " " + hhvoices[i].name + " " + hhvoices[i].default);
+        voices.push(hhvoices[i]);
+      }
+      
+    }
+    console.log("Voices " + voices.length)
+  };
+
+  
+
+   
   // Speech recoginition
   var speech = new SpeechRecognitionApi({});
 
