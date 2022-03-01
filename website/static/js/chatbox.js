@@ -314,11 +314,13 @@ $(function () {
   $("#chat-circle").click(function () {
     $("#chat-circle").toggle("scale");
     $(".chat-box").toggle("scale");
+    localStorage.setItem("chatVisible", "True");
   });
 
   $(".chat-box-toggle").click(function () {
     $("#chat-circle").toggle("scale");
     $(".chat-box").toggle("scale");
+    localStorage.setItem("chatVisible", "False");
   });
 
   function send_message(msg) {
@@ -406,5 +408,14 @@ $(function () {
   }
 
   get_chat_history();
+  //Make chatbox always open
+
+  var chat = localStorage.getItem("chatVisible");
+  if(chat != "False")
+  {
+    $("#chat-circle").toggle("scale");
+    $(".chat-box").toggle("scale");
+  }
+ 
   /////==========script end point==============////
 });
