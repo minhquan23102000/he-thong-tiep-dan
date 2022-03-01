@@ -9,7 +9,7 @@ from flask_login import current_user
 
 from website import db
 
-from . import secret
+from . import dao, secret
 from .constant.temp_db import make_img_guide
 
 views = Blueprint('views', __name__)
@@ -45,6 +45,30 @@ def get_img():
         data = {}
     return jsonify(data)
 
+@views.route('/get-chat-history')
+def get_chat_history():
+    topn = request.args.get('topn')
+    conversation_id = session.get('conversation_id')
+
+    if topn == None:
+        chat_history = dao.get_chat_history(conversation_id)
+    else: #
+        chat_history = dao.get_chat_history(conversation_id, int(topn))
+    
+    data = {'chat_history': chat_history}
+    
+    return jsonify(data)
+
+@views.route('/get-conversation-id')
+def get_conversation_id():
+    conversation_id = session.get('conversation_id')
+    if conversation_id is None: 
+        conversation_id = -1
+
+    data = {'conversation_id': conversation_id}
+    
+    return jsonify(data)
+    
 
 def new_conversation():
     conversation = Conversation()

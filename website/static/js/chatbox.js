@@ -390,5 +390,21 @@ $(function () {
     return inputText.replace(/(?:https?|ftp):\/\/[\n\S]+/g, "");
   }
 
+  function get_conversation_id(){
+    $.get("/get-conversation-id").done(function(data) { 
+      return data;
+    });
+  }
+
+  function get_chat_history(topn=10) { 
+    $.get("/get-chat-history", {topn: topn}).done(function(data) {
+      for (const chat of data['chat_history']) {
+          generate_message(chat['question'], 'self');
+          generate_message(chat['answer'], 'user');
+      }
+    });
+  }
+
+  get_chat_history();
   /////==========script end point==============////
 });
