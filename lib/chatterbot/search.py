@@ -81,19 +81,22 @@ class IndexedTextSearch:
             search_parameters.update(additional_parameters)
 
         statement_list = self.chatbot.storage.filter(**search_parameters)
-
-        if next(statement_list, None) is None:
+        first_statement = next(statement_list, None)
+        
+        if first_statement is None:
             search_parameters = {
-                'page_size': self.search_page_size, 
-                'persona_not_startswith': 'bot'
+                'page_size': self.search_page_size
             }
             statement_list = self.chatbot.storage.filter(**search_parameters)
-
-        closest_match = Statement(text='')
-        closest_match.confidence = 0
-
+            first_statement = next(statement_list, input_statement)
+        
+        closest_match = first_statement
+        closest_match.confidence = self.compare_statements(input_statement, first_statement)
+        
         self.chatbot.logger.info('Processing search results')
-
+        #Yield first statement
+        yield closest_match
+        
         # Find the closest matching known statement
         for statement in statement_list:
             confidence = self.compare_statements(input_statement, statement)
