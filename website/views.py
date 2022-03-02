@@ -79,6 +79,10 @@ def new_conversation():
     db.session.flush()
     return conversation
 
+@views.route('/to-khai-ket-hon')
+def to_khai_ket_hon():
+    return render_template("tokhai_kethon.html")
+
 
 # =================================WEB HOOK DOWN HERE=============================================
 

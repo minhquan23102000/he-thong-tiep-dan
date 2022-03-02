@@ -1,0 +1,82 @@
+{% extends 'base1.html' %} {%block title %} Điền tờ khai kết hôn trực tuyến {%
+endblock %} {%block head %} {{super()}} {%endblock%} {%block content%}
+
+
+  <div id="body" class="container">
+    
+
+      <div class="col">
+        <h4 class="text-center">
+          <span>Điền tờ khai đăng ký kết hôn</span>
+        </h4>
+      </div>
+
+    <div class="row">
+
+      <div class="col s4 m4">
+
+        <form>
+          <div class="row">
+            <span class="card-title">Mặt trước CCCD người nam</span>
+            
+            <div class="card-image">
+              
+              <img id="cccd_nam_img">
+            </div>
+
+            <div class="btn-small file-field secondary">
+              <span> Chọn ảnh </span>
+             <input accept="image/*" type='file' id="cccd_nam" onchange="preview(this)"/>
+            </div>
+          </div>
+
+          <div class="row">
+             
+            
+         
+            <span class="card-title">Mặt trước CCCD người nữ</span>
+            <div class="card-image">
+              
+              <img id="cccd_nu_img">
+            </div>
+           
+            <div class="btn-small file-field secondary">
+              <span> Chọn ảnh </span>
+             <input accept="image/*" type='file' id="cccd_nu" onchange="preview(this)"/>
+            </div>
+          </div>
+            
+        </form>
+      </div>
+
+      <div class="col s8 m8">
+         <form novalidate="" action="#" id="to-khai-form" method="post" class="av-invalid">
+          <div class="card"> 
+              <span class="card-title"> Thông tin của người nam </span>
+
+              <div class="input-field">
+                  <label for="id-nam" class="">
+                      <span>Giấy tờ tùy thân (Số CMT/CCCD) <strong>*</strong> </span>
+                  </label>
+                  <input name="id-nam" placeholder="Số CMT/CCCD" required="" pattern="^([0-9]{9}|[0-9]{12})+$" minlength="9" maxlength="12" id="identity"
+                          type="number" disabled value="" class="validate" />
+              </div>
+              
+          </div>
+          </form>
+      </div>
+
+    </div>
+  </div>
+
+
+
+<script type="text/javascript">
+function preview(element) {
+    var img_id = element.id + "_img";
+    var imgEle = document.getElementById(img_id);
+    imgEle.src=URL.createObjectURL(event.target.files[0]);
+}
+</script>
+
+{%endblock%}

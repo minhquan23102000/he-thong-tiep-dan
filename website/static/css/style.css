@@ -60,7 +60,7 @@ a {
 }
 
 img {
-  max-width: 100%;
+  max-width: 100% !important;
   height: auto;
 }
 
@@ -7672,11 +7672,10 @@ example keyframes
 }
 .header-nav .menus > li > a {
   display: block;
-  padding: 10px 15px;
   font-weight: 500;
-  height: 42px;
   position: relative;
 }
+
 .header-nav .menus > li.active > a,
 .header-nav .menus > li:hover > a {
   color: #fff;
@@ -7906,6 +7905,7 @@ example keyframes
   height: 64px;
   display: block;
   align-items: center;
+  font-size:0.9em;
 }
 @media (max-width: 768px) {
   .hero-banner .actions .btn {
@@ -7950,14 +7950,12 @@ example keyframes
   padding-right: 0px;
 }
 .box-search .form-control {
-  height: 40px;
   box-shadow: none;
   font-size: 18px;
   border-radius: 4px;
 }
 .box-search.-adv .form-control {
   border: 0px;
-  padding-right: 245px;
 }
 .box-search .adv {
   position: absolute;
