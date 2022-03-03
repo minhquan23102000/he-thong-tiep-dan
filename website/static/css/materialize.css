@@ -9096,3 +9096,22 @@ input[type=range]::-ms-thumb {
     margin-top: 1.2rem;
   }
 }
+
+.box-form {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 20px;
+  margin:5px;
+  box-shadow: 1px 1px 1px #fff !important;
+}
+
+.no-center {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+ul.dropdown-content.select-dropdown li:not(.disabled) span 
+{     
+  color: #4e342e; 
+}

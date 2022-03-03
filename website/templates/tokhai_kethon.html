@@ -1,82 +1,237 @@
-{% extends 'base1.html' %} {%block title %} Điền tờ khai kết hôn trực tuyến {%
-endblock %} {%block head %} {{super()}} {%endblock%} {%block content%}
+{% extends 'base1.html' %} 
+{%block title %} Điền tờ khai kết hôn trực tuyến {%endblock %} 
+{%block head %} {{super()}} {%endblock%} 
+{%block content%}
 
 
-  <div id="body" class="container">
+<div id="body" class="container">
+    <div class="card">
+
+      <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a class="active" href="#test4">Nộp hình ảnh hồ sơ</a></li>
+          <li class="tab"><a href="#test5">Hoàn thiện tờ khai</a></li>
+          <li class="tab"><a href="#test6">Tờ khai mẫu</a></li>
+        </ul>
+      </div>
+
+      <div class="card-content grey lighten-4">
+          <div id="test4" class="row"> 
+            <div class="col s6 m6"> 
+               <span class="card-content-header">Mặt trước CCCD người nam</span>
+                <div class="card-image-small">
+                  <img id="cccd_nam_img">
+                </div>
     
-
-      <div class="col">
-        <h4 class="text-center">
-          <span>Điền tờ khai đăng ký kết hôn</span>
-        </h4>
-      </div>
-
-    <div class="row">
-
-      <div class="col s4 m4">
-
-        <form>
-          <div class="row">
-            <span class="card-title">Mặt trước CCCD người nam</span>
-            
-            <div class="card-image">
-              
-              <img id="cccd_nam_img">
+                <div class="btn-small file-field secondary waves-effect waves-green">
+                  <i class="material-icons">add_a_photo</i>
+                  <input accept="image/*" type='file' id="cccd_nam" onchange="preview(this)"/>
+                </div>
             </div>
 
-            <div class="btn-small file-field secondary">
-              <span> Chọn ảnh </span>
-             <input accept="image/*" type='file' id="cccd_nam" onchange="preview(this)"/>
+            <div class="col s6 m6"> 
+              <span class="card-content-header">Mặt trước CCCD người nữ</span>
+                <div class="card-image-small">
+                  <img id="cccd_nu_img">
+                </div>
+    
+                <div class="btn-small file-field secondary waves-effect waves-green">
+                  <i class="material-icons">add_a_photo</i>
+                  <input accept="image/*" type='file' id="cccd_nu" onchange="preview(this)"/>
+                </div>
+            </div>
+
+              
+            <div class="card-action" style="float:right;">
+                <button id="dientokhaitudong" class="btn waves-effect waves-green"><i class="material-icons right">send</i>Tiếp theo</button>
             </div>
           </div>
+        </div>
 
-          <div class="row">
-             
-            
-         
-            <span class="card-title">Mặt trước CCCD người nữ</span>
-            <div class="card-image">
+        <div id="test5">
+          <form class=""> 
+
+            <div class ="card box-form">
+              <span class="card-content-header">Thông tin của người nam</span>
+              </br>
+                
+                  
+                <div class ="row no-center">
+                  <div class="input-field col s12">
+                    <input value="" id="nam_hoten" type="text" class="validate" placeholder="Họ tên người nam" require="Họ tên không thể trống">
+                    <label for="nam_hoten">Họ tên</label>
+                  </div>
+                </div>
+
+                  <div class = "row no-center">
+                    <div class="input-field col s8">
+                      <input value="" id="nam_id" type="text" class="validate" placeholder="Số tờ tùy thân CCCD/CMND" require
+                      pattern="^([0-9]{9}|[0-9]{12})+$" minlength="9" maxlength="12">
+                      <label for="nam_id">Số tờ tùy thân</label>
+                      <span class="helper-text" data-error="Không đúng định dạng" data-success="Đúng định dạng">Số tờ tùy thân có 9 hoặc 12 số</span>
+                    </div>
+
+                      <div class="input-field col s4">
+                        <select id="nam_loaigiaytuythan" require>
+                          <option value="" disabled selected>Loại giấy tờ tùy thân</option>
+                          <option value="cccd">Căn cước công dân</option>
+                          <option value="cmnd">Chứng minh nhân dân</option>
+                          <label>Loại giấy tờ</label>
+                        </select>
+                        
+                      </div>
+                  </div>
+
+                <div class ="row no-center">
+                  <div class="input-field col s4">
+                    <input value="" id="nam_dantoc" type="text" class="validate" placeholder="Dân tộc của người nam" require>
+                    <label for="nam_dantoc">Dân tộc</label>
+                  </div>
+                   <div class="input-field col s4">
+                    <input value="" id="nam_quoctich" type="text" class="validate" placeholder="Quốc tịch của người nam" require>
+                    <label for="nam_quoctich">Quốc tịch</label>
+                  </div>
+                   <div class="input-field col s4">
+                    <input value="" id="nam_ngaysinh" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nam" require>
+                    <label for="nam_ngaysinh">Ngày sinh</label>
+                  </div>
+                </div>
+
+                 <div class ="row no-center">
+                  <div class="input-field col s10">
+                    <input value="" id="nam_noicutru" type="text" class="validate" placeholder="Nơi cư trú của người nam" require>
+                    <label for="nam_noicutru">Nơi cư trú</label>
+                  </div>
+
+                  <div class="input-field col s2">
+                    <input value="" id="nam_kethonlan" type="number" min=0 class="validate" placeholder="Kết hôn lần thứ mấy của người nam" require>
+                    <label for="nam_noicutru">Kết hôn lần thứ</label>
+                  </div>
+                </div>
               
-              <img id="cccd_nu_img">
             </div>
-           
-            <div class="btn-small file-field secondary">
-              <span> Chọn ảnh </span>
-             <input accept="image/*" type='file' id="cccd_nu" onchange="preview(this)"/>
-            </div>
-          </div>
-            
-        </form>
-      </div>
 
-      <div class="col s8 m8">
-         <form novalidate="" action="#" id="to-khai-form" method="post" class="av-invalid">
-          <div class="card"> 
-              <span class="card-title"> Thông tin của người nam </span>
 
-              <div class="input-field">
-                  <label for="id-nam" class="">
-                      <span>Giấy tờ tùy thân (Số CMT/CCCD) <strong>*</strong> </span>
-                  </label>
-                  <input name="id-nam" placeholder="Số CMT/CCCD" required="" pattern="^([0-9]{9}|[0-9]{12})+$" minlength="9" maxlength="12" id="identity"
-                          type="number" disabled value="" class="validate" />
-              </div>
+            <div class ="card box-form">
+              <span class="card-content-header">Thông tin của người nữ</span>
+              </br>
+                
+                  
+                <div class ="row no-center">
+                  <div class="input-field col s12">
+                    <input value="" id="nu_hoten" type="text" class="validate" placeholder="Họ tên người nữ" require="Họ tên không thể trống">
+                    <label for="nu_hoten">Họ tên</label>
+                  </div>
+                </div>
+
+                  <div class = "row no-center">
+                    <div class="input-field col s8">
+                      <input value="" id="nu_id" type="text" class="validate" placeholder="Số tờ tùy thân CCCD/CMND" require
+                      pattern="^([0-9]{9}|[0-9]{12})+$" minlength="9" maxlength="12">
+                      <label for="nu_id">Số tờ tùy thân</label>
+                      <span class="helper-text" data-error="Không đúng định dạng" data-success="Đúng định dạng">Số tờ tùy thân có 9 hoặc 12 số</span>
+                    </div>
+
+                      <div class="input-field col s4">
+                        <select id="nu_loaigiaytuythan" require>
+                          <option value="" disabled selected>Loại giấy tờ tùy thân</option>
+                          <option value="cccd">Căn cước công dân</option>
+                          <option value="cmnd">Chứng minh nhân dân</option>
+                          <label>Loại giấy tờ</label>
+                        </select>
+                        
+                      </div>
+                  </div>
+
+                <div class ="row no-center">
+                  <div class="input-field col s4">
+                    <input value="" id="nu_dantoc" type="text" class="validate" placeholder="Dân tộc của người nữ" require>
+                    <label for="nu_dantoc">Dân tộc</label>
+                  </div>
+                   <div class="input-field col s4">
+                    <input value="" id="nu_quoctich" type="text" class="validate" placeholder="Quốc tịch của người nữ" require>
+                    <label for="nu_quoctich">Quốc tịch</label>
+                  </div>
+                   <div class="input-field col s4">
+                    <input value="" id="nu_ngaysinh" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nữ" require>
+                    <label for="nu_ngaysinh">Ngày sinh</label>
+                  </div>
+                </div>
+
+                 <div class ="row no-center">
+                  <div class="input-field col s10">
+                    <input value="" id="nu_noicutru" type="text" class="validate" placeholder="Nơi cư trú của người nữ" require>
+                    <label for="nu_noicutru">Nơi cư trú</label>
+                  </div>
+
+                  <div class="input-field col s2">
+                    <input value="" id="nu_kethonlan" type="number" min=0 class="validate" placeholder="Kết hôn lần thứ mấy của người nữ" require>
+                    <label for="nu_noicutru">Kết hôn lần thứ</label>
+                  </div>
+                </div>
+
               
-          </div>
+                
+              
+            </div>
+            <div class="card-action row">
+            
+              <div class="col s2">
+                <label>
+                  <input id="capbansao" type="checkbox" class="filled-in"  />
+                  <span>Đề nghị cấp bảng sao</span>
+              </label>
+                </div>
+
+               <div class="input-field col s3">
+                    <input value="" id="soban" type="number" min=0 class="validate" placeholder="Số bảng cấp" require>
+                    <label for="soban">Số bảng</label>
+                </div>
+
+                  <div class="" style="float:right;">
+                     <button id="laytokhai" class="btn waves-effect waves-green"><i class="material-icons right">send</i>Hoàn thành</button>
+                  </div>
+            </div>
+
+          
           </form>
-      </div>
+        </div>
 
-    </div>
+        <div id="test6">Test 3</div>
+      </div>
   </div>
+</div>
 
 
 
 <script type="text/javascript">
-function preview(element) {
+ function preview(element) {
     var img_id = element.id + "_img";
     var imgEle = document.getElementById(img_id);
     imgEle.src=URL.createObjectURL(event.target.files[0]);
 }
+
+/*
+var cards = document.querySelector('.tabs');
+var instance = M.Tabs.init(cards, {});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, options);
+  }); */
+
+ document.addEventListener('DOMContentLoaded', function() {
+    M.AutoInit();
+
+  var options = {
+    format:"dd/mm/yyyy"
+  };
+  var elems = document.querySelectorAll('.datepicker.no-autoinit.validate');
+    var instances = M.Datepicker.init(elems, options);
+ });
+ 
+
+ 
 </script>
 
 {%endblock%}
