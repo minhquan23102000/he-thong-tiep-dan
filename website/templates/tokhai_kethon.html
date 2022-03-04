@@ -1,6 +1,10 @@
 {% extends 'base1.html' %} 
 {%block title %} Điền tờ khai kết hôn trực tuyến {%endblock %} 
-{%block head %} {{super()}} {%endblock%} 
+{%block head %} 
+{{super()}} 
+<script src="./static/js/pizzip.js"></script>
+<script src="./static/js/docxtemplater.js"></script>
+{%endblock%} 
 {%block content%}
 
 
@@ -199,7 +203,16 @@
           </form>
         </div>
 
-        <div id="test6">Test 3</div>
+        <div id="test6">
+
+        <div class="row no-center">
+            <div id="tokhai_hoanthanh" class="card box-form">
+               
+            </div>
+        </div>
+
+        </div>
+
       </div>
   </div>
 </div>
@@ -265,7 +278,13 @@ const nu = {
   $(".tabs").tabs('select', 'test5');
  }
 
- 
+
+const url_mau = encodeURIComponent("https://firebasestorage.googleapis.com/v0/b/hethongtiepdan.appspot.com/o/tokhai_mau%2Fdang_ky_ket_hon.docx?alt=media&token=1c0629cb-c133-41a3-b73d-fd391f47122d");
+
+var myHtml = '<iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url='+ url_mau +'" width="100%" height="800px" frameborder="0"/>'
+
+$("#tokhai_hoanthanh").append(myHtml);
+
 </script>
 
 {%endblock%}
