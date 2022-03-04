@@ -9,9 +9,9 @@
 
       <div class="card-tabs">
         <ul class="tabs tabs-fixed-width">
-          <li class="tab"><a class="active" href="#test4">Nộp hình ảnh hồ sơ</a></li>
-          <li class="tab"><a href="#test5">Hoàn thiện tờ khai</a></li>
-          <li class="tab"><a href="#test6">Tờ khai mẫu</a></li>
+          <li class="tab"><a id="tab1" class="active" href="#test4">Nộp hình ảnh hồ sơ</a></li>
+          <li class="tab"><a id="tab2" href="#test5">Hoàn thiện tờ khai</a></li>
+          <li class="tab"><a id="tab3" href="#test6">Tờ khai mẫu</a></li>
         </ul>
       </div>
 
@@ -43,7 +43,9 @@
 
               
             <div class="card-action" style="float:right;">
-                <button id="dientokhaitudong" class="btn waves-effect waves-green"><i class="material-icons right">send</i>Tiếp theo</button>
+                <button id="dientokhaitudong" class="btn waves-effect waves-green" onclick="set_tokhai_kethon()">
+                  <i class="material-icons right">send</i>Tiếp theo
+                </button>
             </div>
           </div>
         </div>
@@ -58,14 +60,14 @@
                   
                 <div class ="row no-center">
                   <div class="input-field col s12">
-                    <input value="" id="nam_hoten" type="text" class="validate" placeholder="Họ tên người nam" require="Họ tên không thể trống">
-                    <label for="nam_hoten">Họ tên</label>
+                    <input value="" id="nam_name" type="text" class="validate" placeholder="Họ tên người nam" require="Họ tên không thể trống">
+                    <label for="nam_name">Họ tên</label>
                   </div>
                 </div>
 
                   <div class = "row no-center">
                     <div class="input-field col s8">
-                      <input value="" id="nam_id" type="text" class="validate" placeholder="Số tờ tùy thân CCCD/CMND" require
+                      <input value="" id="nam_id" type="number" class="validate" placeholder="Số tờ tùy thân CCCD/CMND" require
                       pattern="^([0-9]{9}|[0-9]{12})+$" minlength="9" maxlength="12">
                       <label for="nam_id">Số tờ tùy thân</label>
                       <span class="helper-text" data-error="Không đúng định dạng" data-success="Đúng định dạng">Số tờ tùy thân có 9 hoặc 12 số</span>
@@ -92,20 +94,20 @@
                     <label for="nam_quoctich">Quốc tịch</label>
                   </div>
                    <div class="input-field col s4">
-                    <input value="" id="nam_ngaysinh" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nam" require>
-                    <label for="nam_ngaysinh">Ngày sinh</label>
+                    <input value="" id="nam_birth_date" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nam" require>
+                    <label for="nam_birth_date">Ngày sinh</label>
                   </div>
                 </div>
 
                  <div class ="row no-center">
                   <div class="input-field col s10">
-                    <input value="" id="nam_noicutru" type="text" class="validate" placeholder="Nơi cư trú của người nam" require>
-                    <label for="nam_noicutru">Nơi cư trú</label>
+                    <input value="" id="nam_address" type="text" class="validate" placeholder="Nơi cư trú của người nam" require>
+                    <label for="nam_address">Nơi cư trú</label>
                   </div>
 
                   <div class="input-field col s2">
                     <input value="" id="nam_kethonlan" type="number" min=0 class="validate" placeholder="Kết hôn lần thứ mấy của người nam" require>
-                    <label for="nam_noicutru">Kết hôn lần thứ</label>
+                    <label for="nam_kethonlan">Kết hôn lần thứ</label>
                   </div>
                 </div>
               
@@ -119,14 +121,14 @@
                   
                 <div class ="row no-center">
                   <div class="input-field col s12">
-                    <input value="" id="nu_hoten" type="text" class="validate" placeholder="Họ tên người nữ" require="Họ tên không thể trống">
-                    <label for="nu_hoten">Họ tên</label>
+                    <input value="" id="nu_name" type="text" class="validate" placeholder="Họ tên người nữ" require="Họ tên không thể trống">
+                    <label for="nu_name">Họ tên</label>
                   </div>
                 </div>
 
                   <div class = "row no-center">
                     <div class="input-field col s8">
-                      <input value="" id="nu_id" type="text" class="validate" placeholder="Số tờ tùy thân CCCD/CMND" require
+                      <input value="" id="nu_id" type="number" class="validate" placeholder="Số tờ tùy thân CCCD/CMND" require
                       pattern="^([0-9]{9}|[0-9]{12})+$" minlength="9" maxlength="12">
                       <label for="nu_id">Số tờ tùy thân</label>
                       <span class="helper-text" data-error="Không đúng định dạng" data-success="Đúng định dạng">Số tờ tùy thân có 9 hoặc 12 số</span>
@@ -153,20 +155,20 @@
                     <label for="nu_quoctich">Quốc tịch</label>
                   </div>
                    <div class="input-field col s4">
-                    <input value="" id="nu_ngaysinh" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nữ" require>
-                    <label for="nu_ngaysinh">Ngày sinh</label>
+                    <input value="" id="nu_birth_date" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nữ" require>
+                    <label for="nu_birth_date">Ngày sinh</label>
                   </div>
                 </div>
 
                  <div class ="row no-center">
                   <div class="input-field col s10">
-                    <input value="" id="nu_noicutru" type="text" class="validate" placeholder="Nơi cư trú của người nữ" require>
-                    <label for="nu_noicutru">Nơi cư trú</label>
+                    <input value="" id="nu_address" type="text" class="validate" placeholder="Nơi cư trú của người nữ" require>
+                    <label for="nu_address">Nơi cư trú</label>
                   </div>
 
                   <div class="input-field col s2">
                     <input value="" id="nu_kethonlan" type="number" min=0 class="validate" placeholder="Kết hôn lần thứ mấy của người nữ" require>
-                    <label for="nu_noicutru">Kết hôn lần thứ</label>
+                    <label for="nu_kethonlan">Kết hôn lần thứ</label>
                   </div>
                 </div>
 
@@ -211,15 +213,6 @@
     imgEle.src=URL.createObjectURL(event.target.files[0]);
 }
 
-/*
-var cards = document.querySelector('.tabs');
-var instance = M.Tabs.init(cards, {});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems, options);
-  }); */
-
  document.addEventListener('DOMContentLoaded', function() {
     M.AutoInit();
 
@@ -230,6 +223,47 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Datepicker.init(elems, options);
  });
  
+
+const nam = {
+  "id": 0123456789,
+  "name": "Tester 001",
+  "birth_date": "12/02/1995",
+  "address": "Ha Noi, Le Xuan Dai, 188",
+  "gender": "Nam",
+  "place_birth": "Ha Noi"
+}
+const nu = {
+  "id": 0123456987,
+  "name": "Tester 002",
+  "birth_date": "12/02/1995",
+  "address": "Ha Noi, Le Xuan Dai, 183",
+  "gender": "Nu",
+  "place_birth": "Ha Noi"
+}
+
+'use strict';
+ function set_tokhai_kethon() {
+  for (const [key, value] of Object.entries(nam)) {
+    $("#nam_"+key).val(value)
+  }
+  for (const [key, value] of Object.entries(nu)) {
+    $("#nu_"+key).val(value)
+  }
+
+  $("#nam_dantoc").val("Kinh");
+  $("#nu_dantoc").val("Kinh");
+  $("#nam_quoctich").val("Việt Nam");
+  $("#nu_quoctich").val("Việt Nam");
+
+  $("#nam_loaigiaytuythan").val("cccd");
+  $("#nam_loaigiaytuythan").formSelect();
+  $("#nu_loaigiaytuythan").val("cccd");
+  $("#nu_loaigiaytuythan").formSelect();
+  
+  //$("li a.active").removeClass("active");
+  //$("#tab2").addClass("active");
+  $(".tabs").tabs('select', 'test5');
+ }
 
  
 </script>
