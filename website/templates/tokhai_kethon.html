@@ -55,7 +55,7 @@
         </div>
 
         <div id="test5">
-          <form class=""> 
+          <form id="tokhai_form" class="" action="#"> 
 
             <div class ="card box-form">
               <span class="card-content-header">Thông tin của người nam</span>
@@ -190,12 +190,14 @@
                 </div>
 
                <div class="input-field col s3">
-                    <input value="" id="soban" type="number" min=0 class="validate" placeholder="Số bảng cấp" require>
+                    <input value="0" id="soban" type="number" min=0 class="validate" placeholder="Số bảng cấp" require>
                     <label for="soban">Số bảng</label>
                 </div>
 
                   <div class="" style="float:right;">
-                     <button id="laytokhai" class="btn waves-effect waves-green"><i class="material-icons right">send</i>Hoàn thành</button>
+                     <button type="button" id="laytokhai" class="btn waves-effect waves-green" onclick="getFormValues()">
+                       <i class="material-icons right">send</i>Hoàn thành
+                      </button>
                   </div>
             </div>
 
@@ -285,6 +287,35 @@ var myHtml = '<iframe src="https://drive.google.com/viewerng/viewer?embedded=tru
 
 $("#tokhai_hoanthanh").append(myHtml);
 
+function isEmpty(str) {
+    return !str.trim().length;
+}
+
+function getFormValues() {
+    var inputs = document.querySelectorAll('#' + 'tokhai_form' + ' input');    
+    var formValues = {};
+    var valid = true;
+
+    for (var i = 0; i < inputs.length; i++) {
+      formValues[inputs[i].id] = inputs[i].value;
+      if (isEmpty(inputs[i].value)) {
+          var label = $('label[for="' + inputs[i].id + '"]').html();
+         M.toast({html: 'Vui lòng điền đầy đủ thông tin vào ô ' + label, classes: 'rounded'})
+         valid = false;
+        
+      }
+    }
+
+    if (valid) {
+       $(".tabs").tabs('select', 'test6');
+    }
+
+    return formValues;
+}
+
+
+
 </script>
+
 
 {%endblock%}
