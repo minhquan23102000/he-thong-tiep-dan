@@ -17,3 +17,5 @@ flask-restful
 flask-wtf
 langid
 gensim
+python-docx
+firebase-admin

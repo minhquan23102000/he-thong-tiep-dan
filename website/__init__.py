@@ -57,6 +57,8 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     from .auth import auth
     app.register_blueprint(auth, url_prefix='/')
+    from .tokhai import tokhai
+    app.register_blueprint(tokhai, url_prefix="/to-khai")
 
     # Admin setting
     admin_setting(app)

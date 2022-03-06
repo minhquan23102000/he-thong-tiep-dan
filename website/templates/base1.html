@@ -14,26 +14,25 @@
     content="Cổng Dịch vụ công Quốc gia hỗ trợ thông tin, đăng ký thủ tục hành chính như đổi giấy phép lái xe, nộp thuế điện tử, thông báo khuyến mại, cấp lại thẻ BHYT, cấp điện mới..." />
   <meta content="IE=edge" http-equiv="X-UA-Compatible" />
   <meta content="index, follow" name="ROBOTS" />
-  <link rel="icon" type="image/x-icon" href="./static/img/quochuy.png" />
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/quochuy.png') }}" />
 
-  <link rel="stylesheet" type="text/css" href="/static/css/chatbox1.css" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chatbox1.css') }}" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <script type="text/javascript" src="static/plugins/jQuery/jquery-2.2.3.min.js"></script>
-  <script type="text/javascript" src="/static/js/chatbox.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/chatbox.js') }}"></script>
 
 
-  <link rel="stylesheet" href="/static/css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="/static/css/icon.css" />
-  <link rel="stylesheet" type="text/css" href="/static/css/slick.css" />
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <link rel="stylesheet" href="/static/css/materialize.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/icon.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}" />
 
 
-  <script src="static/js/bootstrap.min.js"></script>
-  <script src="static/js/SmoothScroll.js"></script>
-  <script src="static/js/theme-scripts.js"></script>
-  <script src="static/js/materialize.js">
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/theme-scripts.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/materialize.js') }}">
   </script>
 
   {% endblock %}

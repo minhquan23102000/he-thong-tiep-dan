@@ -2,8 +2,6 @@
 {%block title %} Điền tờ khai kết hôn trực tuyến {%endblock %} 
 {%block head %} 
 {{super()}} 
-<script src="./static/js/pizzip.js"></script>
-<script src="./static/js/docxtemplater.js"></script>
 {%endblock%} 
 {%block content%}
 
@@ -98,8 +96,8 @@
                     <label for="nam_quoctich">Quốc tịch</label>
                   </div>
                    <div class="input-field col s4">
-                    <input value="" id="nam_birth_date" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nam" require>
-                    <label for="nam_birth_date">Ngày sinh</label>
+                    <input value="" id="nam_birthdate" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nam" require>
+                    <label for="nam_birthdate">Ngày sinh</label>
                   </div>
                 </div>
 
@@ -159,8 +157,8 @@
                     <label for="nu_quoctich">Quốc tịch</label>
                   </div>
                    <div class="input-field col s4">
-                    <input value="" id="nu_birth_date" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nữ" require>
-                    <label for="nu_birth_date">Ngày sinh</label>
+                    <input value="" id="nu_birthdate" type="text" class="datepicker no-autoinit validate" placeholder="Ngày sinh của người nữ" require>
+                    <label for="nu_birthdate">Ngày sinh</label>
                   </div>
                 </div>
 
@@ -242,7 +240,7 @@
 const nam = {
   "id": 0123456789,
   "name": "Tester 001",
-  "birth_date": "12/02/1995",
+  "birthdate": "12/02/1995",
   "address": "Ha Noi, Le Xuan Dai, 188",
   "gender": "Nam",
   "place_birth": "Ha Noi"
@@ -250,7 +248,7 @@ const nam = {
 const nu = {
   "id": 0123456987,
   "name": "Tester 002",
-  "birth_date": "12/02/1995",
+  "birthdate": "12/02/1995",
   "address": "Ha Noi, Le Xuan Dai, 183",
   "gender": "Nu",
   "place_birth": "Ha Noi"
@@ -281,11 +279,22 @@ const nu = {
  }
 
 
-const url_mau = encodeURIComponent("https://firebasestorage.googleapis.com/v0/b/hethongtiepdan.appspot.com/o/tokhai_mau%2Fdang_ky_ket_hon.docx?alt=media&token=1c0629cb-c133-41a3-b73d-fd391f47122d");
 
-var myHtml = '<iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url='+ url_mau +'" width="100%" height="800px" frameborder="0"/>'
+function fetchToKhai(url_mau) {
 
-$("#tokhai_hoanthanh").append(myHtml);
+  url_mau = encodeURIComponent(url_mau)
+
+  var myHtml = '<iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url='+ url_mau +'" width="100%" height="800px" frameborder="0"/>'
+
+  $("#tokhai_hoanthanh").empty();
+  $("#tokhai_hoanthanh").append(myHtml);
+}
+
+
+function initLoader() {
+  var loader = '<div class="progress" style="margin: 0 auto;"><div class="indeterminate"></div></div>';
+  $("#tokhai_hoanthanh").append(loader);
+}
 
 function isEmpty(str) {
     return !str.trim().length;
@@ -297,7 +306,10 @@ function getFormValues() {
     var valid = true;
 
     for (var i = 0; i < inputs.length; i++) {
-      formValues[inputs[i].id] = inputs[i].value;
+      if (!isEmpty(inputs[i].id)) {
+          formValues[inputs[i].id] = inputs[i].value;
+      }
+      
       if (isEmpty(inputs[i].value)) {
           var label = $('label[for="' + inputs[i].id + '"]').html();
          M.toast({html: 'Vui lòng điền đầy đủ thông tin vào ô ' + label, classes: 'rounded'})
@@ -305,12 +317,26 @@ function getFormValues() {
         
       }
     }
+    formValues['nam_loaigiaytuythan'] = $("#nam_loaigiaytuythan option:selected").text()
+    formValues['nu_loaigiaytuythan'] = $("#nu_loaigiaytuythan option:selected").text()
+    
+    console.log(formValues)
+
+    data = JSON.stringify(formValues);
+
 
     if (valid) {
-       $(".tabs").tabs('select', 'test6');
+      initLoader();
+      $.get('/to-khai/dien-to-khai-tu-dong', {paper_name: 'dang_ky_ket_hon', data: data})
+      .done(function (data) {
+        fetchToKhai(data.url);
+      });
+      $(".tabs").tabs('select', 'test6');
+
     }
 
-    return formValues;
+
+
 }
 
 
