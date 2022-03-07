@@ -5768,6 +5768,7 @@ body.keyboard-focused .dropdown-content li:focus {
   right: 0;
   background-color: #fafafa;
   padding: 0;
+  height: fit-content;
   max-height: 70%;
   width: fit-content;
   margin: auto;
