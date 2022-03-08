@@ -9116,3 +9116,11 @@ ul.dropdown-content.select-dropdown li:not(.disabled) span
 {     
   color: #4e342e; 
 }
+
+.round-corner {
+  border-radius: 0.7em;
+}
+
+.very-small {
+  height: 200px;
+}

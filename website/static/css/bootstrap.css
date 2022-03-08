@@ -67,9 +67,7 @@ mark {
   color: #000;
   background: #ff0;
 }
-small {
-  font-size: 80%;
-}
+
 sub,
 sup {
   position: relative;
@@ -1300,10 +1298,7 @@ p {
     font-size: 21px;
   }
 }
-small,
-.small {
-  font-size: 85%;
-}
+
 mark,
 .mark {
   padding: .2em;

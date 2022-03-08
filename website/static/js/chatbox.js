@@ -188,8 +188,10 @@ $(function () {
   });
 
   function generate_message(msg, type) {
+ 
     //Clean next questions
     $(".next-msg").remove();
+    console.log(msg);
 
     INDEX++;
     var str = "";
@@ -257,55 +259,7 @@ $(function () {
     });
   }
 
-  function generate_button_message(msg, buttons) {
-    /* Buttons should be object array
-        [
-          {
-            name: 'Existing User',
-            value: 'existing'
-          },
-          {
-            name: 'New User',
-            value: 'new'
-          }
-        ]
-      */
-    INDEX++;
-    var btn_obj = buttons
-      .map(function (button) {
-        return (
-          '              <li class="button"><a href="javascript:;" class="btn btn-primary chat-btn" chat-value="' +
-          button.value +
-          '">' +
-          button.name +
-          "</a></li>"
-        );
-      })
-      .join("");
-    var str = "";
-    str += "<div id='cm-msg-" + INDEX + '\' class="chat-msg user">';
-    str += '          <span class="msg-avatar">';
-    str +=
-      '            <img src="https://image.crisp.im/avatar/operator/196af8cc-f6ad-4ef7-afd1-c45d5231387c/240/?1483361727745">';
-    str += "          </span>";
-    str += '          <div class="cm-msg-text">';
-    str += msg;
-    str += "          </div>";
-    str += '          <div class="cm-msg-button">';
-    str += "            <ul>";
-    str += btn_obj;
-    str += "            </ul>";
-    str += "          </div>";
-    str += "        </div>";
-    $(".chat-logs").append(str);
-    $("#cm-msg-" + INDEX)
-      .hide()
-      .fadeIn(300);
-    $(".chat-logs")
-      .stop()
-      .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-    $("#chat-input").attr("disabled", true);
-  }
+  
 
   $(document).delegate(".chat-btn", "click", function () {
     var value = $(this).attr("chat-value");
@@ -332,33 +286,49 @@ $(function () {
       generate_message(msg, "self");
 
       $.get("/get", { msg: msg, oldtag: oldtag }).done(function (data) {
-        console.log(data);
-        // myData = JSON.parse(data)
         var response = linkify(String(data.response));
         var tag = data.tag;
         var next_questions = data.next_questions;
+        console.log("IS ACTION " + checkAction(data.response));
+        if (!checkAction(data.response)) {
+          
+            if (
+              tag != "lời chào" &&
+              tag != "cảm xúc" &&
+              tag != oldtag &&
+              tag != "none"
+            ) {
+              $("#tag").text(tag).trigger("change");
+            }
 
-        if (
-          tag != "lời chào" &&
-          tag != "cảm xúc" &&
-          tag != oldtag &&
-          tag != "none"
-        ) {
-          $("#tag").text(tag).trigger("change");
+            text2Speech.text = clean_url(response);
+            text2Speech.voice = voices[1];
+            text2Speech.rate = 1.2;
+            speechSynthesis.cancel();
+            speechSynthesis.speak(text2Speech);
+
+            generate_message(response, "user");
+            setTimeout(function () {
+              generate_next_questions(next_questions);
+            }, 1100);
         }
 
-        text2Speech.text = clean_url(response);
-        text2Speech.voice = voices[1];
-        text2Speech.rate = 1.2;
-        speechSynthesis.cancel();
-        speechSynthesis.speak(text2Speech);
-
-        generate_message(response, "user");
-        setTimeout(function () {
-          generate_next_questions(next_questions);
-        }, 1100);
+        else {
+          generateMessageAction(data.response);
+        }
       });
+        
     }
+    
+  }
+
+  function speakMessage(message) {
+      text2Speech.text = clean_url(message);
+      text2Speech.voice = voices[1];
+      text2Speech.rate = 1.2;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(text2Speech);
+
   }
 
   function linkify(inputText) {
@@ -533,5 +503,72 @@ function removeDiacritics (str) {
     }
     return str;
 }
+
+function generateMessageAction(str) { 
+  var arr = str.split(":");
+  if (arr[0] == "ACTION") {
+    if (arr[1] == "NAVIGATE") {
+       generateCardActionMessage(arr[3], arr[2]);
+    }
+  } 
+}
+
+function checkAction(str) { 
+  var arr = str.split(":");
+  if (arr[0] == "ACTION") {
+    return true;
+  }
+  return false;
+}
+
+
+function generateCardActionMessage(cardContent, urlYes) { 
+ //Clean next questions
+    $(".next-msg").remove();
+    
+    INDEX++;
+    var str = "";
+    str += "<div id='cm-msg-" + INDEX + "' class='user'>";
+    str += "<div class='row'> <div class='col s10'>";
+    str+= "<div class='card very-small round-corner'>";
+    str += "<div class='card-content'>";
+    str += "<p>" + cardContent + "</p>";
+
+    str += "<div class='card-action'>";
+    str+= "<a href='" + urlYes + "'> Có </a>";
+    str += "<a href='javascript:void(0)' id='message-no'> Không </a>";
+    str+= "</div>";
+
+    str += "</div>";
+    str+= "</div>";
+    str += "</div> </div>";
+    str += "        </div>";
+
+    $(".chat-logs").append(str);
+    speakMessage(cardContent);
+
+    $("#message-no").click(function () {
+      var messageNo = "Khi bạn cần thiết hỗ trợ điền tờ khai, mình sẽ luôn vui lòng hỗ trợ. Giờ bạn còn câu hỏi nào về thủ tục " + $("#tag").text() + " không?";
+      generate_message(messageNo, "user");
+      speakMessage(messageNo);
+    });
+
+    $("#cm-msg-" + INDEX)
+      .hide()
+      .fadeIn(300);
+
+    if (type == "self") {
+      $("#chat-input").val("");
+    }
+
+    $(".chat-logs")
+      .stop()
+      .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1200);
+
+   
+  }
+
+
+
   /////==========script end point==============////
 });
