@@ -1,123 +1,123 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  {% block head %}
+    <head>
+        {% block head %}
 
-  <title>{% block title %}{% endblock %} - Cổng dịch vụ công</title>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>{% block title %}{% endblock %} - Cổng dịch vụ công</title>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="description" content="" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="description"
-    content="Cổng Dịch vụ công Quốc gia hỗ trợ thông tin, đăng ký thủ tục hành chính như đổi giấy phép lái xe, nộp thuế điện tử, thông báo khuyến mại, cấp lại thẻ BHYT, cấp điện mới..." />
-  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-  <meta content="index, follow" name="ROBOTS" />
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/quochuy.png') }}" />
+            <meta name="description"
+                content="Cổng Dịch vụ công Quốc gia hỗ trợ thông tin, đăng ký thủ tục hành chính như đổi giấy phép lái xe, nộp thuế điện tử, thông báo khuyến mại, cấp lại thẻ BHYT, cấp điện mới..." />
+            <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+            <meta content="index, follow" name="ROBOTS" />
+            <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/quochuy.png') }}" />
 
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chatbox1.css') }}" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <script type="text/javascript" src="{{ url_for('static', filename='plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/chatbox.js') }}"></script>
-
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/icon.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/typing.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chatbox1.css') }}" />
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+            <script type="text/javascript" src="{{ url_for('static', filename='plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+            <script type="text/javascript" src="{{ url_for('static', filename='js/chatbox.js') }}"></script>
 
 
-  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/theme-scripts.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/materialize.js') }}">
-  </script>
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/icon.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick.css') }}" />
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}" />
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/typing.css') }}" />
 
-  {% endblock %}
-</head>
 
-<body>
-  <!--  header -->
-  <div class="loading-all" id="loading-all" style="display: none">
-    <div class="icon">
-      <img src="/static/img/loading.png" alt="" />
-      <span style="color: blue">Đang xử lý...<span> </span></span>
-    </div>
-    <style type="text/css">
-      .loading-all {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        z-index: 10000;
-        background: #dbdcdc40;
-      }
+            <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/theme-scripts.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/materialize.js') }}">
+            </script>
 
-      .loading-all .icon {
-        width: 100px;
-        position: absolute;
-        top: 0px;
-        height: 100px;
-        bottom: 0px;
-        right: 0px;
-        margin: auto;
-        left: 0px;
-      }
-    </style>
-  </div>
-  <!--DEFINE CONSTANT -->
-  <!--END CONSTANT-->
-  <div class="overlay-common"></div>
-  <!-- /mtv/ Log propertise-->
-  {%block navigator %}
+        {% endblock %}
+    </head>
 
-  <div class="header">
-    <div class="container">
-      <div class="relative content">
-        <div class="logo-text">
-          <a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" class="logo">
-            <img src="/static/img/logo.png" alt="" />
-          </a>
+    <body>
+        <!--  header -->
+        <div class="loading-all" id="loading-all" style="display: none">
+            <div class="icon">
+                <img src="/static/img/loading.png" alt="" />
+                <span style="color: blue">Đang xử lý...<span> </span></span>
+            </div>
+            <style type="text/css">
+                .loading-all {
+                    position: fixed;
+                    top: 0px;
+                    left: 0px;
+                    right: 0px;
+                    bottom: 0px;
+                    z-index: 10000;
+                    background: #dbdcdc40;
+                }
+
+                .loading-all .icon {
+                    width: 100px;
+                    position: absolute;
+                    top: 0px;
+                    height: 100px;
+                    bottom: 0px;
+                    right: 0px;
+                    margin: auto;
+                    left: 0px;
+                }
+            </style>
         </div>
-        <div class="nav-toggle">
-          <span class="-ap icon icon-menu"></span>
-        </div>
-        <div class="header-account">
-          <div class="buttons">
-            <a href="/dang-ky" class="btn secondary">Đăng ký</a>
-            <a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&amp;client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&amp;scope=openid&amp;redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html"
-              class="btn secondary">Đăng nhập</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <nav class="header-nav">
-    <div class="container">
-      <ul id="main-menu" class="pull-left menus">
-        <li class="active" id="home-page">
-          <a href="#"><span><i class="material-icons">home</i></span></a>
-        </li>
-        <li><a href="#">Giới thiệu</a></li>
-        <li>
-          <a href="#">Thông tin và dịch vụ<span class="down"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Công dân</a></li>
-            <li><a href="#">Doanh nghiệp</a></li>
-            <li><a href="#">Dịch vụ công trực tuyến</a></li>
-            <li><a href="#">Dịch vụ công nổi bật</a></li>
-            <li><a href="#">Tra cứu hồ sơ</a></li>
-            <li><a href="#">Tòa án nhân dân</a></li>
-            <li><a href="#">Câu hỏi thường gặp</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">Thanh toán trực tuyến</a>
-          <!-- <ul class="dropdown-menu">
+        <!--DEFINE CONSTANT -->
+        <!--END CONSTANT-->
+        <div class="overlay-common"></div>
+        <!-- /mtv/ Log propertise-->
+        {%block navigator %}
+
+            <div class="header">
+                <div class="container">
+                    <div class="relative content">
+                        <div class="logo-text">
+                            <a href="{{url_for("views.home")}}" class="logo">
+                                <img src="/static/img/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <div class="nav-toggle">
+                            <span class="-ap icon icon-menu"></span>
+                        </div>
+                        <div class="header-account">
+                            <div class="buttons">
+                                <a href="/dang-ky" class="btn secondary">Đăng ký</a>
+                                <a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&amp;client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&amp;scope=openid&amp;redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html"
+                                    class="btn secondary">Đăng nhập</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="container">
+                    <ul id="main-menu" class="pull-left menus">
+                        <li class="active" id="home-page">
+                            <a href="#"><span><i class="material-icons">home</i></span></a>
+                        </li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li>
+                            <a href="#">Thông tin và dịch vụ<span class="down"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Công dân</a></li>
+                                <li><a href="#">Doanh nghiệp</a></li>
+                                <li><a href="#">Dịch vụ công trực tuyến</a></li>
+                                <li><a href="#">Dịch vụ công nổi bật</a></li>
+                                <li><a href="#">Tra cứu hồ sơ</a></li>
+                                <li><a href="#">Tòa án nhân dân</a></li>
+                                <li><a href="#">Câu hỏi thường gặp</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Thanh toán trực tuyến</a>
+                            <!-- <ul class="dropdown-menu">
         <li><a href="dvc-thanh-toan.html">Nộp thuế doanh nghiệp</a></li>
         <li><a href="dvc-thanh-toan-thue-ca-nhan.html">Nộp thuế cá nhân/Trước bạ</a></li>
         <li>
@@ -135,124 +135,143 @@
         <li><a href="dvc-thanh-toan-vien-phi.html">Thanh toán viện phí</a></li>
         <li><a href="dvc-thanh-toan-an-phi.html">Thanh toán tạm ứng án phí</a></li>
       </ul> -->
-        </li>
-        <li>
-          <a href="#">Phản ánh kiến nghị<span class="down"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Gửi PAKN</a></li>
-            <li><a href="">Tra cứu kết quả trả lời</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="">Thủ tục hành chính<span class="down"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="">Tra cứu TTHC</a></li>
-            <li><a href="">Thủ tục hành chính</a></li>
-            <li><a href="">Thủ tục hành chính liên thông</a></li>
-            <li><a href="">Quyết định công bố</a></li>
-            <li><a href="">Cơ quan</a></li>
-            <!-- <li id="coquan"><a href="dvc-tthc-co-quan.html">Cơ quan</a></li>
+                        </li>
+                        <li>
+                            <a href="#">Phản ánh kiến nghị<span class="down"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Gửi PAKN</a></li>
+                                <li><a href="">Tra cứu kết quả trả lời</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="">Thủ tục hành chính<span class="down"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">Tra cứu TTHC</a></li>
+                                <li><a href="">Thủ tục hành chính</a></li>
+                                <li><a href="">Thủ tục hành chính liên thông</a></li>
+                                <li><a href="">Quyết định công bố</a></li>
+                                <li><a href="">Cơ quan</a></li>
+                                <!-- <li id="coquan"><a href="dvc-tthc-co-quan.html">Cơ quan</a></li>
       <li hidden id="bn-ttp"><a href="dvc-tthc-bonganh-tinhtp.html">TTHC Bộ ngành Tỉnh thành phố</a></li> -->
-          </ul>
-        </li>
-        <li class="">
-          <a href="#">Hỗ trợ<span class="down"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="">Điều khoản sử dụng</a></li>
-            <li><a href="">Hướng dẫn sử dụng</a></li>
-            <li><a href="">Thông báo</a></li>
-          </ul>
-        </li>
-      </ul>
-      <div class="header-account mobile-ds">
-        <div class="buttons">
-          <a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&amp;client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&amp;scope=openid&amp;redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html"
-            class="btn btn-login">Đăng nhập</a>
-          <a href="https://dangky.dichvucong.gov.vn/register" class="btn btn-register">Đăng ký</a>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#">Hỗ trợ<span class="down"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">Điều khoản sử dụng</a></li>
+                                <li><a href="">Hướng dẫn sử dụng</a></li>
+                                <li><a href="">Thông báo</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="header-account mobile-ds">
+                        <div class="buttons">
+                            <a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&amp;client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&amp;scope=openid&amp;redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html"
+                                class="btn btn-login">Đăng nhập</a>
+                            <a href="https://dangky.dichvucong.gov.vn/register" class="btn btn-register">Đăng ký</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="header-bottom">
+                <div class="container">
+                    <ul id="list-dropdown"></ul>
+                </div>
+            </div>
+
+
+        {% endblock %}
+        <!-- content-->
+
+        <div id="content">{% block content %}{% endblock %}</div>
+
+        <!-- chatbox -->
+        <div class="chat-box-container">
+            <div id="chat-circle">
+                <a class="btn-floating btn-large waves-effect waves-circle waves-orange pulse">
+                    <i class="large material-icons">adb</i>
+                </a>
+
+            </div>
+
+            <div class="chat-box">
+                <div class="">
+                    <div class="card-panel no-padding no-margin">
+                        <div class="row valign-wrapper chat-box-header no-margin">
+                            <div class="col s3">
+                                <img src="/static/img/chatbot_icon.gif" class="circle responsive-img"/>
+                            </div>
+                            <div class="col s6">
+                                <h6 class='black-text'>Tư vấn viên</h6>
+                            </div>
+
+                            <div class="col s3">
+                                <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="chat-box-body">
+                    <div class="chat-box-overlay"></div>
+                    <div class="chat-logs">
+                        <div id="cm-msg-0" class="chat-msg user">
+                            <div class="cm-msg-text">Xin chào, mình là tư vấn viên.
+                                Vui lòng được giải đáp các thắc mắc của bạn về dịch vụ công.</div>
+                        </div>
+                    </div>
+                    <!--chat-log -->
+                </div>
+                <div class="chat-input">
+                
+                <form class="row valign-wrapper">
+                    <div class="col s10">
+                            <input class="no-border" type="text" id="chat-input" placeholder="Nhập câu hỏi..." />
+                            <button type="submit"id="chat-submit" style="display:none;"></button>
+                    </div>
+                    <div class="col s2">
+                        <button class="btn-flat" id="speech">
+                            <i class="small material-icons" id="speech-icon"> mic_off </i>
+                        </button>
+                    </div>
+                </form>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </nav>
-  <div class="header-bottom">
-    <div class="container">
-      <ul id="list-dropdown"></ul>
-    </div>
-  </div>
 
-
-  {% endblock %}
-  <!-- content-->
-
-  <div id="content">{% block content %}{% endblock %}</div>
-
-  <!-- chatbox -->
-  <div class="chat-box-container">
-    <div id="chat-circle">
-      <a class="btn-floating btn-large waves-effect waves-circle waves-orange pulse">
-        <i class="large material-icons">adb</i>
-      </a>
-      
-    </div>
-
-    <div class="chat-box">
-      <div class="chat-box-header">
-        <p></p>
-        <p></p>
-        <p></p>
-        <span class="chat-box-toggle"><i class="material-icons">close</i></span>
-      </div>
-      <div class="chat-box-body">
-        <div class="chat-box-overlay"></div>
-        <div class="chat-logs">
-          <div id="cm-msg-0" class="chat-msg user">
-            <div class="cm-msg-text">Xin chào, mình là tư vấn viên.
-              Vui lòng được giải đáp các thắc mắc của bạn về dịch vụ công.</div>
-          </div>
+        <!-- footer -->
+        <div id="footer">
+            <footer class="footer">
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="add">
+                            <p> Trang này chỉ nhằm mục đích demo sản phẩm HUTECH Smart Bot. Không phải là cổng dịch vụ công quốc gia </p>
+                        </div>
+                        <div class="add">
+                            <p>www.dichvucong.gov.vn</p>
+                        </div>
+                        <div class="add">
+                            <p>Tổng đài hỗ trợ: 18001096</p>
+                        </div>
+                        <div class="add">
+                            <p>Email: dichvucong@chinhphu.vn</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            {% block footer %} {% endblock %}
         </div>
-        <!--chat-log -->
-      </div>
-      <div class="chat-input">
-        <form>
-          <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." />
-          <button type="submit" class="chat-submit" id="chat-submit"></button>
-        </form>
-        <button class="chat-submit" id="speech">
-          <i class="material-icons" id="speech-icon"> mic_off </i>
-        </button>
-      </div>
-    </div>
-  </div>
+        <script>
 
-  <!-- footer -->
-  <div id="footer">
-    <footer class="footer">
-      <div class="footer-bottom">
-        <div class="container">
-          <div class="add">
-            <p> Trang này chỉ nhằm mục đích demo sản phẩm HUTECH Smart Bot. Không phải là cổng dịch vụ công quốc gia </p>
-          </div>
-          <div class="add">
-            <p>www.dichvucong.gov.vn</p>
-          </div>
-          <div class="add">
-            <p>Tổng đài hỗ trợ: 18001096</p>
-          </div>
-          <div class="add">
-            <p>Email: dichvucong@chinhphu.vn</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-    {% block footer %} {% endblock %}
-  </div>
-<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                M.AutoInit();
+            });
 
-document.addEventListener('DOMContentLoaded', function() {
-      M.AutoInit();
-});
-
-</script>
-</body>
+        </script>
+    </body>
 
 
 </html>
+

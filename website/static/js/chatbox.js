@@ -736,7 +736,7 @@ $(function () {
 
     $("#message-no").click(function () {
       var messageNo =
-        "Khi bạn cần thiết hỗ trợ điền tờ khai, mình sẽ luôn vui lòng hỗ trợ. Giờ bạn còn câu hỏi nào về thủ tục " +
+        "Mình sẽ sẵn lòng hỗ trợ bạn bất kì lúc nào. Giờ bạn còn câu hỏi nào về thủ tục " +
         $("#tag").text() +
         " không?";
       generate_message(messageNo, "user");

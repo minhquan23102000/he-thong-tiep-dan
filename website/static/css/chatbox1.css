@@ -1,9 +1,4 @@
-.chat-box-container {
-  background: #efefef;
-  height: 100%;
-  font-size: 15px;
-  font-family: "Raleway", Sans-serif;
-}
+
 
 #chat-circle {
  position: fixed;
@@ -42,9 +37,8 @@
   right: 10px;
   bottom: 25px;
   width: 20vw;
-  height: 50vh;
-  max-width: 85vw;
-  max-height: 100vh;
+  max-width: 25vw;
+  
   border-radius: 5px;
   /*   box-shadow: 0px 5px 35px 9px #464a92; */
   box-shadow: none;
@@ -57,12 +51,9 @@
 }
 
 .chat-box-header {
-  background: #ffc251;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  color: black;
   padding-top: 10px;
-  height: 5vh;
+  padding-bottom: 10px;
+  border-radius: 5px;
 }
 
 .chat-box-body {
@@ -85,18 +76,12 @@
   z-index: -1;
 }
 
-#chat-input {
+.chat-input {
   background: #f4f7f9;
   width: 100%;
-  position: relative;
-  height: 47px;
-  padding-left: 15px;
   border: none;
+  border-radius: 5px;
   outline: none;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
   overflow: hidden;
 }
 
@@ -245,4 +230,12 @@
 .cm-msg-button {
   clear: both;
   margin-bottom: 70px;
+}
+
+#speech { 
+  margin-top: 10px;
+}
+
+#speech-icon { 
+  font-size: 1.7em;
 }

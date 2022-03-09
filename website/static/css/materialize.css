@@ -9124,3 +9124,11 @@ ul.dropdown-content.select-dropdown li:not(.disabled) span
 .very-small {
   height: 200px;
 }
+
+.no-margin { 
+  margin: 0px !important;
+}
+
+.no-border {
+  border:0px !important;
+}
