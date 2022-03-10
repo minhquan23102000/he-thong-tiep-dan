@@ -300,17 +300,16 @@ $(function () {
         var response = linkify(String(data.response));
         var tag = data.tag;
         var next_questions = data.next_questions;
-        console.log("IS ACTION " + checkAction(data.response));
-        if (!checkAction(data.response)) {
-          if (
-            tag != "lời chào" &&
-            tag != "cảm xúc" &&
-            tag != oldtag &&
-            tag != "none"
-          ) {
-            $("#tag").text(tag).trigger("change");
-          }
+        if (
+          tag != "lời chào" &&
+          tag != "cảm xúc" &&
+          tag != oldtag &&
+          tag != "none"
+        ) {
+          $("#tag").text(tag).trigger("change");
+        }
 
+        if (!checkAction(data.response)) {
           text2Speech.text = clean_url(response);
           text2Speech.voice = voices[1];
           text2Speech.rate = 1.2;
@@ -320,7 +319,6 @@ $(function () {
           setTimeout(function () {
             generate_message(response, "user");
           }, 1000);
-          
         } else {
           setTimeout(function () {
             generateMessageAction(data.response);
@@ -328,8 +326,8 @@ $(function () {
         }
 
         setTimeout(function () {
-            generate_next_questions(next_questions);
-          }, 1700);
+          generate_next_questions(next_questions);
+        }, 1700);
       });
     }
   }
@@ -383,7 +381,6 @@ $(function () {
   }
 
   function get_chat_history(topn = 10) {
-
     $.get("/get-chat-history", { topn: topn }).done(function (data) {
       for (const chat of data["chat_history"]) {
         generate_message(chat["question"], "self");
@@ -416,8 +413,11 @@ $(function () {
     tag = tag.replaceAll(" ", "-");
     console.log(tag);
     var url = "./to-khai/" + tag;
-    var html =
-      '<div class="card-action"> <a href="' + url + '">ĐIỀN TỜ KHAI</a> </div>';
+    var html = `<div class="card-action">
+        <div class="row"> 
+        <a class="btn secondary"href="${url}">ĐIỀN TỜ KHAI</a> 
+        </div>
+      </div>`;
     $("#to-khai").append(html);
   }
 
@@ -688,7 +688,7 @@ $(function () {
     return str;
   }
 
-  function generateMessageAction(str, speak=true) {
+  function generateMessageAction(str, speak = true) {
     deactivateTypingAnimation();
     var arr = str.split(":");
     if (arr[0] == "ACTION") {
@@ -706,7 +706,7 @@ $(function () {
     return false;
   }
 
-  function generateCardActionMessage(cardContent, urlYes, speak=true) {
+  function generateCardActionMessage(cardContent, urlYes, speak = true) {
     // Clean next questions
     $(".next-msg").remove();
 
@@ -714,15 +714,13 @@ $(function () {
     var str = "";
     str += "<div id='cm-msg-" + INDEX + "' class='user'>";
     str += "<div class='row'> <div class='col s10'>";
-    str += "<div class='card very-small round-corner'>";
+    str += "<div class='card-panel blue lighten-5 round-corner'>";
     str += "<div class='card-content'>";
     str += "<p>" + cardContent + "</p>";
-
+    str += "</div>";
     str += "<div class='card-action'>";
     str += "<a href='" + urlYes + "'>Được</a>";
     str += "<a href='javascript:void(0)' id='message-no'> Khi khác</a>";
-    str += "</div>";
-
     str += "</div>";
     str += "</div>";
     str += "</div> </div>";
