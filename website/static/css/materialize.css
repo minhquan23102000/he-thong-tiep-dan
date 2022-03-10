@@ -9132,3 +9132,8 @@ ul.dropdown-content.select-dropdown li:not(.disabled) span
 .no-border {
   border:0px !important;
 }
+
+.fit-content {
+  width: fit-content;
+  height: fit-content;
+}

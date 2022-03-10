@@ -20,15 +20,26 @@
       <div class="card-content grey lighten-4">
           <div id="test4" class="row"> 
             <div class="col s6 m6"> 
-               <span class="card-content-header">Mặt trước CCCD người nam</span>
-                <div class="card-image-small">
-                  <img id="cccd_nam_img">
-                </div>
-    
-                <div class="btn-small file-field secondary waves-effect waves-green">
+              <div class="row">
+                <span class="card-content-header">Mặt trước CCCD người nam</span>
+                  <div class="card-image-small">
+                    <img id="cccd_nam_img" class="img-responsive">
+                  </div>
+              </div>
+
+              <div class="row valign-wrapper">
+                <div class="btn medium file-field secondary waves-effect waves-green col s2">
                   <i class="material-icons">add_a_photo</i>
                   <input accept="image/*" type='file' id="cccd_nam" onchange="preview(this)"/>
                 </div>
+
+                <a id="start-camera-nam" class="btn medium modal-trigger secondary waves-effect col s2"
+                  href="#camera-nam" onclick="startCameraNam(this)">
+                  <i class="material-icons">camera_enhance</i>
+                </a>
+                <p class="col s7"> </p>
+              </div>
+              
             </div>
 
             <div class="col s6 m6"> 
@@ -41,15 +52,41 @@
                   <i class="material-icons">add_a_photo</i>
                   <input accept="image/*" type='file' id="cccd_nu" onchange="preview(this)"/>
                 </div>
-            </div>
+             </div>
 
               
-            <div class="card-action" style="float:right;">
-                <button id="dientokhaitudong" class="btn waves-effect waves-green" onclick="set_tokhai_kethon()">
-                  <i class="material-icons right">send</i>Tiếp theo
-                </button>
+              <div class="card-action" style="float:right;">
+                  <button id="dientokhaitudong" class="btn waves-effect waves-green" onclick="set_tokhai_kethon()">
+                    <i class="material-icons right">send</i>Tiếp theo
+                  </button>
+              </div>
             </div>
-          </div>
+
+            <div id="modal-container">
+                <div id="camera-nam" class="modal pad10 fit-content">
+                    <div class="modal-content">
+                        <h4>Chụp giấy tùy thân cho người nam</h4>
+                        </p>Để chụp giấy tùy thân, vui lòng cấp quyền camera cho trang web.
+                         Khi chụp nên để giấy tùy thân ở chỗ sáng và chụp đầy đủ nội dung mặt trước của giấy CCCD/CMND </p>
+                          <div class="card">
+                            <div class="card-content row">
+                            <video class="responsive-video center-align" id="video-nam" width="600" height="480" autoplay></video>
+                            </div>
+
+                            <div class="card-action">
+                              </div class="row">
+                                <button id="click-photo-nam" type="button" class="btn secondary">CHỤP</button>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <canvas id="canvas" width="500" height="320" style="display:none;"></canvas>
+                         </div>
+                       
+                    </div>
+
+                </div>
+              </div>
         </div>
 
         <div id="test5">
@@ -333,10 +370,26 @@ function getFormValues() {
       $(".tabs").tabs('select', 'test6');
 
     }
-
-
-
 }
+
+let camera_button = document.querySelector("#start-camera-nam");
+let video = document.querySelector("#video-nam");
+let click_button = document.querySelector("#click-photo-nam");
+let canvas = document.querySelector("#canvas");
+
+async function startCameraNam(element) {
+   	let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+	  video.srcObject = stream;
+};
+
+click_button.addEventListener('click', function() {
+   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+   	let image_data_url = canvas.toDataURL('image/jpeg');
+
+   	// data url of the image
+   	$("#cccd_nam_img").attr("src", image_data_url);
+});
+
 
 
 

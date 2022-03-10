@@ -745,9 +745,7 @@ $(function () {
       .hide()
       .fadeIn(300);
 
-    if (type == "self") {
-      $("#chat-input").val("");
-    }
+   
 
     $(".chat-logs")
       .stop()
