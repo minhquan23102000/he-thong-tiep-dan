@@ -9,12 +9,7 @@ try:
     from chatterbot_corpus.corpus import DATA_DIRECTORY
 except (ImportError, ModuleNotFoundError):
     # Default to the home directory of the current user
-    DATA_DIRECTORY = os.path.join(
-        Path.home(),
-        'chatterbot_corpus',
-        'data'
-    )
-
+    DATA_DIRECTORY = os.path.join(Path.home(), 'chatterbot_corpus', 'data')
 
 CORPUS_EXTENSION = 'yml'
 
@@ -52,12 +47,11 @@ def read_corpus(file_name):
         message = (
             'Unable to import "yaml".\n'
             'Please install "pyyaml" to enable chatterbot corpus functionality:\n'
-            'pip3 install pyyaml'
-        )
+            'pip3 install pyyaml')
         raise OptionalDependencyImportError(message)
 
     with io.open(file_name, encoding='utf-8') as data_file:
-        return yaml.load(data_file)
+        return yaml.safe_load(data_file)
 
 
 def list_corpus_files(dotted_path):
@@ -68,8 +62,8 @@ def list_corpus_files(dotted_path):
     paths = []
 
     if os.path.isdir(corpus_path):
-        paths = glob.glob(corpus_path + '/**/*.' +
-                          CORPUS_EXTENSION, recursive=True)
+        paths = glob.glob(corpus_path + '/**/*.' + CORPUS_EXTENSION,
+                          recursive=True)
     else:
         paths.append(corpus_path)
 
