@@ -8,7 +8,7 @@ from chatbot.sentence_similarity import (VietnameseCosineSimilarity,
 
 from .mychatbot import MyChatBot
 
-DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề bạn vừa nói.'
+DEFAULT_REPONSE = 'Xin lỗi, mình chưa được huấn luyện về vấn đề này.'
 NOT_VIETNAMESE_LANGUAGE_REPONSE = 'Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese.'
 
 
@@ -118,5 +118,5 @@ def google_search_paper(msg: str):
 def get_unknow_reponse():
     import random
     unknow_reponses = [DEFAULT_REPONSE, 'Xin lỗi, bạn có thể nói rõ hơn được không?',
-                       'Xin lỗi, mình vẫn chưa học qua câu từ này :(']
+                       'Xin lỗi, mình vẫn chưa học qua điều này.']
     return random.choice(unknow_reponses)

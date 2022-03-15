@@ -19,48 +19,44 @@
             </div>
             <div class="card-content grey lighten-4">
                 <div id="test4" class="row">
-                    <div class="col s6 m6">
-                        <div class="row">
-                            <h4>Mặt trước CCCD người nam</h4>
-                            <div class="card-image medium">
+                    <div class="col s6">
+                        <div class="card round-corner">
+                            <div class="card-title">Mặt trước CCCD người nam</div>
+                            <div class="card-image">
                                 <img id="cccd_nam_img" class="img-responsive">
                             </div>
-                        </div>
-                        <div class="row valign-wrapper">
-                            <div class="btn medium file-field secondary waves-effect waves-green col s2">
-                                <i class="material-icons">add_a_photo</i>
-                                <input accept="image/*" type='file' id="cccd_nam" onchange="preview(this)"/>
+                            <div class="card-action">
+                                <div class="btn medium file-field secondary waves-effect waves-green">
+                                    <i class="material-icons">add_a_photo</i>
+                                    <input accept="image/*" type='file' id="cccd_nam" onchange="preview(this)"/>
+                                </div>
+                                <a id="start-camera-nam"
+                                   class="btn medium modal-trigger secondary waves-effect"
+                                   href="#camera-nam"
+                                   onclick="startCameraNam(this)">
+                                    <i class="material-icons">camera_enhance</i>
+                                </a>
                             </div>
-                            <a id="start-camera-nam"
-                               class="btn medium modal-trigger secondary waves-effect col s2"
-                               href="#camera-nam"
-                               onclick="startCameraNam(this)">
-                                <i class="material-icons">camera_enhance</i>
-                            </a>
-                            <p class="col s7">
-                            </p>
                         </div>
                     </div>
-                    <div class="col s6 m6">
-                        <div class="row">
-                            <h4>Mặt trước CCCD người nữ</h4>
-                            <div class="card-image medium">
+                    <div class="col s6">
+                        <div class="card round-corner">
+                            <div class="card-title">Mặt trước CCCD người nữ</div>
+                            <div class="card-image">
                                 <img id="cccd_nu_img" class="img-responsive">
                             </div>
-                        </div>
-                        <div class="row valign-wrapper">
-                            <div class="btn medium file-field secondary waves-effect waves-green col s2">
-                                <i class="material-icons">add_a_photo</i>
-                                <input accept="image/*" type='file' id="cccd_nu" onchange="preview(this)"/>
+                            <div class="card-action">
+                                <div class="btn medium file-field secondary waves-effect waves-green">
+                                    <i class="material-icons">add_a_photo</i>
+                                    <input accept="image/*" type='file' id="cccd_nu" onchange="preview(this)"/>
+                                </div>
+                                <a id="start-camera-nu"
+                                   class="btn medium modal-trigger secondary waves-effect"
+                                   href="#camera-nu"
+                                   onclick="startCameraNu(this)">
+                                    <i class="material-icons">camera_enhance</i>
+                                </a>
                             </div>
-                            <a id="start-camera-nu"
-                               class="btn medium modal-trigger secondary waves-effect col s2"
-                               href="#camera-nu"
-                               onclick="startCameraNu(this)">
-                                <i class="material-icons">camera_enhance</i>
-                            </a>
-                            <p class="col s7">
-                            </p>
                         </div>
                         <div class="card-action" style="float:right;">
                             <button id="dientokhaitudong"
@@ -88,8 +84,13 @@
                                 </video>
                             </div>
                             <div class="card-action">
-                                <div class="row">
-                                    <button id="click-photo-nam" type="button" class="btn secondary modal-close">CHỤP</button>
+                                <div class="row center-align">
+                                    <button id="click-photo-nam"
+                                            type="button"
+                                            class="btn secondary modal-close waves-effect waves-light">
+                                        <i class="material-icons right">camera</i>
+                                        CHỤP
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -112,8 +113,13 @@
                         </video>
                     </div>
                     <div class="card-action">
-                        <div class="row">
-                            <button id="click-photo-nu" type="button" class="btn secondary modal-close">CHỤP</button>
+                        <div class="row center-align">
+                            <button id="click-photo-nu"
+                                    type="button"
+                                    class="btn secondary modal-close waves-effect waves-light">
+                                <i class="material-icons right">camera</i>
+                                CHỤP
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -293,9 +299,7 @@
                    class="datepicker no-autoinit validate"
                    placeholder="Ngày sinh của người nữ"
                    require>
-            <label for="nu_birthdate">
-                Ngày sinh
-            </label>
+            <label for="nu_birthdate">Ngày sinh</label>
         </div>
     </div>
     <div class ="row no-center">
@@ -306,9 +310,7 @@
                    class="validate"
                    placeholder="Nơi cư trú của người nữ"
                    require>
-            <label for="nu_address">
-                Nơi cư trú
-            </label>
+            <label for="nu_address">Nơi cư trú</label>
         </div>
         <div class="input-field col s2">
             <input value=""
@@ -364,6 +366,7 @@
 </div>
 </div>
 <script type="text/javascript">
+
         function preview(element) {
             var img_id = element.id + "_img";
             var imgEle = document.getElementById(img_id);

@@ -300,6 +300,7 @@ $(function() {
                 var response = linkify(String(data.response));
                 var tag = data.tag;
                 var next_questions = data.next_questions;
+                var auto_question = data.auto_question;
                 if (
                     tag != "lời chào" &&
                     tag != "cảm xúc" &&
@@ -325,9 +326,16 @@ $(function() {
                     }, 1000);
                 }
 
+
+
                 setTimeout(function() {
                     generate_next_questions(next_questions);
                 }, 1700);
+                if (auto_question) {
+                    setTimeout(function() {
+                        send_message(auto_question);
+                    }, 2200);
+                }
             });
         }
     }
@@ -652,11 +660,16 @@ $(function() {
     }
 
     function generateMessageAction(str, speak = true) {
+        // Clean next questions
+        $(".next-msg").remove();
+
         deactivateTypingAnimation();
         var arr = str.split(":");
         if (arr[0] == "ACTION") {
             if (arr[1] == "NAVIGATE") {
                 generateCardActionMessage(arr[3], arr[2], speak);
+            } else if (arr[1] == "VIDEO") {
+                generateVideoMessage(arr[3], arr[2], speak);
             }
         }
     }
@@ -670,8 +683,7 @@ $(function() {
     }
 
     function generateCardActionMessage(cardContent, urlYes, speak = true) {
-        // Clean next questions
-        $(".next-msg").remove();
+
 
         INDEX++;
         var str = "";
@@ -730,11 +742,45 @@ $(function() {
         `;
 
         $(".chat-logs").append(html);
+        $(".chat-logs")
+            .stop()
+            .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1200);
     }
 
     function deactivateTypingAnimation() {
         $('div[name="typing-animation"]').remove();
     }
 
-    /////==========script end point==============////
+    function generateVideoMessage(message, video_url, speak) {
+        INDEX++;
+        var html = `
+            <div id="cm-msg-${INDEX} class="user">
+                <div class="row">
+                    <div class="col s10">
+                        <div class="card round-corner">
+                            <div class="card-image">
+                                <div class="video-container">
+                                    <iframe style="width: 100%; height:100%;" src="${video_url}" frameborder="0" allowfullscreen></iframe>
+                                </div
+                            </div>
+                            <div class="card-content">
+                                <p>${message}</p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        $(".chat-logs").append(html);
+
+        if (speak == true) {
+            speakMessage(message);
+        }
+        $(".chat-logs")
+            .stop()
+            .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1200);
+    }
+
+    window.send_message = send_message;
 });
