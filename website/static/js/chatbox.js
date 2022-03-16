@@ -319,11 +319,11 @@ $(function() {
 
                     setTimeout(function() {
                         generate_message(response, "user");
-                    }, 1000);
+                    }, 600);
                 } else {
                     setTimeout(function() {
                         generateMessageAction(data.response);
-                    }, 1000);
+                    }, 600);
                 }
 
 
