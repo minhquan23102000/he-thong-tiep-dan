@@ -40,17 +40,17 @@ def create_app():
     init_login(app)
 
     # Retrain chatbot
-    import chatbot
+    # import chatbot
 
-    from .constant import temp_db
-    check = ""
-    while (check != 'Y' and check != 'N'):
-        check = input("Train lại chatbot? Y:N\n")
-        if (check == "Y"):
-            chatbot.Sonny.storage.drop()
-            chatbot.__retrain__()
-            with app.app_context():
-                temp_db.insert_temp_db()
+    # from .constant import temp_db
+    # check = ""
+    # while (check != 'Y' and check != 'N'):
+    #     check = input("Train lại chatbot? Y:N\n")
+    #     if (check == "Y"):
+    #         chatbot.Sonny.storage.drop()
+    #         chatbot.__retrain__()
+    #         with app.app_context():
+    #             temp_db.insert_temp_db()
 
     # User setting
     from .views import views
