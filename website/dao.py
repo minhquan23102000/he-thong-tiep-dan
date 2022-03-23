@@ -19,7 +19,7 @@ def get_chat_history(conversation_id, topn=10):
     for q in questions[::-1]:
         chat = dict()
         chat["question"] = q.asking
-        chat["answer"] = q.answer
+        chat["answer"] = q.statement.text
         result.append(chat)
 
     return result
