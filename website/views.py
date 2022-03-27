@@ -26,7 +26,6 @@ def get_bot_response():
     oldtag = request.args.get("oldtag")
 
     # Check if there are conversation in session, if not create a new conversation
-
     if session.get("conversation_id") == None:
         conversation = dao.new_conversation()
         session["conversation_id"] = conversation.id
@@ -55,9 +54,8 @@ def get_chat_history():
     else:  #
         chat_history = dao.get_chat_history(conversation_id, int(topn))
 
-    data = {"chat_history": chat_history}
 
-    return jsonify(data)
+    return jsonify(chat_history)
 
 
 @views.route("/get-conversation-id")

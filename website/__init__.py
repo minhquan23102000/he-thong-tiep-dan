@@ -28,11 +28,12 @@ def create_app():
 
     # # Init database, only run it once or run when create new models
     # check = ""
-    # while (check != "Y" and check != "N"):
+    # while check != "Y" and check != "N":
     #     check = input("Tao lai database? Y:N")
-    #     if (check == "Y"):
+    #     if check == "Y":
     #         init_database(app)
     #         from .constant import temp_db
+
     #         with app.app_context():
     #             temp_db.insert_papers()
 
@@ -46,10 +47,11 @@ def create_app():
     # import chatbot
 
     # from .constant import temp_db
+
     # check = ""
-    # while (check != 'Y' and check != 'N'):
+    # while check != "Y" and check != "N":
     #     check = input("Train lại chatbot? Y:N\n")
-    #     if (check == "Y"):
+    #     if check == "Y":
     #         chatbot.Sonny.storage.drop()
     #         chatbot.__retrain__()
     #         with app.app_context():

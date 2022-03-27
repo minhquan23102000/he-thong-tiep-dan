@@ -14,7 +14,6 @@ class ModelBase(object):
     """
     An augmented base class for SqlAlchemy models.
     """
-
     @declared_attr
     def __tablename__(cls):
         """
@@ -71,9 +70,9 @@ class Statement(Base, StatementMixin):
 
     text = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True)
 
-    search_text = Column(
-        String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True, server_default=""
-    )
+    search_text = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                         nullable=True,
+                         server_default="")
 
     conversation = Column(
         String(constants.CONVERSATION_LABEL_MAX_LENGTH),
@@ -87,21 +86,25 @@ class Statement(Base, StatementMixin):
 
     tags = relationship("Tag", backref="statements")
 
-    in_response_to = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True)
+    in_response_to = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                            nullable=True)
 
-    search_in_response_to = Column(
-        String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=False, server_default=""
-    )
+    search_in_response_to = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                                   nullable=False,
+                                   server_default="")
 
-    persona = Column(
-        String(constants.PERSONA_MAX_LENGTH), nullable=False, server_default=""
-    )
+    persona = Column(String(constants.PERSONA_MAX_LENGTH),
+                     nullable=False,
+                     server_default="")
 
-    next_question_1 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True)
+    next_question_1 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
 
-    next_question_2 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True)
+    next_question_2 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
 
-    next_question_3 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH), nullable=True)
+    next_question_3 = Column(String(constants.STATEMENT_TEXT_MAX_LENGTH),
+                             nullable=True)
 
     def get_tags(self):
         """
@@ -166,13 +169,17 @@ class Conversation(Base):
     create_at = Column(DateTime(timezone=True), default=func.now())
     sentiment = Column(Enum(Sentiment), nullable=True)
     question = relationship("Question", backref=backref("question"))
+    person_name = Column(String(), nullable=True)
 
 
 class Question(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
-    conversation_id = Column(Integer(), ForeignKey("conversation.id"), nullable=False)
+    conversation_id = Column(Integer(),
+                             ForeignKey("conversation.id"),
+                             nullable=False)
     asking = Column(String(255), nullable=False)
     create_at = Column(DateTime(timezone=True), default=func.now())
+    answer = Column(String(255), nullable=False)
     statement_id = Column(Integer(), ForeignKey("statement.id"), nullable=True)
     statement = relationship("Statement", backref=backref("statements"))
 

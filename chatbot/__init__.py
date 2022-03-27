@@ -25,7 +25,8 @@ Sonny = MyChatBot(
             "import_path": "chatbot.logic_adapter.MyBestMatch",
             "default_response": DEFAULT_REPONSE,
             "response_selection_method": get_random_response,
-        }
+        },
+        "chatbot.logic_adapter.NameRememberAdapter",
     ],
     database_uri=SQLALCHEMY_DATABASE_URI,
 )
@@ -54,7 +55,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
     response_statement = Sonny.get_response(statement=msg, tags=oldtag)
     tag = response_statement.get_tags()
     next_questions = response_statement.get_next_questions()
-    
+
     if not tag:
         tag = "none"
 
@@ -73,18 +74,18 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
         response = google_search_paper(msg)
 
     response_data = {"response": response, "tag": tag, "next_questions": next_questions}
-    
+
     # Store this question to database
     if conversation_id:
         statement_id = None if is_not_known else response_statement.id
         store_question(
-            asking=msg, statement_id=statement_id, conversation_id=conversation_id
+            asking=msg, answer=response, statement_id=statement_id, conversation_id=conversation_id
         )
-  
+
     return response_data
 
 
-def store_question(asking: str, statement_id: int = None, conversation_id: int = None):
+def store_question(asking: str, answer:str, statement_id: int = None, conversation_id: int = None):
     from website import db
 
     from .models import Question
@@ -92,7 +93,7 @@ def store_question(asking: str, statement_id: int = None, conversation_id: int =
     msg_lang = langid.classify(asking)[0]
     if msg_lang in ["vi"]:
         question = Question(
-            asking=asking, statement_id=statement_id, conversation_id=conversation_id
+            asking=asking, answer=answer, statement_id=statement_id, conversation_id=conversation_id
         )
         db.session.add(question)
         db.session.commit()
