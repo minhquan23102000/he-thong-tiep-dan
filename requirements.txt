@@ -19,3 +19,4 @@ langid
 gensim
 python-docx
 firebase-admin
+nltk
