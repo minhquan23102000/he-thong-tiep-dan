@@ -72,7 +72,6 @@ class IndexedTextSearch:
         print(self.chatbot.last_search_in_respone)
         search_parameters = {
             'search_in_response_to_contains': similar_keys + input_search_in_response_to,
-            'persona_not_startswith': 'bot:',
             'page_size': self.search_page_size,
             'exclude_search': self.chatbot.last_search_in_respone
         }

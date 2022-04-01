@@ -15,7 +15,7 @@ class StatementMixin(object):
         'text',
         'search_text',
         'conversation',
-        'persona',
+        'indent',
         'tags',
         'in_response_to',
         'search_in_response_to',
@@ -101,7 +101,7 @@ class Statement(StatementMixin):
         'text',
         'search_text',
         'conversation',
-        'persona',
+        'indent',
         'tags',
         'in_response_to',
         'search_in_response_to',
@@ -119,7 +119,7 @@ class Statement(StatementMixin):
         self.text = text
         self.search_text = kwargs.get('search_text', '')
         self.conversation = kwargs.get('conversation', '')
-        self.persona = kwargs.get('persona', '')
+        self.indent = kwargs.get('indent', '')
         self.tags = kwargs.pop('tags', None)
         self.in_response_to = in_response_to
         self.search_in_response_to = kwargs.get('search_in_response_to', '')

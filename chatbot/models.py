@@ -93,7 +93,7 @@ class Statement(Base, StatementMixin):
                                    nullable=False,
                                    server_default="")
 
-    persona = Column(String(constants.PERSONA_MAX_LENGTH),
+    indent = Column(String(255),
                      nullable=False,
                      server_default="")
 

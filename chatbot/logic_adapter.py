@@ -177,7 +177,7 @@ class NameRememberAdapter(LogicAdapter):
         if person_name:
             # Store person name to database
             conversation.person_name = person_name
-            response = f"Xin chào {person_name}, bạn có một cái tến rất đẹp!"
+            response = f"Xin chào {person_name}, bạn có một cái tên rất đẹp!"
             statement = Statement(response)
         elif not conversation:
             statement = Statement("Bạn chưa nói cho mình tên của bạn.")
