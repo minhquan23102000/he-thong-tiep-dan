@@ -391,6 +391,7 @@ $(function() {
 
     function get_chat_history(topn = 10) {
         $.get("/get-chat-history", { topn: topn }).done(function(data) {
+            tag = data.tag;
             for (const chat of data["chat_history"]) {
                 generate_message(chat["question"], "self");
                 if (checkAction(chat.answer)) {
@@ -398,6 +399,14 @@ $(function() {
                 } else {
                     generate_message(chat["answer"], "user");
                 }
+            }
+            if (
+                tag != "lời chào" &&
+                tag != "cảm xúc" &&
+                tag != "none" &&
+                tag != ''
+            ) {
+                $("#tag").text(tag).trigger("change");
             }
             speakMessage(data.guide);
             generate_next_questions(data.next_questions);

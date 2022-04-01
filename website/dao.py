@@ -32,11 +32,14 @@ def get_chat_history(conversation_id, topn=10):
     
     q = questions[0]
     if q.statement and q.statement.get_tags() not in ['lời chào', 'cảm xúc', None]:
-        result['guide'] = f"Xin chào {conversation.person_name}, bạn có muốn tiếp tục cuộc hội thoại khi nảy về {q.statement.get_tags()} không?"
+        result['guide'] = f"Xin chào {conversation.person_name}, bạn cần mình giúp gì về thủ tục {q.statement.get_tags()}?"
         result['next_questions'] = q.statement.get_next_questions()
     else:
         result['guide'] = f"Xin chào {conversation.person_name}!"
         result['next_questions'] = []
+    
+    
+    result['tag'] = q.statement.get_tags()
     
     return result
 
