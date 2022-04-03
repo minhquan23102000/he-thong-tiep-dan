@@ -61,7 +61,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
 
     # Check if this is an unknown question that chatbot has never learned before
     is_not_known = False
-    if response_statement.confidence < 0.35:
+    if response_statement.confidence < 0.25:
         response = DEFAULT_REPONSE
         next_questions = []
         is_not_known = True
