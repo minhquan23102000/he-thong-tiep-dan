@@ -116,7 +116,11 @@ class SQLStorageAdapter(StorageAdapter):
         tags = kwargs.pop('tags', None)
         exclude_text = kwargs.pop('exclude_text', None)
         exclude_text_words = kwargs.pop('exclude_text_words', [])
+<<<<<<< HEAD
         persona_not_startswith = kwargs.pop('persona_not_startswith', None)
+=======
+        indent_not_startswith = kwargs.pop('indent_not_startswith', None)
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
         search_in_response_to_contains = kwargs.pop(
             'search_in_response_to_contains', None)
         exclude_search = kwargs.pop('exclude_search', None)
@@ -149,9 +153,15 @@ class SQLStorageAdapter(StorageAdapter):
                 ~or_(*or_word_query)
             )
 
+<<<<<<< HEAD
         if persona_not_startswith:
             statements = statements.filter(
                 ~Statement.persona.startswith('bot:')
+=======
+        if indent_not_startswith:
+            statements = statements.filter(
+                ~Statement.indent.startswith(indent_not_startswith)
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
             )
 
         if search_in_response_to_contains:

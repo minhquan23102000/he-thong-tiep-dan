@@ -319,22 +319,38 @@ $(function() {
 
                     setTimeout(function() {
                         generate_message(response, "user");
+<<<<<<< HEAD
                     }, 600);
                 } else {
                     setTimeout(function() {
                         generateMessageAction(data.response);
                     }, 600);
+=======
+                    }, 200);
+                } else {
+                    setTimeout(function() {
+                        generateMessageAction(data.response);
+                    }, 200);
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
                 }
 
 
 
                 setTimeout(function() {
                     generate_next_questions(next_questions);
+<<<<<<< HEAD
                 }, 1700);
                 if (auto_question) {
                     setTimeout(function() {
                         send_message(auto_question);
                     }, 2200);
+=======
+                }, 1000);
+                if (auto_question) {
+                    setTimeout(function() {
+                        send_message(auto_question);
+                    }, 1500);
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
                 }
             });
         }
@@ -391,6 +407,10 @@ $(function() {
 
     function get_chat_history(topn = 10) {
         $.get("/get-chat-history", { topn: topn }).done(function(data) {
+<<<<<<< HEAD
+=======
+            tag = data.tag;
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
             for (const chat of data["chat_history"]) {
                 generate_message(chat["question"], "self");
                 if (checkAction(chat.answer)) {
@@ -399,6 +419,19 @@ $(function() {
                     generate_message(chat["answer"], "user");
                 }
             }
+<<<<<<< HEAD
+=======
+            if (
+                tag != "lời chào" &&
+                tag != "cảm xúc" &&
+                tag != "none" &&
+                tag != ''
+            ) {
+                $("#tag").text(tag).trigger("change");
+            }
+            speakMessage(data.guide);
+            generate_next_questions(data.next_questions);
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
         });
     }
 

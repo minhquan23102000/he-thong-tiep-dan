@@ -368,22 +368,10 @@
 <script type="text/javascript">
 
         function preview(element) {
-      
             var img_id = element.id + "_img";
             var imgEle = document.getElementById(img_id);
-            // var imgInp = document.getElementById(cccd_nam);
-            var file = event.target.files[0];
-            var reader = new FileReader();   
-            reader.readAsDataURL(file);      
-            reader.onloadend = function() {  
-            console.log(reader.result);  
-            // api(reader.result);          
-            imgEle.src = reader.result;                
-            console.log(imgEle.src);                  
-            }
-                                  
+            imgEle.src=URL.createObjectURL(event.target.files[0]);
         }
-        
 
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -395,7 +383,10 @@
         });
 
 
+
+   
         var nam = {
+
             "id": 0123456789,
             "name": "Tester 001",
             "birthdate": "12/02/1995",

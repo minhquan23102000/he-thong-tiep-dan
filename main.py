@@ -2,7 +2,6 @@ import logging
 import os
 import sys
 
-
 from website import create_app
 
 logging.basicConfig(level=logging.INFO)

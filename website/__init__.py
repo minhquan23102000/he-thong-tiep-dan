@@ -13,14 +13,21 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+<<<<<<< HEAD
 TAG_REMOVE = ['F', 'Np', 'C', 'M', 'L', 'X']
 with open('chatbot/vietnamese_stopwords.txt', 'r', encoding="utf8") as f:
     STOPWORDS = np.array(f.read().split('\n'))
+=======
+TAG_REMOVE = ["F", "Np", "C", "M", "L", "X"]
+with open("chatbot/vietnamese_stopwords.txt", "r", encoding="utf8") as f:
+    STOPWORDS = np.array(f.read().split("\n"))
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
 
 
 def create_app():
     # Init app
     app = Flask(__name__)
+<<<<<<< HEAD
     app.config.from_pyfile('config.py')
 
     # Connect db to app
@@ -32,6 +39,23 @@ def create_app():
     #     if (check == "Y"):
     #         init_database(app)
 
+=======
+    app.config.from_pyfile("config.py")
+
+    # Connect db to app
+    db.init_app(app)
+
+    # # Init database, only run it once or run when create new models
+    # check = ""
+    # while check != "Y" and check != "N":
+    #     check = input("Tao lai database? Y:N")
+    #     if check == "Y":
+    #         init_database(app)
+    #         from .constant import temp_db
+
+    #         with app.app_context():
+    #             temp_db.insert_papers()
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
 
     # Init api
     init_api(app)
@@ -43,10 +67,18 @@ def create_app():
     # import chatbot
 
     # from .constant import temp_db
+<<<<<<< HEAD
     # check = ""
     # while (check != 'Y' and check != 'N'):
     #     check = input("Train lại chatbot? Y:N\n")
     #     if (check == "Y"):
+=======
+
+    # check = ""
+    # while check != "Y" and check != "N":
+    #     check = input("Train lại chatbot? Y:N\n")
+    #     if check == "Y":
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
     #         chatbot.Sonny.storage.drop()
     #         chatbot.__retrain__()
     #         with app.app_context():
@@ -54,10 +86,20 @@ def create_app():
 
     # User setting
     from .views import views
+<<<<<<< HEAD
     app.register_blueprint(views, url_prefix='/')
     from .auth import auth
     app.register_blueprint(auth, url_prefix='/')
     from .tokhai import tokhai
+=======
+
+    app.register_blueprint(views, url_prefix="/")
+    from .auth import auth
+
+    app.register_blueprint(auth, url_prefix="/")
+    from .tokhai import tokhai
+
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
     app.register_blueprint(tokhai, url_prefix="/to-khai")
 
     # Admin setting
@@ -76,6 +118,7 @@ def admin_setting(app):
                              UnknownStatementView)
 
     # Admin setting
+<<<<<<< HEAD
     admin = Admin(app,
                   name="Hệ thống quản lý dành cho cán bộ",
                   template_mode='bootstrap4',
@@ -86,6 +129,17 @@ def admin_setting(app):
         UnknownStatementView(Question,
                              db.session,
                              name='Các câu chưa học'))
+=======
+    admin = Admin(
+        app,
+        name="Hệ thống quản lý dành cho cán bộ",
+        template_mode="bootstrap4",
+        index_view=MyAdminIndexView(),
+    )
+
+    # Unknow statement view, view store all message that the chatbot did not know
+    admin.add_view(UnknownStatementView(Question, db.session, name="Các câu chưa học"))
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
     # Corpus manager view, we can add a new file corpus and train it
     # path = op.join(ROOT_PATH, 'chatbot/corpus')
     # admin.add_view(BotTrainFileView(path, '/bot-train-data/', name='Dữ liệu huấn luyện'))
@@ -93,10 +147,17 @@ def admin_setting(app):
     # RelearnView, view manager all the statements chatbot has learned.
     admin.add_view(RelearnView(Tag, db.session, name="Quản lý ngữ cảnh"))
     admin.add_view(
+<<<<<<< HEAD
         MyStatementView(Statement,
                         db.session,
                         endpoint='statement',
                         name='Huấn luyện chatbot'))
+=======
+        MyStatementView(
+            Statement, db.session, endpoint="statement", name="Huấn luyện chatbot"
+        )
+    )
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
 
 
 def init_database(app):
@@ -110,10 +171,20 @@ def init_database(app):
 
     # Create test data for admin login
     from werkzeug.security import generate_password_hash
+<<<<<<< HEAD
     admin_user = User(email='admin',
                       password=generate_password_hash("adminNCKH"),
                       last_name="admin",
                       role=Role.ADMIN)
+=======
+
+    admin_user = User(
+        email="admin",
+        password=generate_password_hash("adminNCKH"),
+        last_name="admin",
+        role=Role.ADMIN,
+    )
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
     session = chatbot.Sonny.storage.get_session()
     session.add(admin_user)
     session.commit()
@@ -124,6 +195,7 @@ def init_api(app):
     from chatbot import chatbot_reponse
 
     api = Api(app)
+<<<<<<< HEAD
     api.app.config['RESTFUL_JSON'] = {'ensure_ascii': False}
 
     class GetBotReponse(Resource):
@@ -133,10 +205,25 @@ def init_api(app):
             return make_response(json.dumps(reponse))
 
     api.add_resource(GetBotReponse, '/get-reponse')
+=======
+    api.app.config["RESTFUL_JSON"] = {"ensure_ascii": False}
+
+    class GetBotReponse(Resource):
+        def get(self):
+            message = request.form["message"]
+            reponse = chatbot_reponse(message)
+            return make_response(json.dumps(reponse))
+
+    api.add_resource(GetBotReponse, "/get-reponse")
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
 
 
 def init_login(app):
     from chatbot.models import User
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f1637fdd6ba2c8d9b669388a32b4e629d7a2c9d
     login_manager = LoginManager()
     login_manager.init_app(app)
 

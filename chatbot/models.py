@@ -22,7 +22,6 @@ class ModelBase(object):
         return cls.__name__.lower()
 
 
-
 Base = declarative_base(cls=ModelBase)
 
 

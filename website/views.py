@@ -26,7 +26,6 @@ def get_bot_response():
     oldtag = request.args.get("oldtag")
 
     # Check if there are conversation in session, if not create a new conversation
-
     if session.get("conversation_id") == None:
         conversation = dao.new_conversation()
         session["conversation_id"] = conversation.id
