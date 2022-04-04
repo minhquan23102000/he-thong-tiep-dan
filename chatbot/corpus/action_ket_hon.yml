@@ -1,0 +1,12 @@
+categories:
+- đăng ký kết hôn
+conversations:
+- - Điền tờ khai đăng ký kết hôn?
+  - "ACTION:NAVIGATE:./to-khai/dang-ky-ket-hon:Hiện bạn đang cần điền tờ khai kết hôn, xin hãy cho mình hỗ trợ bạn nhé?"
+
+- - Điền tờ khai tự động như thế nào?
+  - "Đầu tiên là bạn cần các hình ảnh giấy tờ được yêu cầu trên màn hình. Bạn có thể chụp từ điện thoại, hoặc ấn nút camera để chụp ảnh trên laptop. Sau khi hoàn thành xong, bạn có thể ấn nút điền tờ khai để mình có thể hỗ trợ điền tờ khai tự động cho bạn nhé.\n
+    Nếu bạn có thắc mác gì khác xin hãy hỏi mình."
+
+- - Lưu ý khi chụp hình ảnh hồ sơ?
+  - "Để chụp hình ảnh hồ sơ, bạn cần đảm bảo nơi chụp hình có đủ độ sáng và khi chụp bạn lưu ý chụp hết toàn bộ nội dung trên hồ sơ nhé."

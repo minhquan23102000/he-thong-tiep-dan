@@ -1,0 +1,564 @@
+{% extends 'base1.html' %}
+{% block title %}Điền tờ khai kết hôn trực tuyến{% endblock %}
+{% block head %}{{ super()}}{% endblock %}
+{% block content %}
+    <div id="body" class="container">
+        <div class="card">
+            <div class="card-tabs">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab">
+                        <a id="tab1" class="active" href="#test4">Nộp hình ảnh hồ sơ</a>
+                    </li>
+                    <li class="tab">
+                        <a id="tab2" href="#test5">Hoàn thiện tờ khai</a>
+                    </li>
+                    <li class="tab">
+                        <a id="tab3" href="#test6">Tờ khai mẫu</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+                <div id="test4" class="row">
+                    <div class="col s6">
+                        <div class="card round-corner">
+                            <div class="card-title">Mặt trước CCCD người nam</div>
+                            <div class="card-image">
+                                <img id="cccd_nam_img" class="img-responsive">
+                            </div>
+                            <div class="card-action">
+                                <div class="btn medium file-field secondary waves-effect waves-green">
+                                    <i class="material-icons">add_a_photo</i>
+                                    <input accept="image/*" type='file' id="cccd_nam" onchange="preview(this)"/>
+                                </div>
+                                <a id="start-camera-nam"
+                                   class="btn medium modal-trigger secondary waves-effect"
+                                   href="#camera-nam"
+                                   onclick="startCameraNam(this)">
+                                    <i class="material-icons">camera_enhance</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="card round-corner">
+                            <div class="card-title">Mặt trước CCCD người nữ</div>
+                            <div class="card-image">
+                                <img id="cccd_nu_img" class="img-responsive">
+                            </div>
+                            <div class="card-action">
+                                <div class="btn medium file-field secondary waves-effect waves-green">
+                                    <i class="material-icons">add_a_photo</i>
+                                    <input accept="image/*" type='file' id="cccd_nu" onchange="preview(this)"/>
+                                </div>
+                                <a id="start-camera-nu"
+                                   class="btn medium modal-trigger secondary waves-effect"
+                                   href="#camera-nu"
+                                   onclick="startCameraNu(this)">
+                                    <i class="material-icons">camera_enhance</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-action" style="float:right;">
+                            <button id="dientokhaitudong"
+                                    class="btn waves-effect waves-green"
+                                    onclick="set_tokhai_kethon()">
+                                <i class="material-icons right">send</i>Tiếp theo
+                            </button>
+                        </div>
+                    </div>
+                    <div id="modal-container">
+                        <div id="camera-nam" class="modal pad10 fit-content">
+                            <div class="modal-content">
+                                <h4>Chụp giấy tùy thân cho người nam</h4>
+                            </p>
+                            Để chụp giấy tùy thân, vui lòng cấp quyền camera cho trang web.
+                            Khi chụp nên để giấy tùy thân ở chỗ sáng và chụp đầy đủ nội dung mặt trước của giấy CCCD/CMND
+                        </p>
+                        <div class="card">
+                            <div class="card-content row">
+                                <video class="responsive-video center-align"
+                                       width="500"
+                                       height="400"
+                                       id="video-nam"
+                                       autoplay>
+                                </video>
+                            </div>
+                            <div class="card-action">
+                                <div class="row center-align">
+                                    <button id="click-photo-nam"
+                                            type="button"
+                                            class="btn secondary modal-close waves-effect waves-light">
+                                        <i class="material-icons right">camera</i>
+                                        CHỤP
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="camera-nu" class="modal pad10 fit-content">
+                    <div class="modal-content">
+                        <h4>Chụp giấy tùy thân cho người nữ</h4>
+                    </p>
+                    Để chụp giấy tùy thân, vui lòng cấp quyền camera cho trang web.
+                    Khi chụp nên để giấy tùy thân ở chỗ sáng và chụp đầy đủ nội dung mặt trước của giấy CCCD/CMND
+                </p>
+                <div class="card">
+                    <div class="card-content row">
+                        <video class="responsive-video center-align"
+                               width="500"
+                               height="400"
+                               id="video-nu"
+                               autoplay>
+                        </video>
+                    </div>
+                    <div class="card-action">
+                        <div class="row center-align">
+                            <button id="click-photo-nu"
+                                    type="button"
+                                    class="btn secondary modal-close waves-effect waves-light">
+                                <i class="material-icons right">camera</i>
+                                CHỤP
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas id="canvas" width="500" height="400" style="display:none;"></canvas>
+</div>
+</div>
+<div id="test5">
+    <form id="tokhai_form" class="" action="#">
+        <div class ="card box-form">
+            <span class="card-content-header">Thông tin của người nam</span>
+        </br>
+        <div class ="row no-center">
+            <div class="input-field col s12">
+                <input value=""
+                       id="nam_name"
+                       type="text"
+                       class="validate"
+                       placeholder="Họ tên người nam"
+                       require="Họ tên không thể trống">
+                <label for="nam_name">Họ tên</label>
+            </div>
+        </div>
+        <div class = "row no-center">
+            <div class="input-field col s8">
+                <input value=""
+                       id="nam_id"
+                       type="number"
+                       class="validate"
+                       placeholder="Số tờ tùy thân CCCD/CMND"
+                       require
+                       pattern="^([0-9]{9}|[0-9]{12})+$"
+                       minlength="9"
+                       maxlength="12">
+                <label for="nam_id">Số tờ tùy thân</label>
+                <span class="helper-text"
+                      data-error="Không đúng định dạng"
+                      data-success="Đúng định dạng">Số tờ tùy thân có 9 hoặc 12 số</span>
+            </div>
+            <div class="input-field col s4">
+                <select id="nam_loaigiaytuythan" require>
+                    <option value="" disabled selected>
+                        Loại giấy tờ tùy thân
+                    </option>
+                    <option value="cccd">
+                        Căn cước công dân
+                    </option>
+                    <option value="cmnd">
+                        Chứng minh nhân dân
+                    </option>
+                    <label>Loại giấy tờ</label>
+                </select>
+            </div>
+        </div>
+        <div class ="row no-center">
+            <div class="input-field col s4">
+                <input value=""
+                       id="nam_dantoc"
+                       type="text"
+                       class="validate"
+                       placeholder="Dân tộc của người nam"
+                       require>
+                <label for="nam_dantoc">Dân tộc</label>
+            </div>
+            <div class="input-field col s4">
+                <input value=""
+                       id="nam_quoctich"
+                       type="text"
+                       class="validate"
+                       placeholder="Quốc tịch của người nam"
+                       require>
+                <label for="nam_quoctich">Quốc tịch</label>
+            </div>
+            <div class="input-field col s4">
+                <input value=""
+                       id="nam_birthdate"
+                       type="text"
+                       class="datepicker no-autoinit validate"
+                       placeholder="Ngày sinh của người nam"
+                       require>
+                <label for="nam_birthdate">Ngày sinh</label>
+            </div>
+        </div>
+        <div class ="row no-center">
+            <div class="input-field col s10">
+                <input value=""
+                       id="nam_address"
+                       type="text"
+                       class="validate"
+                       placeholder="Nơi cư trú của người nam"
+                       require>
+                <label for="nam_address">Nơi cư trú</label>
+            </div>
+            <div class="input-field col s2">
+                <input value=""
+                       id="nam_kethonlan"
+                       type="number"
+                       min
+                       0
+                       class="validate"
+                       placeholder="Kết hôn lần thứ mấy của người nam"
+                       require>
+                <label for="nam_kethonlan">Kết hôn lần thứ</label>
+            </div>
+        </div>
+    </div>
+    <div class ="card box-form">
+        <span class="card-content-header">Thông tin của người nữ</span>
+    </br>
+    <div class ="row no-center">
+        <div class="input-field col s12">
+            <input value=""
+                   id="nu_name"
+                   type="text"
+                   class="validate"
+                   placeholder="Họ tên người nữ"
+                   require="Họ tên không thể trống">
+            <label for="nu_name">Họ tên</label>
+        </div>
+    </div>
+    <div class = "row no-center">
+        <div class="input-field col s8">
+            <input value=""
+                   id="nu_id"
+                   type="number"
+                   class="validate"
+                   placeholder="Số tờ tùy thân CCCD/CMND"
+                   require
+                   pattern="^([0-9]{9}|[0-9]{12})+$"
+                   minlength="9"
+                   maxlength="12">
+            <label for="nu_id">Số tờ tùy thân</label>
+            <span class="helper-text"
+                  data-error="Không đúng định dạng"
+                  data-success="Đúng định dạng">Số tờ tùy thân có 9 hoặc 12 số</span>
+        </div>
+        <div class="input-field col s4">
+            <select id="nu_loaigiaytuythan" require>
+                <option value="" disabled selected>
+                    Loại giấy tờ tùy thân
+                </option>
+                <option value="cccd">
+                    Căn cước công dân
+                </option>
+                <option value="cmnd">
+                    Chứng minh nhân dân
+                </option>
+                <label>Loại giấy tờ</label>
+            </select>
+        </div>
+    </div>
+    <div class ="row no-center">
+        <div class="input-field col s4">
+            <input value=""
+                   id="nu_dantoc"
+                   type="text"
+                   class="validate"
+                   placeholder="Dân tộc của người nữ"
+                   require>
+            <label for="nu_dantoc">Dân tộc</label>
+        </div>
+        <div class="input-field col s4">
+            <input value=""
+                   id="nu_quoctich"
+                   type="text"
+                   class="validate"
+                   placeholder="Quốc tịch của người nữ"
+                   require>
+            <label for="nu_quoctich">Quốc tịch</label>
+        </div>
+        <div class="input-field col s4">
+            <input value=""
+                   id="nu_birthdate"
+                   type="text"
+                   class="datepicker no-autoinit validate"
+                   placeholder="Ngày sinh của người nữ"
+                   require>
+            <label for="nu_birthdate">Ngày sinh</label>
+        </div>
+    </div>
+    <div class ="row no-center">
+        <div class="input-field col s10">
+            <input value=""
+                   id="nu_address"
+                   type="text"
+                   class="validate"
+                   placeholder="Nơi cư trú của người nữ"
+                   require>
+            <label for="nu_address">Nơi cư trú</label>
+        </div>
+        <div class="input-field col s2">
+            <input value=""
+                   id="nu_kethonlan"
+                   type="number"
+                   min
+                   0
+                   class="validate"
+                   placeholder="Kết hôn lần thứ mấy của người nữ"
+                   require>
+            <label for="nu_kethonlan">
+                Kết hôn lần thứ
+            </label>
+        </div>
+    </div>
+</div>
+<div class="card-action row valign-wrapper">
+    <div class="col s2">
+        <label>
+            <input id="capbansao" type="checkbox" class="filled-in left" unchecked />
+            <span>Đề nghị cấp bảng sao</span>
+        </label>
+    </div>
+    <div class="input-field col s3">
+        <input value="0"
+               id="soban"
+               type="number"
+               min
+               0
+               class="validate left"
+               placeholder="Số bảng cấp"
+               require>
+        <label for="soban">
+            Số bảng
+        </label>
+    </div>
+    <div class="col s3">
+        <button type="button"
+                id="laytokhai"
+                class="btn waves-effect waves-green right"
+                onclick="getFormValues()">
+            <i class="material-icons right">send</i>Hoàn thành
+        </button>
+    </div>
+</div>
+</form>
+</div>
+<div id="test6">
+    <div class="row no-center">
+        <div id="tokhai_hoanthanh" class="card box-form">
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+
+        function preview(element) {
+      
+            var img_id = element.id + "_img";
+            var imgEle = document.getElementById(img_id);
+            // var imgInp = document.getElementById(cccd_nam);
+            var file = event.target.files[0];
+            var reader = new FileReader();   
+            reader.readAsDataURL(file);      
+            reader.onloadend = function() {  
+            console.log(reader.result);  
+            // api(reader.result);          
+            imgEle.src = reader.result;                
+            console.log(imgEle.src);                  
+            }
+                                  
+        }
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            var options = {
+                format:"dd/mm/yyyy"
+            };
+            var elems = document.querySelectorAll('.datepicker.no-autoinit.validate');
+            var instances = M.Datepicker.init(elems, options);
+        });
+
+
+        var nam = {
+            "id": 0123456789,
+            "name": "Tester 001",
+            "birthdate": "12/02/1995",
+            "address": "Ha Noi, Le Xuan Dai, 188",
+            "gender": "Nam",
+            "place_birth": "Ha Noi"
+        };
+        let nu = {
+            "id": 0123456987,
+            "name": "Tester 002",
+            "birthdate": "12/02/1995",
+            "address": "Ha Noi, Le Xuan Dai, 183",
+            "gender": "Nu",
+            "place_birth": "Ha Noi"
+        }
+        async function api(url){
+            try {                
+            console.log(url);
+            const str_base64 = url.split(",");
+            var response = await fetch('https://thanh-cong.herokuapp.com/api_base64', {        
+                method: 'POST',        
+                headers: {        
+                    'Content-Type': 'application/json'       
+                },
+                body: JSON.stringify({'type': 'cccd', 'image': str_base64[1]})
+            });    
+
+            var response_Text = await response.text();
+            return JSON.parse(response_Text);
+               
+        } catch (e) {
+
+            console.log(e);
+        }
+        }
+       
+        'use strict';
+        async function set_tokhai_kethon() {   //chú thích so sánh thòi gian phản hồi 
+            var nam =  await api(cccd_nam_img.src);       
+            var nu =  await api(cccd_nu_img.src);
+            // var api_nam =   api(cccd_nam_img.src);       
+            // var api_nu =   api(cccd_nu_img.src);
+            // var nam = await api_nam;
+            // var nu = await api_nu;
+            console.log(nu);
+           for (const [key, value] of Object.entries(nam)) {
+                $("#nam_"+key).val(value)
+            }
+            for (const [key, value] of Object.entries(nu)) {
+                $("#nu_"+key).val(value)
+            }
+
+            $("#nam_dantoc").val("Kinh");
+            $("#nu_dantoc").val("Kinh");
+            $("#nam_quoctich").val("Việt Nam");
+            $("#nu_quoctich").val("Việt Nam");
+
+            $("#nam_loaigiaytuythan").val("cccd");
+            $("#nam_loaigiaytuythan").formSelect();
+            $("#nu_loaigiaytuythan").val("cccd");
+            $("#nu_loaigiaytuythan").formSelect();
+
+            //$("li a.active").removeClass("active");
+            //$("#tab2").addClass("active");
+            $(".tabs").tabs('select', 'test5');
+            
+        }
+        function fetchToKhai(url_mau) {
+
+            url_mau = encodeURIComponent(url_mau)
+
+            var myHtml = '<iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url='+ url_mau +'" width="100%" height="800px" frameborder="0"/>'
+
+            $("#tokhai_hoanthanh").empty();
+            $("#tokhai_hoanthanh").append(myHtml);
+        }
+
+
+        function initLoader() {
+            var loader = '<div class="progress" style="margin: 0 auto;"><div class="indeterminate"></div></div>';
+            $("#tokhai_hoanthanh").append(loader);
+        }
+
+        function isEmpty(str) {
+            return !str.trim().length;
+        }
+
+        function getFormValues() {
+            var inputs = document.querySelectorAll('#' + 'tokhai_form' + ' input');
+            var formValues = {};
+            var valid = true;
+
+            for (var i = 0; i < inputs.length; i++) {
+                if (!isEmpty(inputs[i].id)) {
+                    formValues[inputs[i].id] = inputs[i].value;
+                }
+
+                if (isEmpty(inputs[i].value)) {
+                    var label = $('label[for="' + inputs[i].id + '"]').html();
+                    M.toast({html: 'Vui lòng điền đầy đủ thông tin vào ô ' + label, classes: 'rounded'})
+                    valid = false;
+
+                }
+            }
+            formValues['nam_loaigiaytuythan'] = $("#nam_loaigiaytuythan option:selected").text()
+            formValues['nu_loaigiaytuythan'] = $("#nu_loaigiaytuythan option:selected").text()
+
+            console.log(formValues)
+
+            data = JSON.stringify(formValues);
+
+
+            if (valid) {
+                initLoader();
+                $.get('/to-khai/dien-to-khai-tu-dong', {paper_name: 'dang_ky_ket_hon', data: data})
+                    .done(function (data) {
+                    fetchToKhai(data.url);
+                });
+                $(".tabs").tabs('select', 'test6');
+
+            }
+        }
+
+        let camera_button = document.querySelector("#start-camera-nam");
+        let video = document.querySelector("#video-nam");
+        let click_button = document.querySelector("#click-photo-nam");
+        let canvas = document.querySelector("#canvas");
+        let url_nam = null
+        let url_nu = null
+
+        async function startCameraNam(element) {
+            let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            video.srcObject = stream;
+        };
+
+        click_button.addEventListener('click', function() {
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            let image_data_url = canvas.toDataURL('image/jpeg');            
+            api(image_data_url);   
+            // data url of the image
+            $("#cccd_nam_img").attr("src", image_data_url);
+            
+        });
+
+        let camera_button_nu = document.querySelector("#start-camera-nu");
+        let video_nu = document.querySelector("#video-nu");
+        let click_button_nu = document.querySelector("#click-photo-nu");
+
+        async function startCameraNu(element) {
+            let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            video_nu.srcObject = stream;
+        };
+
+        click_button_nu.addEventListener('click', function() {
+            canvas.getContext('2d').drawImage(video_nu, 0, 0, canvas.width, canvas.height);
+            let image_data_url = canvas.toDataURL('image/jpeg');
+
+            // data url of the image
+            $("#cccd_nu_img").attr("src", image_data_url);
+        });
+
+
+      
+
+</script>
+{% endblock %}
