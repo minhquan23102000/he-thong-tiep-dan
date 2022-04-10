@@ -370,7 +370,17 @@
         function preview(element) {
             var img_id = element.id + "_img";
             var imgEle = document.getElementById(img_id);
-            imgEle.src=URL.createObjectURL(event.target.files[0]);
+            imgEle.src=URL.createObjectURL(event.target.files[0])
+            
+            var img_id = element.id + "_img";
+            var imgEle = document.getElementById(img_id);
+            // var imgInp = document.getElementById(cccd_nam);
+            var file = event.target.files[0];
+            var reader = new FileReader();   
+            reader.readAsDataURL(file);      
+            reader.onloadend = function() {   
+                imgEle.src = reader.result;                
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -383,15 +393,18 @@
         });
 
 
-        const nam = {
+
+   
+        var nam = {
+
             "id": 0123456789,
             "name": "Tester 001",
             "birthdate": "12/02/1995",
             "address": "Ha Noi, Le Xuan Dai, 188",
             "gender": "Nam",
             "place_birth": "Ha Noi"
-        }
-        const nu = {
+        };
+        let nu = {
             "id": 0123456987,
             "name": "Tester 002",
             "birthdate": "12/02/1995",
@@ -399,10 +412,36 @@
             "gender": "Nu",
             "place_birth": "Ha Noi"
         }
+        async function api(url){
+            try {                
+            console.log(url);
+            const str_base64 = url.split(",");
+            var response = await fetch('https://thanh-cong.herokuapp.com/api_base64', {        
+                method: 'POST',        
+                headers: {        
+                    'Content-Type': 'application/json'       
+                },
+                body: JSON.stringify({'type': 'cccd', 'image': str_base64[1]})
+            });    
 
+            var response_Text = await response.text();
+            return JSON.parse(response_Text);
+               
+            } catch (e) {
+
+                console.log(e);
+            }
+        }
+       
         'use strict';
-        function set_tokhai_kethon() {
-            for (const [key, value] of Object.entries(nam)) {
+        async function set_tokhai_kethon() {   //chú thích so sánh thòi gian phản hồi 
+            var nam =  await api(cccd_nam_img.src);       
+            var nu =  await api(cccd_nu_img.src);
+            // var api_nam =   api(cccd_nam_img.src);       
+            // var api_nu =   api(cccd_nu_img.src);
+            // var nam = await api_nam;
+            // var nu = await api_nu;
+           for (const [key, value] of Object.entries(nam)) {
                 $("#nam_"+key).val(value)
             }
             for (const [key, value] of Object.entries(nu)) {
@@ -422,10 +461,8 @@
             //$("li a.active").removeClass("active");
             //$("#tab2").addClass("active");
             $(".tabs").tabs('select', 'test5');
+            
         }
-
-
-
         function fetchToKhai(url_mau) {
 
             url_mau = encodeURIComponent(url_mau)
@@ -486,6 +523,8 @@
         let video = document.querySelector("#video-nam");
         let click_button = document.querySelector("#click-photo-nam");
         let canvas = document.querySelector("#canvas");
+        let url_nam = null
+        let url_nu = null
 
         async function startCameraNam(element) {
             let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
@@ -494,10 +533,11 @@
 
         click_button.addEventListener('click', function() {
             canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            let image_data_url = canvas.toDataURL('image/jpeg');
-
+            let image_data_url = canvas.toDataURL('image/jpeg');            
+            api(image_data_url);   
             // data url of the image
             $("#cccd_nam_img").attr("src", image_data_url);
+            
         });
 
         let camera_button_nu = document.querySelector("#start-camera-nu");
@@ -518,6 +558,7 @@
         });
 
 
+      
 
 </script>
 {% endblock %}
