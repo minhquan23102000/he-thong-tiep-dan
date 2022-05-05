@@ -1,6 +1,7 @@
 import langid
 from lib.chatterbot.response_selection import get_random_response
 from lib.chatterbot.trainers import ChatterBotCorpusTrainer
+from website import dao
 from website.config import SQLALCHEMY_DATABASE_URI
 
 from chatbot.models import Statement
@@ -42,14 +43,11 @@ def __train__(filePath):
     trainer.train(filePath)
 
 
-def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
+def chatbot_reponse(msg: str, oldtag: str = "none", conversation_id=None):
     # Check message lem
     if len(msg) > 255:
         return {"response": "Dài quá!!", "tag": "none", "next_questions": []}
 
-    # Get reponse from bot
-    if not oldtag:
-        oldtag = "none"
 
     # Request response to bot
     response_statement = Sonny.get_response(statement=msg, tags=oldtag)
@@ -63,7 +61,7 @@ def chatbot_reponse(msg: str, oldtag: str = None, conversation_id=None):
     is_not_known = False
     if response_statement.confidence < 0.25:
         response = DEFAULT_REPONSE
-        next_questions = []
+        next_questions = dao.get_recommend_questions(tag=oldtag)
         is_not_known = True
         tag = "none"
     else:
