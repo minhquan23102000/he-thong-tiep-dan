@@ -57,6 +57,9 @@ def get_chat_history():
 
     return jsonify(chat_history)
 
+@views.route("/get-tags")
+def get_tags():
+    return jsonify(dao.get_tags())
 
 @views.route("/get-conversation-id")
 def get_conversation_id():

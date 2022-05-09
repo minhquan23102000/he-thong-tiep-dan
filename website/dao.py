@@ -12,7 +12,7 @@ from website import db
 
 def get_chat_history(conversation_id, topn=10):
     if conversation_id == None or topn <= 0:
-        return {}
+        return {"chat_history": []}
 
     questions = (
         db.session.query(Question)
@@ -22,6 +22,7 @@ def get_chat_history(conversation_id, topn=10):
     )
     result = {}
     result = {"chat_history": []}
+    q = Question()
 
     for q in questions[::-1]:
         chat = dict()
@@ -34,6 +35,7 @@ def get_chat_history(conversation_id, topn=10):
         .filter(Conversation.id == conversation_id)
         .first()
     )
+    
 
     for q in questions:
         if q.statement != None:
@@ -46,7 +48,7 @@ def get_chat_history(conversation_id, topn=10):
         result["next_questions"] = q.statement.get_next_questions()
         result["tag"] = q.statement.get_tags()
     else:
-        result["guide"] = f"Xin chào {conversation.person_name}!"
+        result["guide"] = f"Xin chào {conversation.person_name if conversation else ''}!"
         result["next_questions"] = []
         result["tag"] = "none"
 
@@ -81,3 +83,12 @@ def get_conversation_id():
 
 def get_database() -> SQLAlchemy:
     return db
+
+def get_tags() -> List[str]:
+    tags = db.session.query(Tag).all()
+    rs = []
+    for tag in tags:
+        if tag.name not in ["lời chào", "cảm xúc", None]:
+            rs.append(tag.name)
+    
+    return rs

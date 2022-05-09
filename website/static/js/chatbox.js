@@ -389,27 +389,69 @@ $(function() {
         });
     }
 
+
+
+    function get_first_recommend_question() {
+        $.get('/get-tags').done(function(data) {
+
+            var html1 = `
+                  <div class="input-field col s10 white round-corner">
+                        <select id="thu-tuc-first">
+                            <option value="" disabled selected>Bạn cần tư vấn thủ tục</option>`;
+
+            var html2 = `
+                        </select>
+                      
+                    </div>`;
+
+            for (var tag of data) {
+                html1 += `<option value="Hướng dẫn làm thủ tục ${tag}">${tag}</option>`;
+            }
+
+            var html = `<div id="cm-msg-${INDEX}" class="chat-msg">
+                            <div class="row no-pad">
+                                ${html1 + html2}
+                            </div>
+                        </div>
+            `;
+
+            $(".chat-logs").append(html);
+            $('select').formSelect();
+
+            //On click select event
+            $("#thu-tuc-first").on('change', function() {
+                send_message($(this).val());
+            })
+
+        });
+    }
+
     function get_chat_history(topn = 10) {
         $.get("/get-chat-history", { topn: topn }).done(function(data) {
-            tag = data.tag;
-            for (const chat of data["chat_history"]) {
-                generate_message(chat["question"], "self");
-                if (checkAction(chat.answer)) {
-                    generateMessageAction(chat.answer, false);
-                } else {
-                    generate_message(chat["answer"], "user");
+            console.log(data);
+            if (data['chat_history'] == null || data['chat_history'].length == 0) {
+                get_first_recommend_question();
+            } else {
+                tag = data.tag;
+                for (const chat of data["chat_history"]) {
+                    generate_message(chat["question"], "self");
+                    if (checkAction(chat.answer)) {
+                        generateMessageAction(chat.answer, false);
+                    } else {
+                        generate_message(chat["answer"], "user");
+                    }
                 }
+                if (
+                    tag != "lời chào" &&
+                    tag != "cảm xúc" &&
+                    tag != "none" &&
+                    tag != ''
+                ) {
+                    $("#tag").text(tag).trigger("change");
+                }
+                speakMessage(data.guide);
+                generate_next_questions(data.next_questions);
             }
-            if (
-                tag != "lời chào" &&
-                tag != "cảm xúc" &&
-                tag != "none" &&
-                tag != ''
-            ) {
-                $("#tag").text(tag).trigger("change");
-            }
-            speakMessage(data.guide);
-            generate_next_questions(data.next_questions);
         });
     }
 
@@ -739,9 +781,8 @@ $(function() {
     function activateTypingAnimation() {
         console.log("activateTypingAnimation");
         var html = `
-          <div id="cm-msg-${
-            INDEX + 1
-          }" class="chat-msg user" name="typing-animation">
+          <div id="cm-msg-${INDEX + 1
+            }" class="chat-msg user" name="typing-animation">
           <div class="cm-msg-text">
           <div class="typing">
             <div class="dot"></div>
