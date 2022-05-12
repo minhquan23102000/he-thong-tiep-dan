@@ -343,7 +343,7 @@ $(function() {
     function speakMessage(message) {
         text2Speech.text = clean_url(message);
         text2Speech.voice = voices[1];
-        text2Speech.rate = 1.2;
+        text2Speech.rate = 1.3;
         speechSynthesis.cancel();
         speechSynthesis.speak(text2Speech);
     }

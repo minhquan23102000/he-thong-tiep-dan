@@ -47,7 +47,7 @@ def create_app():
     # import chatbot
 
     # from .constant import temp_db
-
+    
     # check = ""
     # while check != "Y" and check != "N":
     #     check = input("Train lại chatbot? Y:N\n")
