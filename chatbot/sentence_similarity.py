@@ -7,7 +7,7 @@ class VietnameseCosineSimilarity(Comparator):
     """
     Calculates the similarity of two statements based on the Cosine Similarity
     Step 1: We convert statement to tf-idf vector
-    Step 2: Calculate similarity base on consine similarity 
+    Step 2: Calculate similarity base on consine similarity
     """
 
     def compare(self, statement_a, statement_b):
@@ -57,7 +57,7 @@ class Word2VecSimilarity(Comparator):
         if statement_a.get_tags() == statement_b.get_tags() and confidence < 0.95:
             confidence += 0.05
 
-        return round(confidence, 4) - 0.5
+        return round(confidence, 4)
 
     def to_vector(self, sentence):
         words = sentence.split(' ')

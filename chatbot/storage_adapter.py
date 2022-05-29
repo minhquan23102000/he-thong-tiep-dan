@@ -1,6 +1,6 @@
 from lib.chatterbot.storage.sql_storage import SQLStorageAdapter
 
-from .tag import VietnameseTager
+from .tag import BlankSpaceTagger, VietnameseTagger
 
 
 class MySQLStorageAdapter(SQLStorageAdapter):
@@ -18,7 +18,7 @@ class MySQLStorageAdapter(SQLStorageAdapter):
     def __init__(self, **kwargs):
         import logging
         self.logger = kwargs.get('logger', logging.getLogger(__name__))
-        self.tagger = VietnameseTager()
+        self.tagger = BlankSpaceTagger()
 
         from sqlalchemy import create_engine
         from sqlalchemy.orm import sessionmaker

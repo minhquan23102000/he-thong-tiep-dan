@@ -15,6 +15,8 @@ NOT_VIETNAMESE_LANGUAGE_REPONSE = (
     "Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese."
 )
 
+THRESHOLD_UNKNOWN = 0.1
+
 
 Sonny = MyChatBot(
     "Sonny",
@@ -48,7 +50,6 @@ def chatbot_reponse(msg: str, oldtag: str = "none", conversation_id=None):
     if len(msg) > 255:
         return {"response": "Dài quá!!", "tag": "none", "next_questions": []}
 
-
     # Request response to bot
     response_statement = Sonny.get_response(statement=msg, tags=oldtag)
     tag = response_statement.get_tags()
@@ -59,7 +60,7 @@ def chatbot_reponse(msg: str, oldtag: str = "none", conversation_id=None):
 
     # Check if this is an unknown question that chatbot has never learned before
     is_not_known = False
-    if response_statement.confidence < 0.25:
+    if response_statement.confidence < THRESHOLD_UNKNOWN:
         response = DEFAULT_REPONSE
         next_questions = dao.get_recommend_questions(tag=oldtag)
         is_not_known = True
@@ -77,13 +78,18 @@ def chatbot_reponse(msg: str, oldtag: str = "none", conversation_id=None):
     if conversation_id:
         statement_id = None if is_not_known else response_statement.id
         store_question(
-            asking=msg, answer=response, statement_id=statement_id, conversation_id=conversation_id
+            asking=msg,
+            answer=response,
+            statement_id=statement_id,
+            conversation_id=conversation_id,
         )
 
     return response_data
 
 
-def store_question(asking: str, answer:str, statement_id: int = None, conversation_id: int = None):
+def store_question(
+    asking: str, answer: str, statement_id: int = None, conversation_id: int = None
+):
     from website import db
 
     from .models import Question
@@ -91,7 +97,10 @@ def store_question(asking: str, answer:str, statement_id: int = None, conversati
     msg_lang = langid.classify(asking)[0]
     if msg_lang in ["vi"]:
         question = Question(
-            asking=asking, answer=answer, statement_id=statement_id, conversation_id=conversation_id
+            asking=asking,
+            answer=answer,
+            statement_id=statement_id,
+            conversation_id=conversation_id,
         )
         db.session.add(question)
         db.session.commit()

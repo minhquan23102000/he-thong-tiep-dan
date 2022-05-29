@@ -4,17 +4,33 @@ from lib.chatterbot import languages
 from lib.chatterbot.comparisons import Comparator
 from website import STOPWORDS, TAG_REMOVE
 
-from .preprocessor import clean_url
+from .preprocessor import clean_url, clean_whitespace, convert_emojis, remove_punct
 
 
-class VietnameseTager(object):
+class BlankSpaceTagger(object):
+    def __init__(self):
+        self.language = languages.VIE
+        pass
+
+    def get_bigram_pair_string(self, text):
+
+        text = clean_url(text)
+        text = convert_emojis(text)
+        text = remove_punct(text)
+        text = clean_whitespace(text)
+
+        bag_words = text.lower().split()
+
+        return " ".join([word for word in bag_words if word not in STOPWORDS])
+
+
+class VietnameseTagger(object):
     def __init__(self):
         from pyvi import ViPosTagger, ViTokenizer
 
         self.language = languages.VIE
 
-        self.punctuation_table = str.maketrans(
-            dict.fromkeys(string.punctuation))
+        self.punctuation_table = str.maketrans(dict.fromkeys(string.punctuation))
 
         self.postag = ViPosTagger.postagging
 
@@ -54,4 +70,4 @@ class VietnameseTager(object):
                 word = word.lower()
                 bigram_pairs.append(word)
 
-        return ' '.join(bigram_pairs)
+        return " ".join(bigram_pairs)

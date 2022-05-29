@@ -9,8 +9,8 @@ __pycache__/
 #*.db
 
 #Model
-*.model
-*.vectors.npy
+#*.model
+#*.vectors.npy
 
 # C extensions
 *.so

@@ -5,7 +5,7 @@ import chatbot
 import yaml
 from chatbot import Sonny
 from chatbot.models import Conversation, Question, Role, Statement, Tag, User
-from chatbot.tag import VietnameseTager
+from chatbot.tag import BlankSpaceTagger, VietnameseTagger
 from definition import ROOT_PATH
 from flask import flash, redirect, request, session, url_for
 from flask_admin import AdminIndexView, BaseView, expose
@@ -199,7 +199,7 @@ class MyStatementView(MyModelView):
             menu_icon_type=menu_icon_type,
             menu_icon_value=menu_icon_value,
         )
-        self.tagger = VietnameseTager()
+        self.tagger = BlankSpaceTagger()
 
     def update_model(self, form, model):
         """
