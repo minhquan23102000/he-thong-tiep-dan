@@ -197,12 +197,12 @@
             </div>
             <div class="input-field col s4">
                 <input value=""
-                       id="nam_birthdate"
+                       id="nam_birth_date"
                        type="text"
                        class="datepicker no-autoinit validate"
                        placeholder="Ngày sinh của người nam"
                        require>
-                <label for="nam_birthdate">Ngày sinh</label>
+                <label for="nam_birth_date">Ngày sinh</label>
             </div>
         </div>
         <div class ="row no-center">
@@ -294,12 +294,12 @@
         </div>
         <div class="input-field col s4">
             <input value=""
-                   id="nu_birthdate"
+                   id="nu_birth_date"
                    type="text"
                    class="datepicker no-autoinit validate"
                    placeholder="Ngày sinh của người nữ"
                    require>
-            <label for="nu_birthdate">Ngày sinh</label>
+            <label for="nu_birth_date">Ngày sinh</label>
         </div>
     </div>
     <div class ="row no-center">
@@ -371,15 +371,15 @@
             var img_id = element.id + "_img";
             var imgEle = document.getElementById(img_id);
             imgEle.src=URL.createObjectURL(event.target.files[0])
-            
+
             var img_id = element.id + "_img";
             var imgEle = document.getElementById(img_id);
             // var imgInp = document.getElementById(cccd_nam);
             var file = event.target.files[0];
-            var reader = new FileReader();   
-            reader.readAsDataURL(file);      
-            reader.onloadend = function() {   
-                imgEle.src = reader.result;                
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = function() {
+                imgEle.src = reader.result;
             }
         }
 
@@ -394,12 +394,12 @@
 
 
 
-   
+
         var nam = {
 
             "id": 0123456789,
             "name": "Tester 001",
-            "birthdate": "12/02/1995",
+            "birth_date": "12/02/1995",
             "address": "Ha Noi, Le Xuan Dai, 188",
             "gender": "Nam",
             "place_birth": "Ha Noi"
@@ -407,37 +407,37 @@
         let nu = {
             "id": 0123456987,
             "name": "Tester 002",
-            "birthdate": "12/02/1995",
+            "birth_date": "12/02/1995",
             "address": "Ha Noi, Le Xuan Dai, 183",
             "gender": "Nu",
             "place_birth": "Ha Noi"
         }
         async function api(url){
-            try {                
+            try {
             console.log(url);
             const str_base64 = url.split(",");
-            var response = await fetch('https://thanh-cong.herokuapp.com/api_base64', {        
-                method: 'POST',        
-                headers: {        
-                    'Content-Type': 'application/json'       
+            var response = await fetch('https://thanh-cong.herokuapp.com/api_base64', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({'type': 'cccd', 'image': str_base64[1]})
-            });    
+            });
 
             var response_Text = await response.text();
             return JSON.parse(response_Text);
-               
+
             } catch (e) {
 
                 console.log(e);
             }
         }
-       
+
         'use strict';
-        async function set_tokhai_kethon() {   //chú thích so sánh thòi gian phản hồi 
-            var nam =  await api(cccd_nam_img.src);       
+        async function set_tokhai_kethon() {   //chú thích so sánh thòi gian phản hồi
+            var nam =  await api(cccd_nam_img.src);
             var nu =  await api(cccd_nu_img.src);
-            // var api_nam =   api(cccd_nam_img.src);       
+            // var api_nam =   api(cccd_nam_img.src);
             // var api_nu =   api(cccd_nu_img.src);
             // var nam = await api_nam;
             // var nu = await api_nu;
@@ -461,7 +461,7 @@
             //$("li a.active").removeClass("active");
             //$("#tab2").addClass("active");
             $(".tabs").tabs('select', 'test5');
-            
+
         }
         function fetchToKhai(url_mau) {
 
@@ -533,11 +533,11 @@
 
         click_button.addEventListener('click', function() {
             canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            let image_data_url = canvas.toDataURL('image/jpeg');            
-            api(image_data_url);   
+            let image_data_url = canvas.toDataURL('image/jpeg');
+            api(image_data_url);
             // data url of the image
             $("#cccd_nam_img").attr("src", image_data_url);
-            
+
         });
 
         let camera_button_nu = document.querySelector("#start-camera-nu");
@@ -558,7 +558,7 @@
         });
 
 
-      
+
 
 </script>
 {% endblock %}
