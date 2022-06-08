@@ -2,9 +2,11 @@ import string
 
 from lib.chatterbot import languages
 from lib.chatterbot.comparisons import Comparator
+from pyvi import ViUtils
 from website import STOPWORDS, TAG_REMOVE
 
-from .preprocessor import clean_url, clean_whitespace, convert_emojis, remove_punct
+from .preprocessor import (clean_url, clean_whitespace, convert_emojis,
+                           remove_punct)
 
 
 class BlankSpaceTagger(object):
@@ -18,8 +20,14 @@ class BlankSpaceTagger(object):
         text = convert_emojis(text)
         text = remove_punct(text)
         text = clean_whitespace(text)
+        text = text.lower()
 
-        bag_words = text.lower().split()
+        text_remake_accent = ViUtils.remove_accents(text).decode('utf-8')
+        text_remake_accent = ViUtils.add_accents(text_remake_accent)
+        text_remake_accent = text_remake_accent.lower()
+
+        bag_words = (text + " " + text_remake_accent).split()
+
 
         return " ".join([word for word in bag_words if word not in STOPWORDS])
 

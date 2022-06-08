@@ -54,8 +54,8 @@ class Word2VecSimilarity(Comparator):
         confidence = cosine_similarity([vec_a], [vec_b])[0][0]
 
         # If any statement has oldtags value, add 5% confidence to it
-        if statement_a.get_tags() == statement_b.get_tags() and confidence < 0.95:
-            confidence += 0.05
+        if statement_a.get_tags() == statement_b.get_tags():
+            confidence += 0.125
 
         return round(confidence, 4)
 
