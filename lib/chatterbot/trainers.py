@@ -152,14 +152,18 @@ class ChatterBotCorpusTrainer(Trainer):
 
                 previous_statement_text = None
                 previous_statement_search_text = ''
+                statement_intent = ''
                 next_questions = []
                 conversation_statements = []
 
                 for text in conversation:
 
                     if (isinstance(text, dict)):
-                        for next_question in text['nextquestion']:
-                            next_questions.append(next_question)
+                        if "next_questions" in text.keys():
+                            for next_question in text['nextquestion']:
+                                next_questions.append(next_question)
+                        if "intent" in text.keys():
+                            statement_intent = text['intent']
 
                     else:
 
@@ -186,6 +190,7 @@ class ChatterBotCorpusTrainer(Trainer):
 
                 for statement in conversation_statements:
                     statement.add_next_question(next_questions)
+                    statement.indent = statement_intent
 
                 statements_to_create.extend(conversation_statements)
 

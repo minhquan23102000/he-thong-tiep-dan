@@ -5,6 +5,14 @@ conversations:
     - Bạn làm giấy khai sinh trong trường hợp nào sau đây, cho trẻ bị bỏ rơi hay cho trẻ em thông thường (các trường hợp khác bị bỏ rơi)?
     - nextquestion: ["Cho trẻ bị bỏ rơi.", "Cho trẻ thông thường."]
 
+  - - Cần tư vấn về giấy khai sinh?
+    - Bạn làm giấy khai sinh trong trường hợp nào sau đây, cho trẻ bị bỏ rơi hay cho trẻ em thông thường (các trường hợp khác bị bỏ rơi)?
+    - nextquestion: ["Cho trẻ bị bỏ rơi.", "Cho trẻ thông thường."]
+
+  - - Hướng dẫn thực hiện thủ tục khai sinh?
+    - Bạn làm giấy khai sinh trong trường hợp nào sau đây, cho trẻ bị bỏ rơi hay cho trẻ em thông thường (các trường hợp khác bị bỏ rơi)?
+    - nextquestion: ["Cho trẻ bị bỏ rơi.", "Cho trẻ thông thường."]
+
   - - Giấy khai sinh là gì?
     - Giấy khai sinh là giấy tờ hộ tịch gốc của cá nhân. Mọi hồ sơ, giấy tờ của cá nhân sau này đều phải cần theo thông tin của giấy khai sinh của người đó.
     - nextquestion:
@@ -131,6 +139,24 @@ conversations:
           "Tôi chưa kết hôn làm giấy khai sinh được không?",
           "Tôi đã chuẩn bị đầy đủ hồ sơ.",
         ]
+  - - Giấy tờ là bản sao có cần công chứng không?
+    - "Chào bạn, theo quy định, thì giấy tờ bản sao cần phải được công chứng thì mới có hiệu lực làm giấy khai sinh."
+    - nextquestion:
+        [
+          "Thời gian xét duyệt hồ sơ khai sinh?",
+          "Tôi đã chuẩn bị đầy đủ hồ sơ",
+          "Cần trợ giúp điền tờ khai",
+        ]
+
+  - - Tôi chỉ có hồ sơ, giấy tờ là bản sao thôi, có hợp lệ không?
+    - "Chào bạn, theo quy định, thì giấy tờ bản sao cần phải được công chứng thì mới có hiệu lực làm giấy khai sinh."
+    - nextquestion:
+        [
+          "Thời gian xét duyệt hồ sơ khai sinh?",
+          "Tôi đã chuẩn bị đầy đủ hồ sơ",
+          "Cần trợ giúp điền tờ khai",
+        ]
+
 
   - - Biên bản trẻ em bị bỏ rơi là gì?
     - Là biên bản xác nhận trẻ em bị bỏ rơi, được UBND hoặc công an xã nơi trẻ em bị bỏ rơi xác nhận. Người làm giấy khai sinh cho trẻ bị bỏ rơi cần biên bản này để hoàn thành hồ sơ khai sinh.
@@ -468,6 +494,15 @@ conversations:
         ]
 
   - - Có thể ghi hai quốc tịch được không?
+    - Trong khai sinh bạn chỉ được ghi một quốc tịch duy nhất. Còn nếu bạn muốn trẻ có 2 quốc tịch thì bạn phải tìm hiểu xem pháp luật nước ngoài có cho phép một công dân có hai quốc tịch hay không? Nếu có bạn làm thêm thủ tục xin nhập quốc tịch cho bé.
+    - nextquestion:
+        [
+          "Mục nơi sinh điền như thế nào?",
+          "Quê quán của bé điền như thế nào?",
+          "Thủ tục nhập tịch cho bé?",
+        ]
+
+  - - Trẻ mang hai quôc tịch được không?
     - Trong khai sinh bạn chỉ được ghi một quốc tịch duy nhất. Còn nếu bạn muốn trẻ có 2 quốc tịch thì bạn phải tìm hiểu xem pháp luật nước ngoài có cho phép một công dân có hai quốc tịch hay không? Nếu có bạn làm thêm thủ tục xin nhập quốc tịch cho bé.
     - nextquestion:
         [

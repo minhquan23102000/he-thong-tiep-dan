@@ -22,11 +22,12 @@ class BlankSpaceTagger(object):
         text = clean_whitespace(text)
         text = text.lower()
 
-        text_remake_accent = ViUtils.remove_accents(text).decode('utf-8')
-        text_remake_accent = ViUtils.add_accents(text_remake_accent)
+        text_remove_accent = ViUtils.remove_accents(text).decode('utf-8')
+        text_remake_accent = ViUtils.add_accents(text_remove_accent)
         text_remake_accent = text_remake_accent.lower()
 
-        bag_words = (text + " " + text_remake_accent).split()
+
+        bag_words = (text + " " + text_remake_accent + " " + text_remove_accent.lower()).split()
 
 
         return " ".join([word for word in bag_words if word not in STOPWORDS])

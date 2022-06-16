@@ -28,7 +28,7 @@ def convert_emojis(text):
         r"\^\s*(_|-)?\s*\^": "dễ thương",
         r"T\s*(_|-)?\s*T": "khóc",
         r"(:|=)\s*(v|V)+": "láo",
-        r"\?+": "hỏi",
+        r"\?{2,}": "không rõ",
         r"!+": "cảm",
     }
 

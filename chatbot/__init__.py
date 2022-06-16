@@ -8,6 +8,7 @@ from chatbot.models import Statement
 from chatbot.sentence_similarity import (VietnameseCosineSimilarity,
                                          Word2VecSimilarity)
 
+from .intent_adapter import INTENT_HANDLER
 from .mychatbot import MyChatBot
 
 DEFAULT_REPONSE = "Xin lỗi, mình chưa được huấn luyện về vấn đề này."
@@ -46,7 +47,7 @@ def __train__(filePath):
 
 
 def chatbot_reponse(msg: str, oldtag: str = "none", conversation_id=None):
-    # Check message lem
+    # Check message len
     if len(msg) > 255:
         return {"response": "Dài quá!!", "tag": "none", "next_questions": []}
 
@@ -71,6 +72,10 @@ def chatbot_reponse(msg: str, oldtag: str = "none", conversation_id=None):
     if is_not_known:
         # Google search this paper if bot does not know about it
         response = google_search_paper(msg)
+
+    #Intent handler
+    if response_statement.indent:
+        response = INTENT_HANDLER[response_statement.indent]()
 
     response_data = {"response": response, "tag": tag, "next_questions": next_questions}
 

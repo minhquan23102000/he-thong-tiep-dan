@@ -4,7 +4,7 @@ conversations:
 - - Xin chào
   - Chào bạn, hôm nay bạn thế nào?
 
-- - Hôm nay trời đẹp. 
+- - Hôm nay trời đẹp.
   - Mình rất vui khi nghe điều đó. Chúc bạn có một ngày tốt lành!
   - Hôm nay bạn thế nào?
   - Mình khỏe mạnh hơn bao giờ hết.
@@ -49,6 +49,14 @@ conversations:
 
 - - Hi.
   - Chào bạn hôm nay bạn thế nào?
-  
+
 - - Hello
   - Chào bạn hôm nay bạn thế nào?
+
+- - Bây giờ là mấy giờ?
+  - Bây giờ là _hour_
+  - intent: ask_hour
+
+- - Hôm nay là ngày?
+  - Hôm nay là _date_
+  - intent: ask_date
