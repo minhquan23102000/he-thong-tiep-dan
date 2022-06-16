@@ -1,13 +1,51 @@
-# he-thong-tiep-dan
-Hệ thống tiếp dân thông minh. Tin học hóa quá trình làm dịch vụ công một cách tiện lợi và nhanh chóng.
+# HUTECH SMART BOT
+This project is a research on applying AI in public administration, to help people easily doing paper works.
 
-# Resource
-- Flask toturial: https://github.com/techwithtim/Flask-Web-App-Tutorial
-- Flask admin dashboard: https://github.com/jonalxh/Flask-Admin-Dashboard
-- Chatterbot (chatbot library): https://github.com/gunthercox/ChatterBot
-- Python Vietnamese NLP toolkit: https://github.com/trungtv/pyvi
-- Semantic similarity algorthirm research: https://hal.archives-ouvertes.fr/hal-01683485/document
+There are two modules:
+    + Chatbot: automatically guide people
+    + OCR: reading text content from paper images.
 
-#### Để sử dụng Word2Vec, chức năng hiểu câu đồng nghĩa, mọi người dowload hai file pre_train_model về, rồi bỏ vào đường dẫn sau he-thong-tiep-dan/chatbot
-Link, dowload: https://drive.google.com/drive/u/0/folders/1kGTufHpEpJoXwEzl4I5iKH4NzyGcM6bm
-Vì model chiếm dung lượng lớn nên không bỏ lên github đươc.
+#### Project Status: Completed
+Demo available at: [Hệ thống tiếp dân](hethongtiepdan.herokuapp.com)
+
+## Project Description
+The objective of this project is to provide a method for building Chatbot and OCR in state administrative management. The product we have researched in the HUTECH Smart Bot project, initial results have received many positive reviews from stakeholders, effectively addressing the actual needs of Vietnam's public administration.
+
+
+### Methods Used
+* Machine Learning
+* Software Design
+* Web development
+* Modeling Deployment
+* Natural Language Preprocessing
+* Computer Vision
+* OCR
+* Chatbot
+
+
+
+## Needs of this project
+
+- frontend, backend developers
+- business analysis
+- data processing/cleaning
+- data collection
+- nlp, computer vision engineer
+- data scientist
+- cybersecurity
+- writeup/reporting
+
+
+
+## Contributing  Members
+
+
+
+|Name     |  Slack Handle   |
+|---------|-----------------|
+|[Nguyễn Minh Quân](https://github.com/minhquan23102000)| @minhquan23102000        |
+|[Nguyễn Trọng Nhân](https://github.com/NTN-hacker) |     @trongnhanNTN   |
+|[Phạm Hồng Phúc](https://github.com/Carina-Pham) |     @carina-pham    |
+
+## Contact
+Email: minhquan23102000@gmail.com
