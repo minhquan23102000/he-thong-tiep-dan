@@ -125,3 +125,4 @@ env/
 
 #secrect things
 website/serviceAccountKey.json
+website/secret.py
