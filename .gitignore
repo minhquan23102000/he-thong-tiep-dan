@@ -114,7 +114,7 @@ env/
 .idea/
 
 #Secret things
-/website/secret.py
+#/website/secret.py
 
 #database
 #/database.db
@@ -124,5 +124,5 @@ env/
 .google-cookie
 
 #secrect things
-website/serviceAccountKey.json
-website/secret.py
+#website/serviceAccountKey.json
+#website/secret.py
