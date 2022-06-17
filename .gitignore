@@ -5,6 +5,7 @@ __pycache__/
 *.pyc
 **/__pycache__/
 
+
 #Database
 #*.db
 
@@ -121,3 +122,6 @@ env/
 
 #google-cookies
 .google-cookie
+
+#secrect things
+website/serviceAccountKey.json
