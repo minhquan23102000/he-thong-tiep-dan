@@ -159,7 +159,8 @@ class ChatterBotCorpusTrainer(Trainer):
                 for text in conversation:
 
                     if (isinstance(text, dict)):
-                        if "next_questions" in text.keys():
+                        if "nextquestion" in text.keys():
+                            print("next question", sep = " ")
                             for next_question in text['nextquestion']:
                                 next_questions.append(next_question)
                         if "intent" in text.keys():
