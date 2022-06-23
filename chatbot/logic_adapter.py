@@ -30,13 +30,12 @@ class MyBestMatch(LogicAdapter):
         # Use the input statement as the closest match if no other results are found
         closest_match = next(search_results, input_statement)
 
-        max_confidence = 0
+        max_confidence = closest_match.confidence
         # Search for the closest match to the input statement
         for result in search_results:
 
             # Stop searching if a match that is close enough is found
-            if result.confidence >= self.maximum_similarity_threshold:
-                closest_match = result
+            if closest_match.confidence >= self.maximum_similarity_threshold:
                 break
             if result.confidence > max_confidence:
                 closest_match = result
@@ -126,11 +125,11 @@ class NameRememberAdapter(LogicAdapter):
         # for word in text.split():
         #     features["first_word({})".format(word)] = word in all_first_words
         words_text = self.nlp(text.lower())
-        
+
         for word, tag in zip(words_text[0], words_text[1]):
             features["contains({})".format(word)] = word in all_words
             features["count({})".format(word)] = words_text[0].count(word)
- 
+
 
         return features
 
@@ -173,7 +172,7 @@ class NameRememberAdapter(LogicAdapter):
         name_feature = self.name_question_features(input_text)
 
         confidence = self.classifier.prob_classify(name_feature).prob(1)
-        
+
         if person_name:
             # Store person name to database
             if not conversation:

@@ -16,7 +16,7 @@ NOT_VIETNAMESE_LANGUAGE_REPONSE = (
     "Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese."
 )
 
-THRESHOLD_UNKNOWN = 0.1
+THRESHOLD_UNKNOWN = 0.2
 
 
 Sonny = MyChatBot(

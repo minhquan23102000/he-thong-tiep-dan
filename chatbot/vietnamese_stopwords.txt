@@ -1941,6 +1941,7 @@ viet
 ghi
 ok
 ô
+làm
 :
 -
 –
