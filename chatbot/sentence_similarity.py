@@ -58,8 +58,6 @@ class Word2VecSimilarity(Comparator):
         # If any statement has oldtags value, add 10% confidence to it
         if statement_a.get_tags() == statement_b.get_tags():
             confidence += 0.1
-        elif re.search(statement_b.get_tags(), statement_a.in_response_to):
-            confidence += 0.2
         return round(confidence, 4)
 
     def to_vector(self, sentence):
