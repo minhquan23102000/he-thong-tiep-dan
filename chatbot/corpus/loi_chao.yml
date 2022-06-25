@@ -60,3 +60,11 @@ conversations:
 - - Hôm nay là ngày?
   - Hôm nay là _date_
   - intent: ask_date
+
+- - Thời tiết hôm nay như thế nào?
+  - Thời tiết hôm nay là rất đẹp
+  - intent: ask_weather
+
+- - Khí trời hôm nay như thế nào?
+  - Khí trời hôm nay rất đẹp
+  - intent: ask_weather

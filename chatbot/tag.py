@@ -27,7 +27,7 @@ class BlankSpaceTagger(object):
         text_remake_accent = text_remake_accent.lower()
 
 
-        bag_words = (text + " " + text_remake_accent + " " + text_remove_accent.lower()).split()
+        bag_words = (text + " " + text_remake_accent).split()
 
 
         return " ".join([word for word in bag_words if word not in STOPWORDS])
