@@ -16,7 +16,7 @@ NOT_VIETNAMESE_LANGUAGE_REPONSE = (
     "Xin lỗi, mình chỉ hiểu tiếng việt. Sorry i can only understand vietnamese."
 )
 
-THRESHOLD_UNKNOWN = 0.2
+THRESHOLD_UNKNOWN = 0.3
 
 
 Sonny = MyChatBot(
@@ -47,6 +47,17 @@ def __train__(filePath):
 
 
 def chatbot_reponse(msg: str, oldtag: str = "none", conversation_id=None):
+    """
+    It takes a message, an old tag, and a conversation id, and returns a response, a tag, and a list of
+    next questions
+
+    :param msg: str: The message that the user sent to the chatbot
+    :type msg: str
+    :param oldtag: The tag of the previous question, defaults to none
+    :type oldtag: str (optional)
+    :param conversation_id: The id of the conversation
+    :return: A dictionary with the keys response, tag, and next_questions.
+    """
     # Check message len
     if len(msg) > 255:
         return {"response": "Dài quá!!", "tag": "none", "next_questions": []}

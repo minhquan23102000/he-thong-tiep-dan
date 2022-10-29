@@ -15,6 +15,13 @@ class BlankSpaceTagger(object):
         pass
 
     def get_bigram_pair_string(self, text):
+        """
+        It takes a string, removes punctuation, removes accents, and returns a string of words separated
+        by spaces
+
+        :param text: the text to be processed
+        :return: A string of words
+        """
 
         text = clean_url(text)
         text = convert_emojis(text)
@@ -27,7 +34,7 @@ class BlankSpaceTagger(object):
         text_remake_accent = text_remake_accent.lower()
 
 
-        bag_words = (text + " " + text_remake_accent).split()
+        bag_words = (text + " " + text_remake_accent + " " + text_remove_accent).split()
 
 
         return " ".join([word for word in bag_words if word not in STOPWORDS])
